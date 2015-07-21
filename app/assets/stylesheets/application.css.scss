@@ -1,0 +1,81 @@
+/*
+ *= require_self
+ */
+
+/* basic */
+.clearfix:after {
+   content: " "; /* Older browser do not support empty content */
+   visibility: hidden;
+   display: block;
+   height: 0;
+   clear: both;
+}
+
+/* layout */
+.mdl-layout-title {
+  a {
+    text-decoration: none;
+    color: #ffffff;
+  }
+}
+
+/* home */
+.user-list {
+  padding: 0px 10px;
+  position: relative;
+  border-bottom: 1px solid blue;
+  .user-image {
+    display: block;
+    position: relative;
+    margin-top: 7px;
+    width: 50px;
+    height: 70px;
+    float: left;
+    .user-nation {
+      text-align: center;
+    }
+  }
+  .user-spec {
+    position: relative;
+    padding-right: 180px;
+    top: 10px;
+    left: 10px;
+    display: block;
+    a {
+      display: block;
+      color: blue;
+      text-decoration: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .user-intro {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  .user-btn-group {
+    display: inline;
+    position: absolute;
+    right: 20px;
+    top: 8px;
+    button:first-child {
+      margin-right: 5px;
+    }
+  }
+}
+
+
+/* Square card */
+.demo-card-square.mdl-card {
+  width: 100%;
+  min-height: 800px;
+}
+.demo-card-square > .mdl-card__title {
+  color: #fff;
+}
+.profile-card-btn-group {
+  text-align: center;
+}

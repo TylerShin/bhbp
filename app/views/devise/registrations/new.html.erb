@@ -1,0 +1,26 @@
+<div class="mdl-card mdl-shadow--2dp">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text"><%= t("menu.signin") %></h2>
+  </div>
+  <div class="mdl-card__supporting-text">
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= f.error_notification %>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <label class="mdl-textfield__label" for="email">email</label>
+        <%= f.input :email,label: false, input_html: { class: "mdl-textfield__input", id: "email" } %>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <label class="mdl-textfield__label" for="password">Password(<%= @minimum_password_length %> characters minimum)</label>
+        <%= f.input :password, label: false, input_html: { class: "mdl-textfield__input", id: "password" } %>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <label class="mdl-textfield__label" for="password_confirmation">Password Confirmation</label>
+        <%= f.input :password_confirmation, label: false, input_html: { class: "mdl-textfield__input", id: "password_confirmation" } %>
+      </div>
+      <%= f.submit "회원가입", class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" %>
+    <% end %>
+  </div>
+</div>
+
+
+<%= render "devise/shared/links" %>

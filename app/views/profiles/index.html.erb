@@ -1,0 +1,19 @@
+<% @profiles.each do |p| %>
+  <div class="user-list clearfix">
+    <a class="user-image"><%= image_tag p.userimage.nano_thumb.url, size: "50x50" %>
+    <p class="user-nation"><%= p.nation %></p>
+    </a>
+    <div class= "user-spec">
+      <%= link_to p.user.email, profile_path(p), class: "user-email" %>
+      <div class="user-intro clearfix"><%= p.intro %></div>
+      <div class="user-btn-group">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+          쪽지보내기
+        </button>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+          만남신청
+        </button>
+      </div>
+    </div>
+  </div>
+<% end %>
