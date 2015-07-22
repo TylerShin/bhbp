@@ -157,3 +157,9 @@ var FollowButton = React.createClass({
     }
   }
 });
+
+var MeetingButton = React.createClass({
+  render: function() {
+
+  }
+})
