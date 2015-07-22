@@ -95,9 +95,7 @@ var ProfileBtnGroup = React.createClass({
         </button>
         <SendMessage currentUser={this.props.currentUser} />
         <FollowButton id={this.props.id} handleUnfollowSubmit={this.handleUnfollowSubmit} handleFollowSubmit={this.handleFollowSubmit} currentUser={this.props.currentUser} following={this.props.following} />
-        <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-          만남신청
-        </button>
+        <MeetingButton currentUser={this.props.currentUser} />
       </div>
     );
   }
@@ -160,6 +158,19 @@ var FollowButton = React.createClass({
 
 var MeetingButton = React.createClass({
   render: function() {
-
+    if(this.props.currentUser) {
+      return(
+        <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+          만남관리
+        </button>
+      );
+    }
+    else {
+      return (
+        <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+          만남신청
+        </button>
+      );
+    }
   }
 })
