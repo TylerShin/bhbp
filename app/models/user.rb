@@ -14,16 +14,15 @@ class User < ActiveRecord::Base
   has_many :request_receivers, through: :passive_requests, source: :sender
   after_create :make_profile
 
+  # Handle Follow
   def follow(other_user)
     active_relationships.create(followed_id: other_user)
   end
 
-  # Unfollows a user.
   def unfollow(other_user)
     active_relationships.find_by(followed_id: other_user).destroy
   end
 
-  # Returns true if the current user is following the other user.
   def following?(other_user)
     following.include?(other_user)
   end

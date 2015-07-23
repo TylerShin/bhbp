@@ -1,15 +1,13 @@
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :email, :created_at, :updated_at, :followings, :followers,
-    :request_senders, :request_receivers, :profile, :profile_url
+    :request_senders, :request_receivers, :profile
 
-  has_many :followings, serializer: UserSerializer
+  has_one :profile, serializer: ProfileSerializer
+  has_many :followings, each_serializer: NofollowingSerializer
+  has_many :followers, each_serializer: NofollowingSerializer
 
   def profile
     object.profile
-  end
-
-  def profile_url
-    profile_path(object.profile)
   end
 
   def followings
