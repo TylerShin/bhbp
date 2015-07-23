@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150721043931) do
+ActiveRecord::Schema.define(version: 20150722003440) do
 
   create_table "profiles", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -36,6 +36,18 @@ ActiveRecord::Schema.define(version: 20150721043931) do
   add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id", using: :btree
   add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true, using: :btree
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
+
+  create_table "requests", force: :cascade do |t|
+    t.integer  "sender_id",   limit: 4
+    t.integer  "receiver_id", limit: 4
+    t.boolean  "accepted",    limit: 1, default: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
+  add_index "requests", ["receiver_id"], name: "index_requests_on_receiver_id", using: :btree
+  add_index "requests", ["sender_id", "receiver_id"], name: "index_requests_on_sender_id_and_receiver_id", unique: true, using: :btree
+  add_index "requests", ["sender_id"], name: "index_requests_on_sender_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false

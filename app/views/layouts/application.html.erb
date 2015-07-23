@@ -3,10 +3,10 @@
 <head>
   <title>一起친구! 1779!</title>
   <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.blue-amber.min.css" />
-  <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
+  <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -17,9 +17,12 @@
         <span class="mdl-layout-title"><%= link_to '一起친구', root_path %></span>
         <div class="mdl-layout-spacer"></div>
         <nav class="mdl-navigation mdl-layout--large-screen-only">
-          <%= link_to t('menu.signup'), new_user_registration_path, class: "mdl-navigation__link" %>
-          <%= link_to t('menu.signin'), new_user_session_path, class: "mdl-navigation__link" %>
-          <%= link_to "Log out", destroy_user_session_path, method: 'DELETE', class: "mdl-navigation__link" %>
+          <% if user_signed_in? %>
+            <%= link_to "Log out", destroy_user_session_path, method: 'DELETE', class: "mdl-navigation__link" %>
+          <% else %>
+            <%= link_to t('menu.signup'), new_user_registration_path, class: "mdl-navigation__link" %>
+            <%= link_to t('menu.signin'), new_user_session_path, class: "mdl-navigation__link" %>
+          <% end %>
         </nav>
       </div>
     </header>

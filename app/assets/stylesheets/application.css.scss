@@ -20,6 +20,16 @@
 }
 
 /* home */
+.listNav {
+  padding: 10px 10px;
+  position: relative;
+  border-bottom: 1px solid blue;
+  p {
+    padding: 0;
+    margin: 0;
+    font-size: 20px;
+  }
+}
 .user-list {
   padding: 0px 10px;
   position: relative;

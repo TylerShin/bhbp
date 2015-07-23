@@ -3,7 +3,12 @@ Rails.application.routes.draw do
   devise_for :users
   resources :profiles do
     collection do
-      get 'follow', 'unfollow'
+      get 'ownlist', 'follow', 'unfollow', 'sendrequest', 'unsendrequest'
+    end
+  end
+  resources :requests, only: [:index] do
+    collection do
+      get 'ownlist'
     end
   end
 end
