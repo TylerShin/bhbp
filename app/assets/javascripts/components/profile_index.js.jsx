@@ -90,7 +90,7 @@ var ProfileIndexBox = React.createClass({
         return (
           <ProfileListItem email={profile.email} nation={profile.profile.nation}
             profile_id={profile.profile.id} user_id={profile.id} intro={profile.profile.intro}
-            imageUrl={profile.profile.userimage.url} url={profile.profile_url} key={profile.id} />
+            imageUrl={profile.profile.user_image} url={profile.profile.url} key={profile.id} />
         );
       });
     }

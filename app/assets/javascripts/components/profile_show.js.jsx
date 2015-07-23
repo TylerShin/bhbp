@@ -1,10 +1,9 @@
 var ProfileBox = React.createClass({
   getInitialState: function() {
     return {
-      profile: {
-        profile: {
-          followings: [],
-          followers: []
+      user: {
+        user: {
+          profile: {}
         },
         meta: {}
       }
@@ -14,9 +13,9 @@ var ProfileBox = React.createClass({
     $.ajax({
       url: this.props.url,
       dataType: 'json',
-      success: function(profile) {
+      success: function(user) {
         this.setState({
-          profile: profile
+          user: user
         });
       }.bind(this),
       error: function() {
@@ -28,10 +27,10 @@ var ProfileBox = React.createClass({
     $.ajax({
       url: '/profiles/follow',
       dataType: 'json',
-      data: {profile: this.state.profile.profile.id},
-      success: function(profile) {
+      data: {user_id: this.state.user.user.id},
+      success: function(user) {
         this.setState({
-          profile: profile
+          user: user
         });
       }.bind(this),
       error: function() {
@@ -45,10 +44,10 @@ var ProfileBox = React.createClass({
       $.ajax({
         url: '/profiles/unfollow',
         dataType: 'json',
-        data: {profile: this.state.profile.profile.id},
-        success: function(profile) {
+        data: {user_id: this.state.user.user.id},
+        success: function(user) {
           this.setState({
-            profile: profile
+            user: user
           });
         }.bind(this),
         error: function() {
@@ -63,10 +62,10 @@ var ProfileBox = React.createClass({
       $.ajax({
         url: '/profiles/sendrequest',
         dataType: 'json',
-        data: {receiver_id: this.state.profile.profile.user_id},
-        success: function(request) {
+        data: {receiver_id: this.state.user.user.id},
+        success: function(user) {
           this.setState({
-            profile: request
+            user: user
           });
         }.bind(this),
         error: function() {
@@ -81,10 +80,10 @@ var ProfileBox = React.createClass({
       $.ajax({
         url: '/profiles/unsendrequest',
         dataType: 'json',
-        data: {receiver_id: this.state.profile.profile.user_id},
-        success: function(request) {
+        data: {receiver_id: this.state.user.user.id},
+        success: function(user) {
           this.setState({
-            profile: request
+            user: user
           });
         }.bind(this),
         error: function() {
@@ -97,26 +96,26 @@ var ProfileBox = React.createClass({
     return (
       <div classNameName="ProfileBox mdl-card mdl-shadow--2dp demo-card-square">
         <div className="mdl-card__title mdl-card--expand">
-          <img src={this.state.profile.profile.image} width="400" height="400" />
+          <img src={this.state.user.user.profile.user_image} width="400" height="400" />
         </div>
         <div className="mdl-card__supporting-text">
-          <h4>{this.state.profile.profile.username}</h4>
+          <h4>{this.state.user.user.profile.username}</h4>
         </div>
         <div className="mdl-card__actions mdl-card--border">
-          <p>{this.state.profile.profile.email}</p>
+          <p>{this.state.user.user.profile.email}</p>
           <p>등급</p>
           <p>주요 활동지역</p>
-          <p>{this.state.profile.profile.intro}</p>
+          <p>{this.state.user.user.profile.intro}</p>
           <p>기타 기술내용들</p>
         </div>
         <ProfileBtnGroup handleFollowSubmit={this.handleFollowSubmit}
           handleUnfollowSubmit={this.handleUnfollowSubmit}
           handleRequestSubmit={this.handleRequestSubmit}
           handleUndoRequestSubmit={this.handleUndoRequestSubmit}
-          currentUser={this.state.profile.meta.mine}
-          following={this.state.profile.meta.following}
-          request={this.state.profile.meta.request}
-          accepted={this.state.profile.meta.process} />
+          currentUser={this.state.user.meta.mine}
+          following={this.state.user.meta.following}
+          request={this.state.user.meta.request}
+          accepted={this.state.user.meta.process} />
       </div>
     );
   }
