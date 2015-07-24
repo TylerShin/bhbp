@@ -1,16 +1,12 @@
 class ProfileSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :username, :region, :followings, :followers,
-             :nation, :interest, :intro, :image
+  attributes :id, :username, :region, :nation, :interest, :intro, :url,
+    :user_image
 
-  def image
+  def url
+    profile_path(object)
+  end
+
+  def user_image
     object.userimage.url
-  end
-
-  def followings
-    object.following
-  end
-
-  def followers
-    object.followers
   end
 end

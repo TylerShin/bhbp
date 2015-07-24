@@ -1,10 +1,9 @@
 var ProfileBox = React.createClass({
   getInitialState: function() {
     return {
-      profile: {
-        profile: {
-          followings: [],
-          followers: []
+      user: {
+        user: {
+          profile: {}
         },
         meta: {}
       }
@@ -14,9 +13,9 @@ var ProfileBox = React.createClass({
     $.ajax({
       url: this.props.url,
       dataType: 'json',
-      success: function(profile) {
+      success: function(user) {
         this.setState({
-          profile: profile
+          user: user
         });
       }.bind(this),
       error: function() {
@@ -28,10 +27,10 @@ var ProfileBox = React.createClass({
     $.ajax({
       url: '/profiles/follow',
       dataType: 'json',
-      data: {profile: this.state.profile.profile.id},
-      success: function(profile) {
+      data: {user_id: this.state.user.user.id},
+      success: function(user) {
         this.setState({
-          profile: profile
+          user: user
         });
       }.bind(this),
       error: function() {
@@ -40,15 +39,15 @@ var ProfileBox = React.createClass({
     });
   },
   handleUnfollowSubmit: function() {
-    var answer = confirm ("친한 친구에서 제명합니까?");
+    var answer = confirm("친한 친구에서 제명합니까?");
     if(answer) {
       $.ajax({
         url: '/profiles/unfollow',
         dataType: 'json',
-        data: {profile: this.state.profile.profile.id},
-        success: function(profile) {
+        data: {user_id: this.state.user.user.id},
+        success: function(user) {
           this.setState({
-            profile: profile
+            user: user
           });
         }.bind(this),
         error: function() {
@@ -57,26 +56,68 @@ var ProfileBox = React.createClass({
       });
     }
   },
+  handleRequestSubmit: function() {
+    var answer = confirm("정말 만남신청을 하시겠습니까?");
+    if(answer) {
+      $.ajax({
+        url: '/profiles/sendrequest',
+        dataType: 'json',
+        data: {receiver_id: this.state.user.user.id},
+        success: function(user) {
+          this.setState({
+            user: user
+          });
+        }.bind(this),
+        error: function() {
+          alert("만남 신청에 실패했습니다.");
+        }
+      });
+    }
+  },
+  handleUndoRequestSubmit: function() {
+    var answer = confirm("정말 만남신청을 취소하시겠습니까?");
+    if(answer) {
+      $.ajax({
+        url: '/profiles/unsendrequest',
+        dataType: 'json',
+        data: {receiver_id: this.state.user.user.id},
+        success: function(user) {
+          this.setState({
+            user: user
+          });
+        }.bind(this),
+        error: function() {
+          alert("만남 취소에 실패했습니다.");
+        }
+      });
+    }
+  },
   render: function() {
-    console.log(this.state.profile.profile);
     return (
-        <div classNameName="ProfileBox mdl-card mdl-shadow--2dp demo-card-square">
-          <div className="mdl-card__title mdl-card--expand">
-            <img src={this.state.profile.profile.image} width="400" height="400" />
-          </div>
-          <div className="mdl-card__supporting-text">
-            <h4>{this.state.profile.profile.username}</h4>
-          </div>
-          <div className="mdl-card__actions mdl-card--border">
-            <p>{this.state.profile.profile.email}</p>
-            <p>등급</p>
-            <p>주요 활동지역</p>
-            <p>{this.state.profile.profile.intro}</p>
-            <p>기타 기술내용들</p>
-          </div>
-          <ProfileBtnGroup handleFollowSubmit={this.handleFollowSubmit} handleUnfollowSubmit={this.handleUnfollowSubmit} currentUser={this.state.profile.meta.mine} following={this.state.profile.meta.following} />
+      <div classNameName="ProfileBox mdl-card mdl-shadow--2dp demo-card-square">
+        <div className="mdl-card__title mdl-card--expand">
+          <img src={this.state.user.user.profile.user_image} width="400" height="400" />
         </div>
-      );
+        <div className="mdl-card__supporting-text">
+          <h4>{this.state.user.user.profile.username}</h4>
+        </div>
+        <div className="mdl-card__actions mdl-card--border">
+          <p>{this.state.user.user.profile.email}</p>
+          <p>등급</p>
+          <p>주요 활동지역</p>
+          <p>{this.state.user.user.profile.intro}</p>
+          <p>기타 기술내용들</p>
+        </div>
+        <ProfileBtnGroup handleFollowSubmit={this.handleFollowSubmit}
+          handleUnfollowSubmit={this.handleUnfollowSubmit}
+          handleRequestSubmit={this.handleRequestSubmit}
+          handleUndoRequestSubmit={this.handleUndoRequestSubmit}
+          currentUser={this.state.user.meta.mine}
+          following={this.state.user.meta.following}
+          request={this.state.user.meta.request}
+          accepted={this.state.user.meta.process} />
+      </div>
+    );
   }
 });
 
@@ -87,6 +128,12 @@ var ProfileBtnGroup = React.createClass({
   handleUnfollowSubmit: function() {
     this.props.handleUnfollowSubmit();
   },
+  handleRequestSubmit: function() {
+    this.props.handleRequestSubmit();
+  },
+  handleUndoRequestSubmit: function() {
+    this.props.handleUndoRequestSubmit();
+  },
   render: function() {
     return (
       <div className="mdl-card__actions mdl-card--border profile-card-btn-group">
@@ -95,7 +142,7 @@ var ProfileBtnGroup = React.createClass({
         </button>
         <SendMessage currentUser={this.props.currentUser} />
         <FollowButton id={this.props.id} handleUnfollowSubmit={this.handleUnfollowSubmit} handleFollowSubmit={this.handleFollowSubmit} currentUser={this.props.currentUser} following={this.props.following} />
-        <MeetingButton currentUser={this.props.currentUser} />
+        <MeetingButton handleUndoRequestSubmit={this.handleUndoRequestSubmit} accepted={this.props.accepted} request={this.props.request} handleRequestSubmit={this.handleRequestSubmit} currentUser={this.props.currentUser} />
       </div>
     );
   }
@@ -157,20 +204,46 @@ var FollowButton = React.createClass({
 });
 
 var MeetingButton = React.createClass({
+  handleRequestSubmit: function() {
+    this.props.handleRequestSubmit();
+  },
+  handleUndoRequestSubmit: function() {
+    this.props.handleUndoRequestSubmit();
+  },
   render: function() {
     if(this.props.currentUser) {
-      return(
-        <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-          만남관리
-        </button>
+      return (
+        <a href="/">
+          <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+            만남관리
+          </button>
+        </a>
       );
     }
     else {
-      return (
-        <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-          만남신청
-        </button>
-      );
+      if(this.props.request && this.props.accepted) {
+        return (
+          <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+            승낙완료
+          </button>
+        );
+      }
+      else if (this.props.request && !this.props.accepted) {
+        return (
+          <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+            onClick={this.handleUndoRequestSubmit} >
+            신청취소
+          </button>
+        );
+      }
+      else {
+        return (
+          <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+            onClick={this.handleRequestSubmit} >
+            만남신청
+          </button>
+        );
+      }
     }
   }
-})
+});

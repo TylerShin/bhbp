@@ -4,21 +4,46 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_one :profile, dependent: :destroy
+  has_many :active_relationships, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy
+  has_many :passive_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
+  has_many :active_requests, class_name: 'Request', foreign_key: 'sender_id', dependent: :destroy
+  has_many :passive_requests, class_name: 'Request', foreign_key: 'receiver_id', dependent: :destroy
+  has_many :request_senders, through: :active_requests, source: :receiver
+  has_many :request_receivers, through: :passive_requests, source: :sender
   after_create :make_profile
 
+  # Handle Follow
   def follow(other_user)
-    profile.active_relationships.create(followed_id: other_user.profile.id)
+    active_relationships.create(followed_id: other_user.id)
   end
 
-  # Unfollows a user.
   def unfollow(other_user)
-    profile.active_relationships.find_by(followed_id: other_user.profile).destroy
+    active_relationships.find_by(followed_id: other_user.id).destroy
   end
 
-  # Returns true if the current user is following the other user.
-  def following?(other_user_profile)
-    profile.following.include?(other_user_profile)
+  def following?(other_user)
+    following.include?(other_user)
   end
+
+  # Handle request BEGIN
+  def request(other_user)
+    active_requests.create(receiver_id: other_user.id)
+  end
+
+  def unrequest(other_user)
+    active_requests.find_by(receiver_id: other_user.id).destroy
+  end
+
+  def request?(other_user)
+    request_senders.include?(other_user)
+  end
+
+  def process?(other_user)
+    active_requests.find_by(receiver_id: other_user.id).accepted
+  end
+  # Handle request END
 
   private
 
