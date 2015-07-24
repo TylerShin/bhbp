@@ -4,7 +4,8 @@ var ProfileIndexBox = React.createClass({
       profiles: {
         profiles: [],
         meta: {}
-      }
+      },
+      nav: 'all'
     }
   },
   componentDidMount: function() {
@@ -27,7 +28,8 @@ var ProfileIndexBox = React.createClass({
       dataType: 'json',
       success: function(profiles) {
         this.setState({
-          profiles: profiles
+          profiles: profiles,
+          nav: 'FriendsList'
         });
       }.bind(this),
       error: function() {
@@ -41,7 +43,8 @@ var ProfileIndexBox = React.createClass({
       dataType: 'json',
       success: function(profiles) {
         this.setState({
-          profiles: profiles
+          profiles: profiles,
+          nav: 'all'
         });
       }.bind(this),
       error: function() {
@@ -55,7 +58,8 @@ var ProfileIndexBox = React.createClass({
       dataType: 'json',
       success: function(profiles) {
         this.setState({
-          profiles: profiles
+          profiles: profiles,
+          nav: 'ReceivedRequestsList'
         });
       }.bind(this),
       error: function() {
@@ -69,7 +73,8 @@ var ProfileIndexBox = React.createClass({
       dataType: 'json',
       success: function(profiles) {
         this.setState({
-          profiles: profiles
+          profiles: profiles,
+          nav: 'SendedRequestsList'
         });
       }.bind(this),
       error: function() {
@@ -78,7 +83,7 @@ var ProfileIndexBox = React.createClass({
     });
   },
   render: function() {
-    console.log(this.state.profiles);
+    console.log(this.state.nav);
     if(this.state.profiles.profiles.length == 0) {
       var listItem =
         <div>
@@ -86,13 +91,44 @@ var ProfileIndexBox = React.createClass({
         </div>
     }
     else {
-      var listItem = this.state.profiles.profiles.map(function(profile) {
-        return (
-          <ProfileListItem email={profile.email} nation={profile.profile.nation}
-            profile_id={profile.profile.id} user_id={profile.id} intro={profile.profile.intro}
-            imageUrl={profile.profile.user_image} url={profile.profile.url} key={profile.id} />
-        );
-      });
+      switch (this.state.nav) {
+        case 'ReceivedRequestsList':
+          var listItem = this.state.profiles.profiles.map(function(profile) {
+            return (
+              <ReceivedRequestsList email={profile.email} nation={profile.profile.nation}
+                profile_id={profile.profile.id} user_id={profile.id} intro={profile.profile.intro}
+                imageUrl={profile.profile.user_image} url={profile.profile.url} key={profile.id} />
+            );
+          });
+          break;
+        case 'FriendsList':
+          var listItem = this.state.profiles.profiles.map(function(profile) {
+            return (
+              <FriendsList email={profile.email} nation={profile.profile.nation}
+                profile_id={profile.profile.id} user_id={profile.id} intro={profile.profile.intro}
+                imageUrl={profile.profile.user_image} url={profile.profile.url} key={profile.id} />
+            );
+          });
+          break;
+        case 'SendedRequestsList':
+          var listItem = this.state.profiles.profiles.map(function(profile) {
+            return (
+              <SendedRequestsList email={profile.email} nation={profile.profile.nation}
+                profile_id={profile.profile.id} user_id={profile.id} intro={profile.profile.intro}
+                imageUrl={profile.profile.user_image} url={profile.profile.url} key={profile.id} />
+            );
+          });
+          break;
+        default:
+          var listItem = this.state.profiles.profiles.map(function(profile) {
+            return (
+              <ProfileListItem email={profile.email} nation={profile.profile.nation}
+                profile_id={profile.profile.id} user_id={profile.id} intro={profile.profile.intro}
+                imageUrl={profile.profile.user_image} url={profile.profile.url} key={profile.id} />
+            );
+          });
+          break;
+      }
     }
     return(
       <div className="user-list-box">
@@ -171,7 +207,82 @@ var ProfileListItem = React.createClass({
               쪽지보내기
             </button>
             <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+              관심친구 등록
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+var ReceivedRequestsList = React.createClass({
+  render: function() {
+    return (
+      <div className="user-list clearfix">
+        <a className="user-image"><img src={this.props.imageUrl} width="50" height="50" />
+          <p className="user-nation">{this.props.nation}</p>
+        </a>
+        <div className="user-spec">
+          <a href={this.props.url}>{this.props.email}</a>
+          <div className="user-intro clearfix">{this.props.intro}</div>
+          <div className="user-btn-group">
+            <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+              상세정보
+            </button>
+            <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+              거절하기
+            </button>
+            <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+              수락하기
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+var FriendsList = React.createClass({
+  render: function() {
+    return (
+      <div className="user-list clearfix">
+        <a className="user-image"><img src={this.props.imageUrl} width="50" height="50" />
+          <p className="user-nation">{this.props.nation}</p>
+        </a>
+        <div className="user-spec">
+          <a href={this.props.url}>{this.props.email}</a>
+          <div className="user-intro clearfix">{this.props.intro}</div>
+          <div className="user-btn-group">
+            <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+              쪽지보내기
+            </button>
+            <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
               만남신청
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+var SendedRequestsList = React.createClass({
+  render: function() {
+    return (
+      <div className="user-list clearfix">
+        <a className="user-image"><img src={this.props.imageUrl} width="50" height="50" />
+          <p className="user-nation">{this.props.nation}</p>
+        </a>
+        <div className="user-spec">
+          <a href={this.props.url}>{this.props.email}</a>
+          <div className="user-intro clearfix">{this.props.intro}</div>
+          <div className="user-btn-group">
+            <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+              쪽지보내기
+            </button>
+            <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+              신청취소
             </button>
           </div>
         </div>
