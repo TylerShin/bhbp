@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :passive_requests, class_name: 'Request', foreign_key: 'receiver_id', dependent: :destroy
   has_many :request_senders, through: :active_requests, source: :receiver
   has_many :request_receivers, through: :passive_requests, source: :sender
+  has_many :sending_messages, class_name: 'Message', foreign_key: 'sender_id', dependent: :destroy
+  has_many :receiving_messages, class_name: 'Message', foreign_key: 'receiver_id', dependent: :destroy
   after_create :make_profile
 
   # Handle Follow

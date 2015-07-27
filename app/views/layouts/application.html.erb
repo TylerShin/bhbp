@@ -18,6 +18,8 @@
         <div class="mdl-layout-spacer"></div>
         <nav class="mdl-navigation mdl-layout--large-screen-only">
           <% if user_signed_in? %>
+            <%= link_to "회원정보수정", edit_profile_path(current_user.profile), class: "mdl-navigation__link" %>
+            <%= link_to "쪽지함", messages_path, class: "mdl-navigation__link" %>
             <%= link_to "Log out", destroy_user_session_path, method: 'DELETE', class: "mdl-navigation__link" %>
           <% else %>
             <%= link_to t('menu.signup'), new_user_registration_path, class: "mdl-navigation__link" %>
@@ -30,12 +32,12 @@
       <span class="mdl-layout-title">一起친구</span>
       <nav class="mdl-navigation">
         <a class="mdl-navigation__link" href="#">Nav link 2</a>
-        <a class="mdl-navigation__link" href="#">Nav link 2</a>
         <a class="mdl-navigation__link" href="#">Nav link 3</a>
       </nav>
     </div>
     <main class="mdl-layout__content">
       <%= yield %>
+      <%= debug(params) if Rails.env.development? %>
     </main>
   </div>
 </body>
