@@ -27,6 +27,12 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+  end
+
   def follow
     @user = User.find_by(id: params[:user_id])
     current_user.follow(@user)

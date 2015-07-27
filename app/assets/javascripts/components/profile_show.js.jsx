@@ -94,7 +94,7 @@ var ProfileBox = React.createClass({
   },
   render: function() {
     return (
-      <div classNameName="ProfileBox mdl-card mdl-shadow--2dp demo-card-square">
+      <div className="ProfileBox mdl-card mdl-shadow--2dp demo-card-square">
         <div className="mdl-card__title mdl-card--expand">
           <img src={this.state.user.user.profile.user_image} width="400" height="400" />
         </div>
@@ -115,7 +115,8 @@ var ProfileBox = React.createClass({
           currentUser={this.state.user.meta.mine}
           following={this.state.user.meta.following}
           request={this.state.user.meta.request}
-          accepted={this.state.user.meta.process} />
+          accepted={this.state.user.meta.process}
+          id={this.state.user.user.id} />
       </div>
     );
   }
@@ -140,8 +141,8 @@ var ProfileBtnGroup = React.createClass({
         <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
           과거이력
         </button>
-        <SendMessage currentUser={this.props.currentUser} />
-        <FollowButton id={this.props.id} handleUnfollowSubmit={this.handleUnfollowSubmit} handleFollowSubmit={this.handleFollowSubmit} currentUser={this.props.currentUser} following={this.props.following} />
+        <SendMessage id={this.props.id} currentUser={this.props.currentUser} />
+        <FollowButton handleUnfollowSubmit={this.handleUnfollowSubmit} handleFollowSubmit={this.handleFollowSubmit} currentUser={this.props.currentUser} following={this.props.following} />
         <MeetingButton handleUndoRequestSubmit={this.handleUndoRequestSubmit} accepted={this.props.accepted} request={this.props.request} handleRequestSubmit={this.handleRequestSubmit} currentUser={this.props.currentUser} />
       </div>
     );
@@ -150,18 +151,21 @@ var ProfileBtnGroup = React.createClass({
 
 var SendMessage = React.createClass({
   render: function() {
+    var messageUrl = "/messages/new?id=" + this.props.id;
     if(this.props.currentUser) {
       return (
-      <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-          쪽지보기
-      </button>
+        <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+            쪽지보기
+        </button>
       );
     }
     else {
       return (
-      <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-          쪽지보내기
-      </button>
+        <a href={messageUrl}>
+          <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+              쪽지보내기
+          </button>
+        </a>
       );
     }
   }
@@ -177,7 +181,7 @@ var FollowButton = React.createClass({
   render: function() {
     if(this.props.currentUser) {
       return (
-        <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        <button cla ssName="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
           수정하기
         </button>
       );

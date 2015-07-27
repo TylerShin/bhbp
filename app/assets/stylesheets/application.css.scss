@@ -89,3 +89,26 @@
 .profile-card-btn-group {
   text-align: center;
 }
+
+/* Message Inbox */
+.messageInbox {
+  border: 1px solid #E4E8FF;
+  padding: 0;
+  .message-item {
+    border-bottom: 1px solid #E4E8FF;
+    list-style-type: none;
+    padding: 10px 30px;
+    font-weight: 700;
+    .message-title {
+      cursor: pointer;
+    }
+    .contentBox {
+      font-weight: 500;
+      margin: 0;
+      padding: 10px 0px;
+    }
+  }
+  .message-item:last-child {
+    border-bottom: none;
+  }
+}
