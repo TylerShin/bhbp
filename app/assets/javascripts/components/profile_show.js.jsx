@@ -181,7 +181,7 @@ var FollowButton = React.createClass({
   render: function() {
     if(this.props.currentUser) {
       return (
-        <button cla ssName="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
           수정하기
         </button>
       );
