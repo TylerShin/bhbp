@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  before_filter :authenticate_user!, only: [:show]
+  before_filter :authenticate_user!, only: [:show, :edit, :update]
   def index
     @profiles = User.all
     @sign_in = true if user_signed_in?
@@ -28,9 +28,17 @@ class ProfilesController < ApplicationController
   end
 
   def edit
+    @profile = Profile.find(params[:id])
+    redirect_to root_path unless @profile == current_user.profile
   end
 
   def update
+    @profile = current_user.profile
+    if @profile.update(profile_params)
+      redirect_to profile_path(@profile)
+    else
+      render 'edit'
+    end
   end
 
   def follow
@@ -73,5 +81,11 @@ class ProfilesController < ApplicationController
       @mine = true if @receiver == current_user
       render json: @receiver, meta: { mine: @mine, following: @follow, request: @request, process: @process }
     end
+  end
+
+  private
+
+  def profile_params
+    params.require(:profile).permit(:username, :region, :nation, :interest, :intro, :userimage)
   end
 end
