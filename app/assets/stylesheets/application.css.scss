@@ -2,6 +2,7 @@
  *= require_self
  */
 
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
@@ -12,6 +13,15 @@
    display: block;
    height: 0;
    clear: both;
+}
+label {
+  margin-bottom: 0;
+}
+.form-group {
+  margin-bottom: 0;
+}
+a:hover {
+  text-decoration: none;
 }
 
 /* layout */
@@ -113,5 +123,17 @@
   }
   .message-item:last-child {
     border-bottom: none;
+  }
+}
+
+
+
+
+
+
+
+.search-result {
+  li {
+    color: #000000;
   }
 }

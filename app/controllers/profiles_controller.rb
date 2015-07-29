@@ -83,6 +83,11 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def search
+    @search = Profile.where('username LIKE ?', "%#{params[:search]}%").limit(5) if params[:search].length > 0
+    render json: @search
+  end
+
   private
 
   def profile_params

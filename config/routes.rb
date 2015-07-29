@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :profiles do
     collection do
-      get 'ownlist', 'follow', 'unfollow', 'sendrequest', 'unsendrequest'
+      get 'ownlist', 'follow', 'unfollow', 'sendrequest', 'unsendrequest', 'search'
     end
   end
 

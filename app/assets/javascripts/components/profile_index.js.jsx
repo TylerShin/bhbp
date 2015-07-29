@@ -83,7 +83,6 @@ var ProfileIndexBox = React.createClass({
     });
   },
   render: function() {
-    console.log(this.state.nav);
     if(this.state.profiles.profiles.length == 0) {
       var listItem =
         <div>
