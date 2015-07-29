@@ -102,11 +102,11 @@ var ProfileBox = React.createClass({
           <h4>{this.state.user.user.profile.username}</h4>
         </div>
         <div className="mdl-card__actions mdl-card--border">
-          <p>{this.state.user.user.profile.email}</p>
-          <p>등급</p>
-          <p>주요 활동지역</p>
-          <p>{this.state.user.user.profile.intro}</p>
-          <p>기타 기술내용들</p>
+          <p>email: {this.state.user.user.email}</p>
+          <p>point: {this.state.user.user.profile.point}</p>
+          <p>region: {this.state.user.user.profile.region}</p>
+          <p>interest: {this.state.user.user.profile.interest}</p>
+          <p>Introduce: {this.state.user.user.profile.intro}</p>
         </div>
         <ProfileBtnGroup handleFollowSubmit={this.handleFollowSubmit}
           handleUnfollowSubmit={this.handleUnfollowSubmit}

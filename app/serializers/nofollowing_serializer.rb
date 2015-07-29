@@ -1,7 +1,7 @@
 class NofollowingSerializer < ActiveModel::Serializer
   attributes :id, :email, :created_at, :updated_at, :profile
-
   has_one :profile, serializer: ProfileSerializer
+
   def profile
     object.profile
   end
