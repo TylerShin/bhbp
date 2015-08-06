@@ -1,23 +1,16 @@
-<div class="mdl-card mdl-shadow--2dp">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text"><%= t("menu.signin") %></h2>
-  </div>
-  <div class="mdl-card__supporting-text">
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <label class="mdl-textfield__label" for="email">email</label>
-        <%= f.email_field :email, class: "mdl-textfield__input", id: "email" %>
-      </div>
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <label class="mdl-textfield__label" for="password">Password</label>
-        <%= f.password_field :password, class: "mdl-textfield__input", id: "password" %>
-      </div>
-      <p>Remember Me?</p>
-      <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect margin-bottom-20" for="switch-2">
-        <input type="checkbox" id="switch-2" class="mdl-switch__input" />
-         <span class="mdl-switch__label"></span>
-      </label>
-      <%= f.submit "로그인", class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" %>
+<%= stylesheet_link_tag 'login/login', media: 'all' %>
+<div class="login-wrapper">
+  <div class="login-panel">
+    <h1>Login</h1>
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <%= f.error_notification %>
+        <div class="login-input-group">
+          <%= f.input :email, label: false, input_html: { class: "login-input", placeholder: "E-mail", id: "email" } %>
+          <%= f.input :password, label: false, input_html: { class: "login-input", placeholder: "Password (8글자 이상)", id: "password" } %>
+          <%= f.input :remember_me, label: "이 브라우저에서 항상 로그인", as: :boolean, boolean_style: :inline %>
+          <a href="#">아이디 / 비밀번호 찾기</a>
+          <%= f.submit "로그인", class: "signin-btn" %>
+        </div>
     <% end %>
   </div>
 </div>

@@ -1,19 +1,132 @@
 /*
  *= require_self
+ *= require 'masonry/transitions'
  */
 
-
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+body {
+  font-family: 'Nanum Gothic', sans-serif !important;
+  color: #333333;
+}
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-/* basic */
-.clearfix:after {
-   content: " "; /* Older browser do not support empty content */
-   visibility: hidden;
-   display: block;
-   height: 0;
-   clear: both;
+/* Navbar */
+#header {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  width: 100%;
+  box-shadow: inset 0px -2px 0px 0px #9B9B9B;
+  .container {
+    width: 1040px !important;
+  }
+  a {
+    color: #404040;
+  }
+  .nav-left {
+    overflow: hidden;
+    float: left;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    li {
+      float: left;
+      position: relative;
+      display: inline-block;
+      width: 100px;
+      height: 60px;
+      padding: 19px 7px;
+      text-align: center;
+      font-size: 12px;
+      color: #404040;
+      line-height: 18px;
+      letter-spacing: -0.5px;
+      transition-duration: 0.5s;
+    }
+    li:hover {
+      font-weight: 700;
+      color: #CD1D1F;
+    }
+  }
+  .quick-search {
+    overflow: hidden;
+    display: block;
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    margin: 0;
+    margin-left: -110px;
+    .quick-search-field {
+      width: 290px;
+      height: 36px;
+      border: 2px solid #E7E6E6;
+      box-shadow: inset 0px -2px 0px 0px #747474;
+      border-radius: 7px;
+      font-size: 14px;
+      padding: 0;
+      padding-left: 13px;
+      color: #9F9F9F;
+      line-height: 16px;
+    }
+    .search-result {
+      position: static;
+      float: none;
+      width: 290px;
+      li {
+        color: #000000;
+      }
+    }
+  }
+  .nav-right {
+    overflow: hidden;
+    float: right;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    li {
+      position: relative;
+      display: inline-block;
+      width: 100px;
+      height: 60px;
+      padding: 19px 7px;
+      text-align: center;
+      font-size: 12px;
+      color: #404040;
+      line-height: 18px;
+      letter-spacing: -0.5px;
+      transition-duration: 0.5s;
+    }
+    li:hover {
+      color: #CD1D1F;
+    }
+  }
 }
+
+
+/* basic */
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+textarea:focus, input:focus{
+    outline: 0;
+}
+*:focus {
+    outline: 0;
+}
+
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+
 label {
   margin-bottom: 0;
 }
@@ -23,85 +136,11 @@ label {
 a:hover {
   text-decoration: none;
 }
-
-/* layout */
-.mdl-layout-title {
-  a {
-    text-decoration: none;
-    color: #ffffff;
-  }
-}
-
-/* home */
-.listNav {
-  padding: 10px 10px;
-  position: relative;
-  border-bottom: 1px solid blue;
-  p {
-    padding: 0;
-    margin: 0;
-    font-size: 20px;
-  }
-}
-.user-list {
-  padding: 0px 10px;
-  position: relative;
-  border-bottom: 1px solid blue;
-  .user-image {
-    display: block;
-    position: relative;
-    margin-top: 7px;
-    width: 50px;
-    height: 70px;
-    float: left;
-    .user-nation {
-      text-align: center;
-    }
-  }
-  .user-spec {
-    position: relative;
-    padding-right: 180px;
-    top: 10px;
-    left: 10px;
-    display: block;
-    a {
-      display: block;
-      color: blue;
-      text-decoration: none;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .user-intro {
-      display: block;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
-  .user-btn-group {
-    display: inline;
-    position: absolute;
-    right: 20px;
-    top: 8px;
-    button:first-child {
-      margin-right: 5px;
-    }
-  }
+.grey-wrapper {
+  background-color: #E9E9E9;
 }
 
 
-/* Square card */
-.demo-card-square.mdl-card {
-  width: 100%;
-  min-height: 800px;
-}
-.demo-card-square > .mdl-card__title {
-  color: #fff;
-}
-.profile-card-btn-group {
-  text-align: center;
-}
 
 /* Message Inbox */
 .messageInbox {
@@ -127,13 +166,3 @@ a:hover {
 }
 
 
-
-
-
-
-
-.search-result {
-  li {
-    color: #000000;
-  }
-}

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'profiles#index'
+  root 'static_pages#home'
 
   devise_for :users
 

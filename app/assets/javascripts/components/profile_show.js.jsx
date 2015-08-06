@@ -3,6 +3,8 @@ var ProfileBox = React.createClass({
     return {
       user: {
         user: {
+          followings: [],
+          followers: [],
           profile: {}
         },
         meta: {}
@@ -94,29 +96,33 @@ var ProfileBox = React.createClass({
   },
   render: function() {
     return (
-      <div className="ProfileBox mdl-card mdl-shadow--2dp demo-card-square">
-        <div className="mdl-card__title mdl-card--expand">
+      <div className="profile-box">
+        <div className="image-box">
           <img src={this.state.user.user.profile.user_image} width="400" height="400" />
+          <div className="info-box">
+            <div className="basic-info">
+              <img src={this.state.user.user.profile.flag} className="flag" />
+              <span className="username">{this.state.user.user.profile.username}</span>
+            </div>
+            <p className="intro">{this.state.user.user.profile.intro}</p>
+            <ProfileBtnGroup handleFollowSubmit={this.handleFollowSubmit}
+              handleUnfollowSubmit={this.handleUnfollowSubmit}
+              handleRequestSubmit={this.handleRequestSubmit}
+              handleUndoRequestSubmit={this.handleUndoRequestSubmit}
+              currentUser={this.state.user.meta.mine}
+              following={this.state.user.meta.following}
+              request={this.state.user.meta.request}
+              accepted={this.state.user.meta.process}
+              id={this.state.user.user.id} />
+          </div>
         </div>
-        <div className="mdl-card__supporting-text">
-          <h4>{this.state.user.user.profile.username}</h4>
-        </div>
-        <div className="mdl-card__actions mdl-card--border">
-          <p>email: {this.state.user.user.email}</p>
-          <p>point: {this.state.user.user.profile.point}</p>
-          <p>region: {this.state.user.user.profile.region}</p>
-          <p>interest: {this.state.user.user.profile.interest}</p>
-          <p>Introduce: {this.state.user.user.profile.intro}</p>
-        </div>
-        <ProfileBtnGroup handleFollowSubmit={this.handleFollowSubmit}
-          handleUnfollowSubmit={this.handleUnfollowSubmit}
-          handleRequestSubmit={this.handleRequestSubmit}
-          handleUndoRequestSubmit={this.handleUndoRequestSubmit}
-          currentUser={this.state.user.meta.mine}
-          following={this.state.user.meta.following}
-          request={this.state.user.meta.request}
-          accepted={this.state.user.meta.process}
-          id={this.state.user.user.id} />
+        <ProfileContent followingCount={this.state.user.user.followings.length}
+          followersCount={this.state.user.user.followers.length}
+          pointCount={this.state.user.user.profile.point}
+          chinesePoint={this.state.user.user.profile.chinese_point}
+          koreanPoint={this.state.user.user.profile.korean_point}
+          region={this.state.user.user.profile.region}
+          interest={this.state.user.user.profile.interest} />
       </div>
     );
   }
@@ -137,13 +143,10 @@ var ProfileBtnGroup = React.createClass({
   },
   render: function() {
     return (
-      <div className="mdl-card__actions mdl-card--border profile-card-btn-group">
-        <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
-          과거이력
-        </button>
+      <div className="profile-card-btn-group">
+        <MeetingButton handleUndoRequestSubmit={this.handleUndoRequestSubmit} accepted={this.props.accepted} request={this.props.request} handleRequestSubmit={this.handleRequestSubmit} currentUser={this.props.currentUser} />
         <SendMessage id={this.props.id} currentUser={this.props.currentUser} />
         <FollowButton handleUnfollowSubmit={this.handleUnfollowSubmit} handleFollowSubmit={this.handleFollowSubmit} currentUser={this.props.currentUser} following={this.props.following} />
-        <MeetingButton handleUndoRequestSubmit={this.handleUndoRequestSubmit} accepted={this.props.accepted} request={this.props.request} handleRequestSubmit={this.handleRequestSubmit} currentUser={this.props.currentUser} />
       </div>
     );
   }
@@ -154,16 +157,16 @@ var SendMessage = React.createClass({
     var messageUrl = "/messages/new?id=" + this.props.id;
     if(this.props.currentUser) {
       return (
-        <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-            쪽지보기
+        <button className="sendmsg-btn">
+            Message
         </button>
       );
     }
     else {
       return (
         <a href={messageUrl}>
-          <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-              쪽지보내기
+          <button className="sendmsg-btn">
+              Message
           </button>
         </a>
       );
@@ -181,7 +184,7 @@ var FollowButton = React.createClass({
   render: function() {
     if(this.props.currentUser) {
       return (
-        <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        <button className="modify-btn">
           수정하기
         </button>
       );
@@ -189,17 +192,15 @@ var FollowButton = React.createClass({
     else {
       if(this.props.following) {
         return (
-          <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
-            onClick={this.handleUnfollowSubmit}>
-            친한친구 해제
+          <button className="unfollow-btn" onClick={this.handleUnfollowSubmit}>
+            Unfollow
           </button>
         );
       }
       else {
         return (
-          <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
-            onClick={this.handleFollowSubmit}>
-            친한친구 등록
+          <button className="follow-btn" onClick={this.handleFollowSubmit}>
+            Follow
           </button>
         );
       }
@@ -218,7 +219,7 @@ var MeetingButton = React.createClass({
     if(this.props.currentUser) {
       return (
         <a href="/">
-          <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+          <button className="meeting-btn">
             만남관리
           </button>
         </a>
@@ -227,14 +228,14 @@ var MeetingButton = React.createClass({
     else {
       if(this.props.request && this.props.accepted) {
         return (
-          <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+          <button className="meeting-btn">
             승낙완료
           </button>
         );
       }
       else if (this.props.request && !this.props.accepted) {
         return (
-          <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+          <button className="meeting-btn"
             onClick={this.handleUndoRequestSubmit} >
             신청취소
           </button>
@@ -242,12 +243,87 @@ var MeetingButton = React.createClass({
       }
       else {
         return (
-          <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+          <button className="meeting-btn"
             onClick={this.handleRequestSubmit} >
             만남신청
           </button>
         );
       }
     }
+  }
+});
+
+var ProfileContent = React.createClass({
+  render: function() {
+    var chinesePoint = this.props.chinesePoint+ '%';
+    var koreanPoint = this.props.koreanPoint + '%';
+    $(document).ready(function() {
+      $('.chinese-progress-bar').width(chinesePoint);
+      $('.korean-progress-bar').width(koreanPoint);
+    });
+    return (
+      <div className="profileContent">
+        <div className="groupTitle">
+          <div className="groupTitleWrapper">
+            <h4>Social Status</h4>
+          </div>
+        </div>
+        <div className="countersWrapper">
+          <ul>
+            <li>
+              <h1 className="counterUp">{this.props.followersCount}</h1>
+              <p>Followers</p>
+            </li>
+            <li>
+              <h1 className="counterUp">{this.props.followingCount}</h1>
+              <p>Followers</p>
+            </li>
+            <li>
+              <h1 className="counterUp">{this.props.pointCount}</h1>
+              <p>Followers</p>
+            </li>
+            <li>
+              <h1>다이아몬드</h1>
+            </li>
+          </ul>
+        </div>
+        <div className="progress-group">
+          <div className="progressTitle">
+            <div className="progressTitleWrapper">
+              <h4>Language Skills</h4>
+            </div>
+          </div>
+          <div className="lang-progress-group clearfix">
+            <span>중국어</span>
+            <div className="progress">
+              <div className="chinese-progress-bar progress-bar progress-bar-success">
+              </div>
+            </div>
+          </div>
+          <div className="lang-progress-group clearfix">
+            <span>한국어</span>
+            <div className="progress">
+              <div className="korean-progress-bar progress-bar progress-bar-info">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="detail-group">
+          <div className="groupTitle">
+            <div className="groupTitleWrapper">
+              <h4>Details</h4>
+            </div>
+          </div>
+          <div className="region-group">
+            <p className="title">Region</p>
+            <p className="content">{this.props.region}</p>
+          </div>
+          <div className="interest-group">
+            <p className="title">Interest</p>
+            <p className="content">{this.props.interest}</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 });

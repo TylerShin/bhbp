@@ -1,12 +1,8 @@
 class ProfilesController < ApplicationController
   before_filter :authenticate_user!, only: [:show, :edit, :update]
+
   def index
-    @profiles = User.all
-    @sign_in = true if user_signed_in?
-    respond_to do |format|
-      format.html
-      format.json { render json: @profiles, meta: { signIn: @sign_in } }
-    end
+    @profiles = Profile.all.page(params[:page]).per(20)
   end
 
   def ownlist

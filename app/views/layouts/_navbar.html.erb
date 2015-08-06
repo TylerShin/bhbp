@@ -1,0 +1,49 @@
+<div id="header">
+  <div class="container">
+    <ul class="nav-left clearfix">
+      <%= link_to root_path do %>
+        <li>一起친구</li>
+      <% end %>
+      <li>친구찾기</li>
+      <li>질문답변</li>
+      <li>정보창고</li>
+    </ul>
+    <form class="quick-search">
+      <input class="quick-search-field" type="text" name="searchField" placeholder="친구 이름을 검색해보세요." />
+      <ul class="dropdown-menu search-result"></ul>
+    </form>
+    <ul class="nav-right">
+      <li>쪽지함</li>
+      <li>정보수정</li>
+      <%= link_to destroy_user_session_path, method: 'DELETE' do %>
+        <li>Log out</li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).on("keyup", '[name=searchField]', function() {
+    $.ajax({
+      url: "/profiles/search",
+      dataType: "json",
+      data: {search: this.value},
+      success: function(data) {
+        console.log(data);
+        $('.search-result li').remove();
+        if(data.profiles.length == 0 || data == null) {
+          $('.search-result').css('display', 'none');
+        }
+        else {
+          $('.search-result').css('display', 'block');
+        }
+        data.profiles.map(function(d) {
+          $('.search-result').append('<a href='+ d.url +'><li><img src='+ d.nano_user_image + ' width="50" height="50" />' + d.username +'</li></a>');
+        });
+      },
+      error: function() {
+        console.log("error!!");
+      }
+    });
+  });
+</script>

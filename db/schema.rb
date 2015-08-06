@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724070911) do
+ActiveRecord::Schema.define(version: 20150806044448) do
 
   create_table "messages", force: :cascade do |t|
     t.integer  "sender_id",   limit: 4
@@ -27,16 +27,18 @@ ActiveRecord::Schema.define(version: 20150724070911) do
   add_index "messages", ["sender_id"], name: "index_messages_on_sender_id", using: :btree
 
   create_table "profiles", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.string   "username",   limit: 255, default: "이름없음"
-    t.string   "region",     limit: 255
-    t.string   "nation",     limit: 255
-    t.string   "interest",   limit: 255, default: "등록된 관심사가 없습니다."
-    t.string   "intro",      limit: 255, default: "등록된 소개말이 없습니다."
-    t.string   "userimage",  limit: 255
-    t.integer  "point",      limit: 4,   default: 0
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
+    t.integer  "user_id",       limit: 4
+    t.string   "username",      limit: 255, default: "이름없음"
+    t.string   "region",        limit: 255
+    t.string   "nation",        limit: 255
+    t.string   "interest",      limit: 255, default: "등록된 관심사가 없습니다."
+    t.string   "intro",         limit: 255, default: "등록된 소개말이 없습니다."
+    t.string   "userimage",     limit: 255
+    t.integer  "point",         limit: 4,   default: 0
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+    t.integer  "chinese_point", limit: 4,   default: 0
+    t.integer  "korean_point",  limit: 4,   default: 0
   end
 
   create_table "relationships", force: :cascade do |t|

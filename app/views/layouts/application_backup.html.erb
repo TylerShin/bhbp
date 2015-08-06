@@ -45,8 +45,14 @@
     <div class="mdl-layout__drawer">
       <span class="mdl-layout-title">一起친구</span>
       <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="#">Nav link 2</a>
-        <a class="mdl-navigation__link" href="#">Nav link 3</a>
+        <% if user_signed_in? %>
+          <%= link_to "회원정보수정", edit_profile_path(current_user.profile), class: "mdl-navigation__link" %>
+          <%= link_to "쪽지함", messages_path, class: "mdl-navigation__link" %>
+          <%= link_to "Log out", destroy_user_session_path, method: 'DELETE', class: "mdl-navigation__link" %>
+        <% else %>
+          <%= link_to t('menu.signup'), new_user_registration_path, class: "mdl-navigation__link" %>
+          <%= link_to t('menu.signin'), new_user_session_path, class: "mdl-navigation__link" %>
+        <% end %>
       </nav>
     </div>
     <main class="mdl-layout__content">

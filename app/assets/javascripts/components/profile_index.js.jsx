@@ -193,6 +193,7 @@ var ListNav = React.createClass({
 
 var ProfileListItem = React.createClass({
   render: function() {
+  var messageUrl = '/messages/new?id=' + this.props.user_id;
     return (
       <div className="user-list clearfix">
         <a className="user-image"><img src={this.props.imageUrl} width="50" height="50" />
@@ -202,9 +203,11 @@ var ProfileListItem = React.createClass({
           <a href={this.props.url}>{this.props.email}</a>
           <div className="user-intro clearfix">{this.props.intro}</div>
           <div className="user-btn-group">
-            <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-              쪽지보내기
-            </button>
+            <a href={messageUrl}>
+              <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                쪽지보내기
+              </button>
+            </a>
             <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
               관심친구 등록
             </button>
@@ -244,6 +247,7 @@ var ReceivedRequestsList = React.createClass({
 
 var FriendsList = React.createClass({
   render: function() {
+    var messageUrl = '/messages/new?id=' + this.props.user_id;
     return (
       <div className="user-list clearfix">
         <a className="user-image"><img src={this.props.imageUrl} width="50" height="50" />
@@ -253,9 +257,11 @@ var FriendsList = React.createClass({
           <a href={this.props.url}>{this.props.email}</a>
           <div className="user-intro clearfix">{this.props.intro}</div>
           <div className="user-btn-group">
-            <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-              쪽지보내기
-            </button>
+            <a href={messageUrl}>
+              <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                쪽지보내기
+              </button>
+            </a>
             <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
               만남신청
             </button>
@@ -268,6 +274,7 @@ var FriendsList = React.createClass({
 
 var SendedRequestsList = React.createClass({
   render: function() {
+  var messageUrl = '/messages/new?id=' + this.props.user_id;
     return (
       <div className="user-list clearfix">
         <a className="user-image"><img src={this.props.imageUrl} width="50" height="50" />
@@ -277,9 +284,11 @@ var SendedRequestsList = React.createClass({
           <a href={this.props.url}>{this.props.email}</a>
           <div className="user-intro clearfix">{this.props.intro}</div>
           <div className="user-btn-group">
-            <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-              쪽지보내기
-            </button>
+            <a href={messageUrl}>
+              <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                쪽지보내기
+              </button>
+            </a>
             <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
               신청취소
             </button>

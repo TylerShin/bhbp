@@ -4,3 +4,5 @@
 #= require react
 #= require react_ujs
 #= require components
+#= require masonry/jquery.masonry
+#= require masonry/jquery.infinitescroll.min

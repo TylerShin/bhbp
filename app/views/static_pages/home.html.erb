@@ -1,0 +1,29 @@
+<%= stylesheet_link_tag 'static_pages', media: 'all' %>
+<div class="intro-wrapper">
+  <header id="navbar">
+    <div class="intro-navbar">
+      <div class="intro-title">
+        <h1>一起친구</h1>
+      </div>
+        <ul class="intro-nav">
+          <li class="intro-nav-list"><a href="#">1779란?</a></li>
+          <li class="intro-nav-list"><a href="#">광고문의</a></li>
+          <li class="intro-nav-list"><%= link_to "로그인", new_user_session_path %></li>
+        </ul>
+    </div>
+  </header>
+  <div class="main-content">
+    <h2>인맥 네트워크 활용</h2>
+    <p>글로벌 인재들과의 실제 만남을 통해 새로운 삶의 가능성을 넓혀보세요.</p>
+    <div class="registration-panel">
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= f.error_notification %>
+        <%= f.input :email, label: false, input_html: { placeholder: "E-mail", id: "email" } %>
+        <%= f.input :password, label: false, input_html: { placeholder: "Password (8글자 이상)", id: "password" } %>
+        <%= f.input :password_confirmation, label: false, input_html: { placeholder: "Password Confirmation", id: "password_confirmation" } %>
+        <p>이미 아이디가 있으시다면 <%= link_to "로그인", new_user_session_path %> 하세요.</p>
+        <%= f.submit "회원가입", class: "signup-button" %>
+      <% end %>
+    </div>
+  </div>
+</div>
