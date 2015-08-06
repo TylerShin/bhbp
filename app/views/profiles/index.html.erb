@@ -16,7 +16,7 @@
                 <button><%= link_to "메시지", new_message_path(id: profile.user.id) %></button>
               </div>
               <div class="bottom-float-btn-group">
-                <button>상세보기</button>
+                <button><%= link_to "상세정보", profile_path(profile) %></button>
               </div>
             </div>
           </ul>
