@@ -2,14 +2,186 @@
  *= require_self
  *= require 'masonry/transitions'
  */
-
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
 body {
   font-family: 'Nanum Gothic', sans-serif !important;
   color: #333333;
 }
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.profileFindBox {
+  padding-top: 100px;
+  .leftBox {
+    border: 1px solid #eeeeee;
+    padding: 20px;
+    text-align: center;
+    .searchForm {
+      position: relative;
+      left: 50%;
+      -moz-transform: translate(-50%, 0%);
+      -webkit-transform: translate(-50%, 0%);
+      -o-transform: translate(-50%, 0%);
+      -ms-transform: translate(-50%, 0%);
+      transform: translate(-50%, 0%);
+      margin-top: 100px;
+      width: 250px;
+      .genderSelect {
+        text-align: left;
+        margin-bottom: 20px;
+        label {
+          display: block;
+          margin: 10px;
+        }
+      }
+      .nationSelect {
+        text-align: left;
+        margin-bottom: 20px;
+        label {
+          display: block;
+          margin: 10px;
+        }
+      }
+      .ageSelect {
+        text-align: left;
+        margin-bottom: 20px;
+        label {
+          display: block;
+          margin: 10px;
+        }
+        input {
+          width: 40px;
+        }
+      }
+      .regionSelect {
+        text-align: left;
+        margin-bottom: 20px;
+        label {
+          display: block;
+          margin: 10px;
+        }
+        input {
+          width: 40px;
+        }
+      }
+      .left-btn {
+        width: 100px;
+        float: left;
+      }
+      .right-btn {
+        width: 100px;
+        float: right;
+      }
+    }
+  }
+  .rightBox {
+    border: 1px solid #eeeeee;
+    .result-wrapper {
+      position: relative;
+      left: 50%;
+      -moz-transform: translate(-50%, 0%);
+      -webkit-transform: translate(-50%, 0%);
+      -o-transform: translate(-50%, 0%);
+      -ms-transform: translate(-50%, 0%);
+      transform: translate(-50%, 0%);
+      .profile-box {
+        float: left;
+        height: auto;
+        width: 250px;
+        min-height: 200px;
+        background: #FFFFFF;
+        border: 1px solid;
+        border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+        border-radius: 15px;
+        margin-bottom: 10px;
+        .profile-box-info {
+          padding: 10px;
+          img {
+            width: 40px;
+            height: 30px;
+          }
+          p {
+            margin: 0;
+            .name {
+              color: #333333;
+              line-height: 17px;
+              font-size: 13px;
+              font-weight: 700;
+              margin-left: 5px;
+            }
+          }
+        }
+        .image-section-wrapper {
+          border-top: 1px solid #e0e3e9;
+          border-bottom: 1px solid #e0e3e9;
+          position: relative;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          .profile-image {
+            display: block;
+            position: relative;
+            width: 100%;
+            max-height: 80%;
+          }
+          .box-tooltip {
+            position: absolute;
+            opacity: 0;
+            z-index: 10;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            color: #ffffff;
+            transition-duration: 1s;
+            .left-float-btn-group {
+              float: left;
+              margin: 10px 0px 0px 10px;
+              button {
+                width: 75px;
+                height: 27px;
+                background: #CD1D1F;
+                border: 1px solid #B91C1E;
+                border-radius: 15px;
+                font-size: 11px;
+                line-height: 13px;
+                border-radius: 20px;
+                background-color: #CD1D1F;
+                a {
+                  color: #ffffff;
+                }
+              }
+            }
+            .bottom-float-btn-group {
+              position: absolute;
+              left: 30px;
+              bottom: 20px;
+              button {
+                background: transparent;
+                border: 1px solid #CD1D1F;
+                border-radius: 15px;
+                font-size: 11.6px;
+                color: #FFFFFF;
+                line-height: 14px;
+                width: 190px;
+                height: 30px;
+                a {
+                  color: #ffffff;
+                }
+              }
+            }
+          }
+        }
+        .profile-box-info-bottom {
+          margin: 10px 0px 10px 10px;
+        }
+      }
+    }
+  }
+}
 
 /* Navbar */
 #header {
@@ -109,40 +281,52 @@ body {
   }
 }
 
-
 /* basic */
 * {
   -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-}
-textarea:focus, input:focus{
-    outline: 0;
-}
-*:focus {
-    outline: 0;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-.clearfix:before, .clearfix:after { content: ""; display: table; }
-.clearfix:after { clear: both; }
-.clearfix { zoom: 1; }
+textarea:focus, input:focus {
+  outline: 0;
+}
+
+*:focus {
+  outline: 0;
+}
+
+.clearfix:before, .clearfix:after {
+  content: "";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.clearfix {
+  zoom: 1;
+}
 
 label {
   margin-bottom: 0;
 }
+
 .form-group {
   margin-bottom: 0;
 }
+
 a:hover {
   text-decoration: none;
 }
+
 .grey-wrapper {
+  height: 100%;
   padding-top: 100px;
   position: relative;
   background-color: #E9E9E9;
 }
-
-
 
 /* Message Inbox */
 .messageInbox {
