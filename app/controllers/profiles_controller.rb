@@ -101,10 +101,8 @@ class ProfilesController < ApplicationController
     def search
         if params.has_key?(:search)
             @search = Profile.where('username LIKE ?', "%#{params[:search]}%").limit(5) if params[:search].length > 0
-        elsif params.has_key?(:country)
-            @search = Profile.where(nation: params[:country])
         else
-            @search = Profile.all
+            @search = Profile.where("nation = ? AND gender = ?", params[:nation], params[:gender])
         end
         render json: @search
     end

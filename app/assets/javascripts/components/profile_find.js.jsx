@@ -22,7 +22,7 @@ var ProfileFindBox = React.createClass({
         console.log(searchWord);
         $.ajax({
             url: this.props.url,
-            data: {country: searchWord[0], gender: searchWord[1], minAge: searchWord[2], maxAge: searchWord[3]},
+            data: searchWord,
             datatype: 'json',
             success: function (profiles) {
                 this.setState({results: profiles});
@@ -35,6 +35,18 @@ var ProfileFindBox = React.createClass({
     render: function () {
         return (
             <div className="profileFindBox">
+                <div className="row">
+                    <div className="container">
+                        <div className="basicConditionBox">
+                            <ul>
+                                <li>회원점수순 </li>
+                                <li>가입일순(최신) </li>
+                                <li>가입일순(오래된) </li>
+                                <li>팔로워순 </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
                 <div className="row">
                     <div className="col-md-4">
                         <LeftBox handleSubmit={this.handleSubmit}/>
@@ -58,7 +70,6 @@ var LeftBox = React.createClass({
             <div className="leftBox">
                 <div className="captionBox">
                     <h2>원하는 친구를 찾아보세요</h2>
-
                     <p>여러분이 몰랐던 인연, 이번 기회에 찾을 수 있지 않을까요?</p>
                     <SearchForm handleSubmit={this.handleSubmit}/>
                 </div>
@@ -70,63 +81,78 @@ var LeftBox = React.createClass({
 var SearchForm = React.createClass({
     getInitialState: function () {
         return {
-            searchWords: [],
-            nation: '',
-            gender: '',
-            minAge: 0,
-            maxAge: 100
+            searchWords: {}
         }
     },
     handleKoreaClick: function () {
-        this.setState({nation: "한국"});
+        $('.nation').removeClass('selected');
+        $(React.findDOMNode(this.refs.kor)).addClass('selected');
+        var now = this.state.searchWords;
+        now.nation = "한국";
+        this.setState({searchWords: now});
+        this.handleSubmit(this.state.searchWords);
     },
     handleChinaClick: function () {
-        this.setState({nation: "중국"});
-
+        $('.nation').removeClass('selected');
+        $(React.findDOMNode(this.refs.chi)).addClass('selected');
+        var now = this.state.searchWords;
+        now.nation = "중국";
+        this.setState({searchWords: now});
+        this.handleSubmit(this.state.searchWords);
     },
     handleMaleClick: function () {
-        this.setState({gender: "남성"});
+        $('.gender').removeClass('selected');
+        $(React.findDOMNode(this.refs.male)).addClass('selected');
+        var now = this.state.searchWords;
+        now.gender = "남성";
+        this.setState({searchWords: now});
+        this.handleSubmit(this.state.searchWords);
     },
     handleFemaleClick: function () {
-        this.setState({gender: "여성"})
+        $('.gender').removeClass('selected');
+        $(React.findDOMNode(this.refs.female)).addClass('selected');
+        var now = this.state.searchWords;
+        now.gender = "여성";
+        this.setState({searchWords: now});
+        this.handleSubmit(this.state.searchWords);
     },
     handleMinKeyup: function () {
         var min = React.findDOMNode(this.refs.min).value;
-        this.setState({minAge: min});
+        var now = this.state.searchWords;
+        now.minAge = min;
+        this.setState({searchWords: now});
+        this.handleSubmit(this.state.searchWords);
     },
     handleMaxKeyup: function () {
         var max = React.findDOMNode(this.refs.max).value;
-        this.setState({maxAge: max});
+        var now = this.state.searchWords;
+        now.maxAge = max;
+        this.setState({searchWords: now});
+        this.handleSubmit(this.state.searchWords);
     },
-    handleSubmit: function () {
-        var terms = [];
-        terms.push(this.state.nation, this.state.gender, this.state.minAge, this.state.maxAge);
-        this.setState({searchWords: terms});
-
-        console.log(this.state.searchWords);
-        this.props.handleSubmit(this.state.searchWords);
+    handleSubmit: function (searchWord) {
+        this.props.handleSubmit(searchWord);
     },
     render: function () {
+        console.log(this.state.searchWords);
         return (
             <div className="searchForm">
-                <div>검색조건</div>
-                <div>{this.state.searchWords}</div>
                 <div className="genderSelect clearfix">
                     <label>성별</label>
-                    <button className="btn btn-default left-btn gender-male"
-                            onClick={this.handleMaleClick} value="남성">남성(男)
+                    <button className="btn btn-default left-btn gender"
+                            ref="male" onClick={this.handleMaleClick} value="남성">남성(男)
                     </button>
-                    <button className="btn btn-default right-btn gender-female"
-                            onClick={this.handleFemaleClick} value="여성">여성(女)
+                    <button className="btn btn-default right-btn gender"
+                            ref="female" onClick={this.handleFemaleClick} value="여성">여성(女)
                     </button>
                 </div>
                 <div className="nationSelect clearfix">
                     <label>국적</label>
-                    <button className="btn btn-default left-btn nation-korea" onClick={this.handleKoreaClick}
-                            value="한국">한국(韓國)
+                    <button className="btn btn-default left-btn nation" onClick={this.handleKoreaClick}
+                            ref="kor" value="한국">한국(韓國)
                     </button>
-                    <button className="btn btn-default right-btn nation-china" onClick={this.handleChinaClick}
-                            value="중국">중국(韓國)
+                    <button className="btn btn-default right-btn nation" onClick={this.handleChinaClick}
+                            ref="chi" value="중국">중국(韓國)
                     </button>
                 </div>
                 <div className="ageSelect">
@@ -134,7 +160,7 @@ var SearchForm = React.createClass({
 
                     <form className="form-inline">
                         <input type="text" ref="min" onKeyUp={this.handleMinKeyup}/>세 ~
-                        <input type="text" ref="max" onKeyUp={this.handleMaxKeyup}/>세
+                        <input type="text" className="max" ref="max" onKeyUp={this.handleMaxKeyup}/>세
                     </form>
                 </div>
                 <div className="regionSelect">
@@ -147,11 +173,14 @@ var SearchForm = React.createClass({
                         <option>전라</option>
                     </select>
                 </div>
-                <button className="btn btn-default" onClick={this.handleSubmit}>검색하기</button>
             </div>
         );
     }
 });
+
+
+
+
 var RightBox = React.createClass({
     render: function () {
         var results = this.props.results.map(function (r) {
@@ -164,8 +193,6 @@ var RightBox = React.createClass({
         return (
             <div className="rightBox">
                 <div className="box-wrapper">
-                    <h1>결과가 나오는 장소</h1>
-
                     <div className="result-wrapper clearfix">
                         {results}
                     </div>
