@@ -52,6 +52,9 @@
         .left-float-btn-group {
           float: left;
           margin: 10px 0px 0px 10px;
+          a {
+            color: #ffffff;
+          }
           button {
             width: 75px;
             height: 27px;
@@ -62,9 +65,6 @@
             line-height: 13px;
             border-radius: 20px;
             background-color: #CD1D1F;
-            a {
-              color: #ffffff;
-            }
           }
         }
         .bottom-float-btn-group {

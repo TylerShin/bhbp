@@ -18,10 +18,11 @@ var ProfileFindBox = React.createClass({
             }
         });
     },
-    handleBtnClick: function (searchWord) {
+    handleSubmit: function (searchWord) {
+        console.log(searchWord);
         $.ajax({
             url: this.props.url,
-            data: {nation: searchWord},
+            data: {country: searchWord[0], gender: searchWord[1], minAge: searchWord[2], maxAge: searchWord[3]},
             datatype: 'json',
             success: function (profiles) {
                 this.setState({results: profiles});
@@ -36,7 +37,7 @@ var ProfileFindBox = React.createClass({
             <div className="profileFindBox">
                 <div className="row">
                     <div className="col-md-4">
-                        <LeftBox handleBtnClick={this.handleBtnClick}/>
+                        <LeftBox handleSubmit={this.handleSubmit}/>
                     </div>
                     <div className="col-md-8">
                         <RightBox results={this.state.results.profiles}/>
@@ -49,8 +50,8 @@ var ProfileFindBox = React.createClass({
 });
 
 var LeftBox = React.createClass({
-    handleBtnClick: function (searchWord) {
-        this.props.handleBtnClick(searchWord);
+    handleSubmit: function (searchWord) {
+        this.props.handleSubmit(searchWord);
     },
     render: function () {
         return (
@@ -59,7 +60,7 @@ var LeftBox = React.createClass({
                     <h2>원하는 친구를 찾아보세요</h2>
 
                     <p>여러분이 몰랐던 인연, 이번 기회에 찾을 수 있지 않을까요?</p>
-                    <SearchForm handleBtnClick={this.handleBtnClick}/>
+                    <SearchForm handleSubmit={this.handleSubmit}/>
                 </div>
             </div>
         );
@@ -96,7 +97,6 @@ var SearchForm = React.createClass({
     handleMaxKeyup: function () {
         var max = React.findDOMNode(this.refs.max).value;
         this.setState({maxAge: max});
-        console.log(this.state);
     },
     handleSubmit: function () {
         var terms = [];
@@ -104,10 +104,13 @@ var SearchForm = React.createClass({
         this.setState({searchWords: terms});
 
         console.log(this.state.searchWords);
+        this.props.handleSubmit(this.state.searchWords);
     },
     render: function () {
         return (
             <div className="searchForm">
+                <div>검색조건</div>
+                <div>{this.state.searchWords}</div>
                 <div className="genderSelect clearfix">
                     <label>성별</label>
                     <button className="btn btn-default left-btn gender-male"

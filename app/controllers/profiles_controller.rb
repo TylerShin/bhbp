@@ -1,5 +1,23 @@
 class ProfilesController < ApplicationController
-    before_filter :authenticate_user!, only: [:show, :edit, :update]
+    before_filter :authenticate_user!, only: [:new, :show, :edit, :update]
+    before_filter :make_profile, except: [:new, :create, :edit, :update]
+
+    def new
+        if current_user.profile.nil?
+            @profile = current_user.build_profile
+        else
+            redirect_to root_path
+        end
+    end
+
+    def create
+        @profile = current_user.build_profile(profile_params)
+        if @profile.save
+            redirect_to root_path
+        else
+            render 'new'
+        end
+    end
 
     def index
         @profiles = Profile.all.page(params[:page]).per(20)
@@ -12,7 +30,8 @@ class ProfilesController < ApplicationController
     end
 
     def show
-        @user = User.find(params[:id])
+        @profile = Profile.find(params[:id])
+        @user = @profile.user
         @follow = current_user.following?(@user)
         @request = current_user.request?(@user)
         @process = current_user.process?(@user) if @request
@@ -82,8 +101,8 @@ class ProfilesController < ApplicationController
     def search
         if params.has_key?(:search)
             @search = Profile.where('username LIKE ?', "%#{params[:search]}%").limit(5) if params[:search].length > 0
-        elsif params.has_key?(:nation)
-            @search = Profile.where(nation: params[:nation])
+        elsif params.has_key?(:country)
+            @search = Profile.where(nation: params[:country])
         else
             @search = Profile.all
         end
@@ -95,7 +114,15 @@ class ProfilesController < ApplicationController
 
     private
 
+    def make_profile
+        if user_signed_in?
+            if current_user.profile.nil?
+                redirect_to new_profile_path
+            end
+        end
+    end
+
     def profile_params
-        params.require(:profile).permit(:username, :region, :nation, :interest, :intro, :userimage)
+        params.require(:profile).permit(:username, :gender, :region, :nation, :interest, :intro, :userimage)
     end
 end

@@ -14,7 +14,6 @@ class User < ActiveRecord::Base
   has_many :request_receivers, through: :passive_requests, source: :sender
   has_many :sending_messages, class_name: 'Message', foreign_key: 'sender_id', dependent: :destroy
   has_many :receiving_messages, class_name: 'Message', foreign_key: 'receiver_id', dependent: :destroy
-  after_create :make_profile
 
   # Handle Follow
   def follow(other_user)
@@ -49,8 +48,4 @@ class User < ActiveRecord::Base
 
   private
 
-  def make_profile
-    profile = build_profile(nation: '한국')
-    profile.save
-  end
 end

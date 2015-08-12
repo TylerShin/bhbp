@@ -44,6 +44,17 @@
       }
       .profile-card-btn-group {
         display: inline-block;
+        .modify-btn {
+          width: 115px;
+          height: 30px;
+          background-color: #CD1D1F;
+          border: 1px solid #B91C1E;
+          border-radius: 6px;
+          font-size: 15px;
+          color: #FFFFFF;
+          line-height: 16px;
+          text-shadow: 0px 1px 0px #000000;
+        }
         .meeting-btn {
           display: block;
           width: 242px;
