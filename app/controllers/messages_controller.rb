@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
   before_filter :authenticate_user!, only: [:new]
   def index
-    @messages = current_user.receiving_messages.order("created_at DESC").page(params[:page]).per(2)
+    @messages = current_user.receiving_messages.order("created_at DESC").page(params[:page]).per(10)
     respond_to do |format|
       format.html
       format.json {

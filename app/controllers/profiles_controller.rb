@@ -20,7 +20,13 @@ class ProfilesController < ApplicationController
     end
 
     def index
-        @profiles = Profile.all.page(params[:page]).per(20)
+        if user_signed_in?
+            @following = current_user.following
+            @profiles = Profile.all.page(params[:page]).per(20)
+        else
+
+            @profiles = Profile.all.page(params[:page]).per(20)
+        end
         @message = current_user.sending_messages.build
     end
 
