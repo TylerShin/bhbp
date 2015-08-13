@@ -1,15 +1,46 @@
 <div class="container">
-  <%= simple_form_for(@profile, url: profiles_path, method: 'POST') do |f| %>
-      <%= f.input :username %>
-      <%= f.input :nation, as: :select, collection: [:한국, :중국],
-                  prompt: "국적을 선택하세요.", html: {class: "form-control"} %>
-      <%= f.input :gender, as: :select, collection: [:남성, :여성],
-                  prompt: "성별을 선택하세요.", html: {class: "form-control"} %>
-      <%= f.input :region %>
-      <%= f.input :age, as: :select, collection: 1..100, prompt: "나이를 선택하세요.", html: {class: "form-control"} %>
-      <%= f.input :interest %>
-      <%= f.input :intro %>
-      <%= f.input :userimage %>
-      <%= f.button :submit %>
-  <% end %>
+  <div class="edit-box">
+    <%= simple_form_for(@profile, url: profiles_path, method: 'POST') do |f| %>
+        <div class="row">
+          <div class="col-md-3 col-md-offset-3">
+            <div class="left-box">
+              <div class="img-wrapper">
+                <%= image_tag @profile.userimage.url.to_s, id: 'img_prev' %>
+              </div>
+              <%= f.input :userimage, input_html: {onchange: "readURL(this)"} %>
+              <%= f.input :username %>
+              <%= f.input :region, input_html: {id: "autocomplete", placeholder: "Enter your address", onFocus: "geolocate()"} %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <%= f.input :nation, as: :select, collection: [:한국, :중국],
+                        prompt: "국적을 선택하세요.", html: {class: "form-control"} %>
+            <%= f.input :gender, as: :select, collection: [:남성, :여성],
+                        prompt: "성별을 선택하세요.", html: {class: "form-control"} %>
+            <%= f.input :age, as: :select, collection: 1..100, prompt: "나이를 선택하세요.", html: {class: "form-control"} %>
+            <%= f.input :chinese_point, as: :select, collection: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], prompt: "나이를 선택하세요.", html: {class: "form-control"} %>
+            <%= f.input :korean_point, as: :select, collection: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], prompt: "나이를 선택하세요.", html: {class: "form-control"} %>
+            <%= f.input :interest %>
+            <%= f.input :intro %>
+          </div>
+        </div>
+        <%= f.button :submit %>
+    <% end %>
+  </div>
 </div>
+
+<!--upload image input-->
+<script>
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				$('#img_prev')
+					.attr('src', e.target.result)
+			};
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+</script>

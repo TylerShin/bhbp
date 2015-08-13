@@ -2,6 +2,17 @@ class ProfilesController < ApplicationController
     before_filter :authenticate_user!, only: [:new, :show, :edit, :update]
     before_filter :make_profile, except: [:new, :create, :edit, :update]
 
+    def index
+        if user_signed_in?
+            @following = current_user.following.joins(:profile)
+            @profiles = Profile.all.page(params[:page]).per(20)
+        else
+
+            @profiles = Profile.all.page(params[:page]).per(20)
+        end
+        @message = current_user.sending_messages.build
+    end
+
     def new
         if current_user.profile.nil?
             @profile = current_user.build_profile
@@ -17,17 +28,6 @@ class ProfilesController < ApplicationController
         else
             render 'new'
         end
-    end
-
-    def index
-        if user_signed_in?
-            @following = current_user.following
-            @profiles = Profile.all.page(params[:page]).per(20)
-        else
-
-            @profiles = Profile.all.page(params[:page]).per(20)
-        end
-        @message = current_user.sending_messages.build
     end
 
     def ownlist

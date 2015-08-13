@@ -1,6 +1,7 @@
 <%= stylesheet_link_tag 'profiles/index', media: 'all' %>
 <div class="grey-wrapper">
   <div id="masonry-container" class="transitions-enabled centered infinite-scroll clearfix">
+    <div class="grid-sizer"></div>
     <% @profiles.each do |profile| %>
         <div class="profile-box">
           <div class="box-wrapper">
@@ -55,7 +56,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <%= f.button :submit, '전송(发送)', class: 'btn btn-primary' %>
+              <%= f.button :submit, '전송(发送', class: 'btn btn-primary' %>
 
         <% end %>
         </div>
