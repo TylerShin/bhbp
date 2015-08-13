@@ -24,8 +24,9 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = current_user.sending_messages.create!(message_params)
-    redirect_to root_path
+    if @message = current_user.sending_messages.create!(message_params)
+        redirect_to root_path
+    end
   end
 
   def edit

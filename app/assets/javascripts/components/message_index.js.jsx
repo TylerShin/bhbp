@@ -90,14 +90,16 @@ var MessageInbox = React.createClass({
       );
     });
     return (
-      <div>
-        <ul className="messageInbox">
-          {Messageitem}
-        </ul>
-        <PaginatorSection totalPages={this.state.meta.total_pages}
-          currentPage={this.state.meta.current_page}
-          onPaginate={this._handleOnPaginate} />
-      </div>
+        <div className="col-md-6 col-md-offset-3">
+          <div className="message-box">
+            <ul className="messageInbox">
+              {Messageitem}
+            </ul>
+            <PaginatorSection totalPages={this.state.meta.total_pages}
+              currentPage={this.state.meta.current_page}
+              onPaginate={this._handleOnPaginate} />
+          </div>
+        </div>
     );
   }
 });
@@ -123,7 +125,7 @@ var MessageItems = React.createClass({
       return (
         <li className="message-item">
           <div className="message-title" onClick={this.handleClick}>
-            {this.props.message.substring(0, 10) + "..."}
+            {this.props.message.substring(0, 70) + "..."}
           </div>
           <ContentBox message={this.props.message} id={this.props.id}
             handleDelete={this.handleDelete} sender_id={this.props.sender_id} />
@@ -134,14 +136,14 @@ var MessageItems = React.createClass({
       if(this.props.readOrNot) {
         return (
           <li className="message-item">
-            <div className="message-title" onClick={this.handleClick}>{this.props.message.substring(0, 10) + "..."}</div>
+            <div className="message-title" onClick={this.handleClick}>{this.props.message.substring(0, 70) + "..."}</div>
           </li>
         );
       }
       else {
         return (
           <li className="message-item">
-            <span className="mdl-badge message-title" data-badge="new" onClick={this.handleNewClick}>{this.props.message.substring(0, 10) + "..."}</span>
+            <span onClick={this.handleNewClick}>{this.props.message.substring(0, 70) + "..."} <span className="label label-danger">New</span> </span>
           </li>
         );
       }
@@ -156,15 +158,16 @@ var ContentBox = React.createClass({
   render: function() {
     var url = '/messages/new?id='+this.props.sender_id;
     return (
-      <div className="contentBox">
-        {this.props.message}
+      <div className="contentBox clearfix">
+        <div className="content-body">
+            {this.props.message}
+        </div>
         <div className="btn-group">
-          <button className="mdl-button mdl-js-button mdl-js-ripple-effect
-            button mdl-button--primary" onClick={this.handleDelete}>
+          <button className="btn btn-danger btn-sm" onClick={this.handleDelete}>
             삭제하기
           </button>
           <a href={url}>
-            <button className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent">
+            <button className="btn btn-primary btn-sm">
               답장하기
             </button>
           </a>

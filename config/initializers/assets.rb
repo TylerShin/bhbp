@@ -13,3 +13,5 @@ Rails.application.config.assets.precompile += %w( login/login.css )
 Rails.application.config.assets.precompile += %w( profiles/index.css )
 Rails.application.config.assets.precompile += %w( profiles/show.css )
 Rails.application.config.assets.precompile += %w( profiles/new.css )
+Rails.application.config.assets.precompile += %w( profiles/find.css )
+

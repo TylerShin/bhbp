@@ -11,7 +11,7 @@ var PaginatorSection = React.createClass({
         );
       }
       return (
-        <div className="btn-group">{temp}</div>
+        <ul className="pagination">{temp}</ul>
       );
     }
     else {
@@ -29,16 +29,15 @@ var PaginatorLink = React.createClass({
   render: function() {
     if(this.props.currentPage == this.props.pageNumber) {
       return (
-        <button className="mdl-button mdl-js-button mdl-button--primary mdl-js-ripple-effect">
-          {this.props.pageNumber}
-        </button>
+        <li>
+          <a href="#">{this.props.pageNumber}</a>
+        </li>
       );
     }
     return (
-      <button className="mdl-button mdl-js-button mdl-js-ripple-effect"
-        onClick={this._handleOnClick}>
-        {this.props.pageNumber}
-      </button>
+      <li onClick={this._handleOnClick}>
+        <a>{this.props.pageNumber}</a>
+      </li>
     );
   }
 });

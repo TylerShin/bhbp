@@ -13,11 +13,9 @@
               <div class="box-tooltip">
                 <div class="left-float-btn-group clearfix">
                   <%= link_to profile_path(profile) do %>
-                      <button>상세정보</button>
+                      <button>정보(信息)</button>
                   <% end %>
-                  <%= link_to new_message_path(id: profile.user.id) do %>
-                      <button>쪽지</button>
-                  <% end %>
+                  <button data-toggle="modal" data-id=<%= profile.user.id %> data-target="#message">쪽지(注意)</button>
                 </div>
                 <div class="bottom-float-btn-group">
                   <%= link_to profile_path(profile) do %>
@@ -38,6 +36,34 @@
   <%= link_to "", profiles_path(page: 2) %>
 </nav>
 
+
+
+<!-- Modal -->
+<div class="modal fade" id="message" tabindex="-1" role="dialog" aria-labelledby="sendMessageModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">쪽지 보내기(发送信息)</h4>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for @message, url: messages_path, method: :post do |f| %>
+            <%= f.error_notification %>
+            <%= f.input :message, as: :text %>
+            <%= f.hidden_field :receiver_id, value: '' %>
+            <br/>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <%= f.button :submit, '전송(发送)', class: 'btn btn-primary' %>
+
+        <% end %>
+        </div>
+        </div>
+  </div>
+</div>
+<!--masonry 설정-->
 <script>
 	var $container = $('#masonry-container');
 	$container.imagesLoaded(function () {
@@ -48,7 +74,6 @@
 			isFitWidth: true
 		});
 	});
-
 
 	$container.infinitescroll({
 			navSelector: '#page-nav',
@@ -75,7 +100,7 @@
 			});
 		});
 </script>
-
+<!--쉐도우설정-->
 <script type="text/javascript">
 	$('.image-section-wrapper').hover(function () {
 		var kids = $(this).find('.box-tooltip');
@@ -84,4 +109,13 @@
 		var kids = $(this).find('.box-tooltip');
 		kids.css('opacity', 0);
 	});
+</script>
+<!--모달 설정-->
+<script type="text/javascript">
+	$('#message').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget);
+		var recipient = button.data('id');
+		var modal = $(this);
+		modal.find('#message_receiver_id').val(recipient);
+	})
 </script>

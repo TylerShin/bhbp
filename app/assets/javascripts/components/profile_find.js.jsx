@@ -28,7 +28,7 @@ var ProfileFindBox = React.createClass({
                 this.setState({results: profiles});
             }.bind(this),
             error: function () {
-                console.log("Failed to find that terms");
+                console.log("Failed to find");
             }
         });
     },

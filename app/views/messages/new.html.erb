@@ -1,17 +1,14 @@
-<div class="ProfileBox mdl-card mdl-shadow--2dp">
-  <div class="mdl-card__supporting-text">
-    <h4>쪽지보내기</h4>
-  </div>
-  <div class="mdl-card__actions mdl-card--border">
-    <%= simple_form_for @message do |f| %>
+<div class="container">
+  <div class="message-box">
+    <div class="title">
+      <h1>쪽지 보내기(发送信息)</h1>
+    </div>
+  <%= simple_form_for @message do |f| %>
       <%= f.error_notification %>
-      <div class="mdl-textfield mdl-js-textfield">
-        <%= f.input :message, as: :text, label: false, input_html: { class: 'mdl-textfield__input' }, id: 'message-area' %>
-        <label class="mdl-textfield__label" for="message-area">내용을 입력해주십시오.</label>
-      </div>
+        <%= f.input :message, as: :text %>
       <%= f.hidden_field :receiver_id, value: params[:id] %>
-      <br />
+      <br/>
       <%= f.button :submit, '메시지 보내기', class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' %>
-    <% end %>
+  <% end %>
   </div>
 </div>

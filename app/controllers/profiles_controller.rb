@@ -21,6 +21,7 @@ class ProfilesController < ApplicationController
 
     def index
         @profiles = Profile.all.page(params[:page]).per(20)
+        @message = current_user.sending_messages.build
     end
 
     def ownlist
