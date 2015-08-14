@@ -1,41 +1,9 @@
 <%= stylesheet_link_tag 'profiles/index', media: 'all' %>
-<div class="grey-wrapper">
-  <div id="masonry-container" class="transitions-enabled centered infinite-scroll clearfix">
-    <div class="grid-sizer"></div>
-    <% @profiles.each do |profile| %>
-        <div class="profile-box">
-          <div class="box-wrapper">
-            <div class="profile-box-info">
-              <p><%= flag(profile.nation) %> <span class="name"><%= profile.username %></span></p>
-            </div>
-            <ul class="image-section-wrapper">
-              <li><%= image_tag profile.userimage, class: 'profile-image' %></li>
-              <div class="box-tooltip">
-                <div class="left-float-btn-group clearfix">
-                  <%= link_to profile_path(profile) do %>
-                      <button>정보(信息)</button>
-                  <% end %>
-                  <button data-toggle="modal" data-id=<%= profile.user.id %> data-target="#message">쪽지(注意)</button>
-                </div>
-                <div class="bottom-float-btn-group">
-                  <%= link_to profile_path(profile) do %>
-                      <button>상세정보</button>
-                  <% end %>
-                </div>
-              </div>
-            </ul>
-            <div class="profile-box-info-bottom">
-              <p><%= profile.point %> 포인트 남성</p>
-            </div>
-          </div>
-        </div>
-    <% end %>
-  </div>
-</div>
+<div id="content"></div>
 <nav id="page-nav">
   <%= link_to "", profiles_path(page: 2) %>
 </nav>
-
+<%= javascript_include_tag 'profiles_index' %>
 
 
 <!-- Modal -->
@@ -63,43 +31,6 @@
         </div>
   </div>
 </div>
-<!--masonry 설정-->
-<script>
-	var $container = $('#masonry-container');
-	$container.imagesLoaded(function () {
-		$('#masonry-container').masonry({
-			itemSelector: '.profile-box',
-			columnWidth: 250,
-			gutterWidth: 10,
-			isFitWidth: true
-		});
-	});
-
-	$container.infinitescroll({
-			navSelector: '#page-nav',
-			nextSelector: '#page-nav a',
-			itemSelector: '.profile-box',
-			loading: {
-				finishedMsg: 'No more pages to load.',
-				img: 'http://i.imgur.com/6RMhx.gif'
-			}
-		},
-		function (newProfiles) {
-			var $newProfiles = $(newProfiles);
-			$newProfiles.css({opacity: 0});
-			$newProfiles.imagesLoaded(function () {
-				$newProfiles.animate({opacity: 1});
-				$container.masonry('appended', $newProfiles, true);
-				$('.image-section-wrapper').hover(function () {
-					var kids = $(this).find('.box-tooltip');
-					kids.css('opacity', 1);
-				}, function () {
-					var kids = $(this).find('.box-tooltip');
-					kids.css('opacity', 0);
-				});
-			});
-		});
-</script>
 <!--쉐도우설정-->
 <script type="text/javascript">
 	$('.image-section-wrapper').hover(function () {

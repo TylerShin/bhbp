@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :react_profiles
+
   resources :requests, only: [:index] do
     collection do
       get 'ownlist'

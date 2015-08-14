@@ -1,7 +1,9 @@
 .centered { margin: 0 auto; }
+.sub-nav {
+  background-color: #FFFFFF;
+  padding-top: 60px;
+}
 #masonry-container {
-  margin-bottom: 300px;
-  clear: both;
   .profile-box {
     float: left;
     height: auto;
@@ -85,6 +87,9 @@
             }
           }
         }
+      }
+      .box-tooltip:hover {
+        opacity: 1;
       }
     }
     .profile-box-info-bottom {

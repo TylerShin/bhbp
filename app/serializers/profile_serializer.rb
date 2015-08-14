@@ -1,5 +1,5 @@
 class ProfileSerializer < ActiveModel::Serializer
-  attributes :id, :username, :region, :nation, :interest, :intro, :url,
+  attributes :id, :username, :region, :nation, :interest, :intro, :url, :userId,
     :user_image, :point, :nano_user_image, :flag, :chinese_point, :korean_point
 
   def url
@@ -8,6 +8,10 @@ class ProfileSerializer < ActiveModel::Serializer
 
   def user_image
     object.userimage.url
+  end
+
+  def userId
+    object.user.id
   end
 
   def nano_user_image

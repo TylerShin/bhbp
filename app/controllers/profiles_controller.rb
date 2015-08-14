@@ -3,13 +3,6 @@ class ProfilesController < ApplicationController
     before_filter :make_profile, except: [:new, :create, :edit, :update]
 
     def index
-        if user_signed_in?
-            @following = current_user.following.joins(:profile)
-            @profiles = Profile.all.page(params[:page]).per(20)
-        else
-
-            @profiles = Profile.all.page(params[:page]).per(20)
-        end
         @message = current_user.sending_messages.build
     end
 
