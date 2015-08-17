@@ -2,20 +2,18 @@
  *= require_self
  *= require 'masonry/transitions'
  */
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
+@font-face {
+  font-family: "NotoSans";
+  src:font-url('NotoSans-Regular.otf');
+}
 body {
-  font-family: 'Nanum Gothic', sans-serif !important;
+  font-family: "NotoSans", "apple sd gothic neo", "Malgun Gothic", sans-serif !important;
   color: #333333;
 }
-
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-#map {
-  height: 262.5px;
-  width: 262.5px;
-}
 .edit-box {
   padding-top: 100px;
   input {
@@ -55,103 +53,35 @@ body {
 
 
 /* Navbar */
-#header {
-  position: fixed;
-  z-index: 999;
-  top: 0;
-  left: 0;
-  background-color: #ffffff;
-  width: 100%;
-  box-shadow: inset 0px -1px 0px 0px #9B9B9B;
-  .container {
-    width: 1040px !important;
+.navbar {
+  margin-bottom: 0px;
+}
+.navbar-default {
+  background-color: #2F384C;
+  .navbar-brand {
+    color: #FFFFFF;
   }
-  a {
-    color: #404040;
-  }
-  .nav-left {
-    overflow: hidden;
-    float: left;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    vertical-align: baseline;
+  .navbar-nav {
     li {
-      float: left;
-      position: relative;
-      display: inline-block;
-      width: 100px;
-      height: 60px;
-      padding: 19px 7px;
-      text-align: center;
-      font-size: 12px;
-      color: #404040;
-      line-height: 18px;
-      letter-spacing: -0.5px;
-      transition-duration: 0.5s;
-    }
-    li:hover {
-      font-weight: 700;
-      color: #CD1D1F;
-    }
-  }
-  .quick-search {
-    overflow: hidden;
-    display: block;
-    position: absolute;
-    top: 12px;
-    left: 50%;
-    margin: 0;
-    margin-left: -110px;
-    .quick-search-field {
-      width: 290px;
-      height: 36px;
-      border: 2px solid #E7E6E6;
-      box-shadow: inset 0px -2px 0px 0px #747474;
-      border-radius: 7px;
-      font-size: 14px;
-      padding: 0;
-      padding-left: 13px;
-      color: #9F9F9F;
-      line-height: 16px;
-    }
-    .search-result {
-      position: static;
-      float: none;
-      width: 290px;
-      li {
-        color: #000000;
+      a {
+        color: #FFFFFF;
       }
     }
   }
-  .nav-right {
-    overflow: hidden;
-    float: right;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    vertical-align: baseline;
-    li {
-      position: relative;
-      display: inline-block;
-      width: 100px;
-      height: 60px;
-      padding: 19px 7px;
-      text-align: center;
-      font-size: 12px;
-      color: #404040;
-      line-height: 18px;
-      letter-spacing: -0.5px;
-      transition-duration: 0.5s;
-    }
-    li:hover {
-      color: #CD1D1F;
+}
+.quick-search {
+  position: relative;
+  padding: 0;
+}
+
+.dropdown-menu {
+  width: 100%;
+  li {
+    a {
+      color: #333333 !important;
     }
   }
 }
-
 /* basic */
 * {
   -webkit-box-sizing: border-box;
@@ -195,7 +125,7 @@ a:hover {
 .grey-wrapper {
   height: 100%;
   position: relative;
-  background-color: #E9E9E9;
+  margin-top: 30px;
 }
 
 /* Message Inbox */

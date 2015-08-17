@@ -59,7 +59,7 @@
 	var url = '/react_profiles';
 
 	var masonryOptions = {
-	    gutter: 30,
+	    gutter: 20,
 	    transitionDuration: '0.5s',
 	    isFitWidth: true
 	};
@@ -177,6 +177,11 @@
 	        key: 'handleAllListRequest',
 	        value: function handleAllListRequest() {
 	            this.props.handleAllListRequest();
+	        }
+	    }, {
+	        key: 'handleFollowersListRequest',
+	        value: function handleFollowersListRequest() {
+	            this.props.handleFollowersListRequest();
 	        }
 	    }, {
 	        key: 'handleFollowersListRequest',

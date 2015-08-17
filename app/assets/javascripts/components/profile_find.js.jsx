@@ -38,29 +38,30 @@ var ProfileFindBox = React.createClass({
     },
     render: function () {
         return (
-            <div className="profileFindBox">
-                <div className="row">
-                    <div className="container">
-                        <div className="basicConditionBox">
-                            <ul>
-                                <li>회원점수순 </li>
-                                <li>가입일순(최신) </li>
-                                <li>가입일순(오래된) </li>
-                                <li>팔로워순 </li>
-                            </ul>
+            <div className="container">
+                <div className="profileFindBox">
+                    <div className="row">
+                        <div className="container">
+                            <div className="basicConditionBox clearfix">
+                                <ul>
+                                    <li>회원점수순 </li>
+                                    <li>가입일순(최신) </li>
+                                    <li>가입일순(오래된) </li>
+                                    <li>팔로워순 </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-3">
+                            <LeftBox handleSubmit={this.handleSubmit}/>
+                        </div>
+                        <div className="col-md-9">
+                            <RightBox isLoading={this.state.isLoading} results={this.state.results.profiles}/>
                         </div>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col-md-4">
-                        <LeftBox handleSubmit={this.handleSubmit}/>
-                    </div>
-                    <div className="col-md-8">
-                        <RightBox isLoading={this.state.isLoading} results={this.state.results.profiles}/>
-                    </div>
-                </div>
             </div>
-
         );
     }
 });
@@ -73,7 +74,7 @@ var LeftBox = React.createClass({
         return (
             <div className="leftBox">
                 <div className="captionBox">
-                    <h2>원하는 친구를 찾아보세요</h2>
+                    <h2>친구를 찾아보세요</h2>
                     <p>여러분이 몰랐던 인연, 이번 기회에 찾을 수 있지 않을까요?</p>
                     <SearchForm handleSubmit={this.handleSubmit}/>
                 </div>

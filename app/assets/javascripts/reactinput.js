@@ -3,7 +3,7 @@ var MasonryMixin = require('react-masonry-mixin')(React);
 var url = '/react_profiles';
 
 var masonryOptions = {
-   gutter: 30,
+   gutter: 20,
    transitionDuration: '0.5s',
    isFitWidth: true
 };
@@ -96,11 +96,10 @@ class Subnav extends React.Component {
         this.props.handleFollowersListRequest();
     }
 
-    handleFollowersListRequest = (e) => {
+    handleFollowersListRequest() {
         this.props.handleFollowersListRequest();
     }
 
-    handle
     render() {
         return (
             <div className="sub-nav">

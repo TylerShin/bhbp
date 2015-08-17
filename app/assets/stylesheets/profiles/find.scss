@@ -1,5 +1,10 @@
+body {
+  background-color: #eeeeee;
+}
+.col-md-3 {
+  padding: 0;
+}
 .profileFindBox {
-  padding-top: 100px;
   .basicConditionBox {
     text-align: center;
     ul {
@@ -11,9 +16,21 @@
     }
   }
   .leftBox {
+    background-color: #ffffff;
     border: 1px solid #eeeeee;
-    padding: 20px;
+    padding: 15px;
     text-align: center;
+    border-radius: 5px;
+    .captionBox {
+      h2 {
+        font-size: 25px;
+        font-height: 38px;
+      }
+      p {
+        font-size: 12px;
+        font-height: 18px;
+      }
+    }
     .searchForm {
       position: relative;
       left: 50%;
@@ -22,8 +39,7 @@
       -o-transform: translate(-50%, 0%);
       -ms-transform: translate(-50%, 0%);
       transform: translate(-50%, 0%);
-      margin-top: 100px;
-      width: 250px;
+      margin-top: 60px;
       .selected {
         background-color: #F5E157;
       }

@@ -1,40 +1,57 @@
-<div id="header">
+<nav class="navbar navbar-default">
   <div class="container">
-    <ul class="nav-left clearfix">
-      <%= link_to root_path do %>
-          <li>一起친구</li>
-      <% end %>
-      <%= link_to find_profiles_path do %>
-          <li>친구찾기</li>
-      <% end %>
-      <li>질문답변</li>
-      <li>정보창고</li>
-    </ul>
-    <form class="quick-search">
-      <input class="quick-search-field" type="text" name="searchField" placeholder="친구 이름을 검색해보세요."/>
-      <ul class="dropdown-menu search-result"></ul>
-    </form>
-    <ul class="nav-right">
-      <% if user_signed_in? %>
-          <%= link_to messages_path do %>
-              <li>쪽지함</li>
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to "一起친구", root_path, class: 'navbar-brand' %>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <%= link_to find_profiles_path do %>
+              친구찾기 <span class="sr-only">(current)</span>
           <% end %>
-          <% if current_user.profile.nil? %>
-              <%= link_to edit_profile_path(current_user.profile) do %>
-                  <li>정보수정</li>
-              <% end %>
-          <% end %>
-          <%= link_to destroy_user_session_path, method: 'DELETE' do %>
-              <li>Log out</li>
-          <% end %>
-      <% else %>
-          <%= link_to new_user_session_path do %>
-              <li>Log in</li>
-          <% end %>
-      <% end %>
-    </ul>
+        </li>
+        <li><a href="#">질문게시판</a></li>
+        <li><a href="#">정보게시판</a></li>
+      </ul>
+      <form class="navbar-form navbar-left quick-search" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control quick-search-field" name="searchField" placeholder="Search">
+        </div>
+        <ul class="dropdown-menu search-result"></ul>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <%= current_user.email %>
+                <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "쪽지", messages_path %></li>
+                <% if current_user.profile.nil? %>
+                    <li><%= link_to "프로필 수정", edit_profile_path(current_user.profile) %></li>
+                <% end %>
+                <li role="separator" class="divider"></li>
+                <li><%= link_to "로그아웃", destroy_user_session_path, method: 'DELETE' %></li>
+              </ul>
+            </li>
+        <% else %>
+            <li><%= link_to "로그인", new_user_session_path %></li>
+        <% end %>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
   </div>
-</div>
+  <!-- /.container-fluid -->
+</nav>
 
 <script type="text/javascript">
 	$(document).on("keyup", '[name=searchField]', function () {
