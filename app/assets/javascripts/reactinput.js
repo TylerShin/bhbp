@@ -95,6 +95,12 @@ class Subnav extends React.Component {
     handleFollowersListRequest() {
         this.props.handleFollowersListRequest();
     }
+
+    handleFollowersListRequest = (e) => {
+        this.props.handleFollowersListRequest();
+    }
+
+    handle
     render() {
         return (
             <div className="sub-nav">

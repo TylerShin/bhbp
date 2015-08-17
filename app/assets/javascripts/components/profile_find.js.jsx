@@ -3,7 +3,8 @@ var ProfileFindBox = React.createClass({
         return {
             results: {
                 profiles: []
-            }
+            },
+            isLoading: false
         };
     },
     componentDidMount: function () {
@@ -19,13 +20,16 @@ var ProfileFindBox = React.createClass({
         });
     },
     handleSubmit: function (searchWord) {
-        console.log(searchWord);
+        this.setState({isLoading: true});
         $.ajax({
             url: this.props.url,
             data: searchWord,
             datatype: 'json',
             success: function (profiles) {
-                this.setState({results: profiles});
+                this.setState({
+                    results: profiles,
+                    isLoading: false
+                });
             }.bind(this),
             error: function () {
                 console.log("Failed to find");
@@ -52,7 +56,7 @@ var ProfileFindBox = React.createClass({
                         <LeftBox handleSubmit={this.handleSubmit}/>
                     </div>
                     <div className="col-md-8">
-                        <RightBox results={this.state.results.profiles}/>
+                        <RightBox isLoading={this.state.isLoading} results={this.state.results.profiles}/>
                     </div>
                 </div>
             </div>
@@ -183,13 +187,19 @@ var SearchForm = React.createClass({
 
 var RightBox = React.createClass({
     render: function () {
-        var results = this.props.results.map(function (r) {
-            return (
-                <SearchProfileBox image={r.user_image} username={r.username} region={r.region} interest={r.interest}
-                                  intro={r.intro} key={r.id} url={r.url} flag={r.flag} point={r.point}
-                                  nation={r.nation}/>
-            )
-        });
+        if(this.props.isLoading) {
+            var results = <h1>is Loading...</h1>
+        }
+        else {
+            var results = this.props.results.map(function (r) {
+                return (
+                    <SearchProfileBox image={r.user_image} username={r.username} region={r.region} interest={r.interest}
+                                      intro={r.intro} key={r.id} url={r.url} flag={r.flag} point={r.point}
+                                      nation={r.nation}/>
+                );
+            });
+        }
+
         return (
             <div className="rightBox">
                 <div className="box-wrapper">

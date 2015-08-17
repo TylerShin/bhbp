@@ -100,11 +100,15 @@ class ProfilesController < ApplicationController
 
     def search
         if params.has_key?(:search)
-            @search = Profile.where('username LIKE ?', "%#{params[:search]}%").limit(5) if params[:search].length > 0
+            @profiles = Profile.where('username LIKE ?', "%#{params[:search]}%").limit(5) if params[:search].length > 0
         else
-            @search = Profile.where("nation = ? AND gender = ?", params[:nation], params[:gender])
+            @profiles = Profile.all
+            @profiles = @profiles.where("nation LIKE ?", "#{params[:nation]}") if params[:nation]
+            @profiles = @profiles.where("gender LIKE ?", "#{params[:gender]}") if params[:gender]
+            @profiles = @profiles.where("age >= #{params[:minAge]}") if params[:minAge]
+            @profiles = @profiles.where("age <= #{params[:maxAge]}") if params[:maxAge]
         end
-        render json: @search
+        render json: @profiles
     end
 
     def find
