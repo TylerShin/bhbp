@@ -1,0 +1,9 @@
+zh-CN:
+  menu:
+    new_article: "Add an article"
+    find_friend: "找朋友"
+    board: "信息栏"
+    languages:
+      lang: "语言"
+      ko: "朝鲜言"
+      zh-CN: "中国言"

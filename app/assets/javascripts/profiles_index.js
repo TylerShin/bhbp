@@ -57,6 +57,39 @@
 	var MasonryMixin = __webpack_require__(1)(React);
 
 	var url = '/react_profiles';
+	var Lang = {
+	    ko: {
+	        allUsers: "All Users",
+	        followings: "Followings",
+	        followers: 'Followers',
+	        information: "정보",
+	        message: '쪽지'
+	    },
+	    ch: {
+	        allUsers: '全体',
+	        followings: "粉丝",
+	        followers: '支持者',
+	        information: '信息',
+	        message: '便签'
+	    }
+	};
+
+	(function () {
+	    var langSetting = function langSetting() {
+	        var setArray = document.cookie.split('=');
+	        if (setArray[0] === 'educator_locale') {
+	            var curLang = setArray[1];
+	        } else {
+	            var curLang = '';
+	        }
+	        return curLang;
+	    };
+	    if (langSetting() == 'zh-CN') {
+	        window.lang = Lang.ch;
+	    } else {
+	        window.lang = Lang.ko;
+	    }
+	})();
 
 	var masonryOptions = {
 	    gutter: 20,
@@ -206,7 +239,7 @@
 	                            React.createElement(
 	                                'a',
 	                                { href: '#' },
-	                                'All Users'
+	                                lang.allUsers
 	                            )
 	                        ),
 	                        React.createElement(
@@ -215,7 +248,7 @@
 	                            React.createElement(
 	                                'a',
 	                                { href: '#' },
-	                                'Followings'
+	                                lang.followings
 	                            )
 	                        ),
 	                        React.createElement(
@@ -224,7 +257,7 @@
 	                            React.createElement(
 	                                'a',
 	                                { href: '#' },
-	                                'Followers'
+	                                lang.followers
 	                            )
 	                        )
 	                    )
@@ -311,13 +344,13 @@
 	                                    React.createElement(
 	                                        'button',
 	                                        null,
-	                                        '정보(信息)'
+	                                        lang.information
 	                                    )
 	                                ),
 	                                React.createElement(
 	                                    'button',
 	                                    { 'data-toggle': 'modal', 'data-id': this.props.userId, 'data-target': '#message' },
-	                                    '쪽지(注意)'
+	                                    lang.message
 	                                )
 	                            ),
 	                            React.createElement(
@@ -329,7 +362,7 @@
 	                                    React.createElement(
 	                                        'button',
 	                                        null,
-	                                        '상세정보'
+	                                        lang.followers
 	                                    )
 	                                )
 	                            )

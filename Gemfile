@@ -18,7 +18,7 @@ gem 'carrierwave', '~> 0.10.0'
 gem 'fog', '~>1.29.0'
 gem 'mini_magick', '~> 4.2.3'
 gem 'simple_form', '~> 3.1.0'
-gem 'masonry-rails', '~> 0.2.4'
+
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'

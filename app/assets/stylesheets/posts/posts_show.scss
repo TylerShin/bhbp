@@ -1,0 +1,119 @@
+body {
+  background-color: #eee;
+}
+.postBox {
+  background-color: #fff;
+  text-align: center;
+  margin-top: 30px;
+  border: 1px solid #EEEEEE;
+  padding: 20px;
+  h2 {
+    font-weight: 700;
+    line-height: 48px;
+  }
+  p {
+    color: #b3c1c6;
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 30px;
+  }
+  .content {
+    font-size: 14px;
+    line-height: 22px;
+    white-space: pre-line;
+  }
+}
+.commentsBox {
+  background-color: #fff;
+  margin-top: 10px;
+  padding: 20px;
+  border: 1px solid #EEEEEE;
+  .comments-header {
+    margin-bottom: 5px;
+    .header-left {
+      color: #666;
+      float: left;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 21px;
+    }
+    .header-right {
+      float: right;
+      font-size: 12px;
+      line-height: 18px;
+      color: #b3c1c6;
+    }
+  }
+  .commentItemBox {
+    padding: 10px;
+    border-top: 1px solid #F6F6F6;
+    border-bottom: 1px solid #F6F6F6;
+    .img-wrapper {
+      float: left;
+      margin-right: 15px;
+      img {
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+      }
+    }
+    .userinfo {
+      margin-top: 2px;
+      vertical-align: middle;
+      margin-bottom: 3px;
+      .username {
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 700;
+      }
+      .createdAt {
+        color: #b3c1c6;
+        font-size: 13px;
+        line-height: 20px;
+      }
+      .likeBtn {
+        color: #b3c1c6;
+        float: right;
+        vertical-align: middle;
+        font-size: 12px;
+      }
+      .like {
+       color: #CD1F28;
+      }
+    }
+    .comment {
+      font-size: 15px;
+      line-height: 23px;
+      white-space: pre-line;
+    }
+    .deleteBtn {
+      color: #b3c1c6;
+      float: right;
+      cursor: pointer;
+      font-size: 12px;
+    }
+  }
+  .commentForm {
+    padding: 20px 10px;
+    .img-wrapper {
+      float: left;
+      img {
+        vertical-align: middle;
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+      }
+    }
+    .formBox {
+      padding-left: 62px;
+    }
+    .commentBtn {
+      margin-top: 20px;
+      float: right;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root 'static_pages#home'
-
+  get '/change_locale/:locale', to: 'settings#change_locale', as: :change_locale
   devise_for :users
 
   resources :profiles do
@@ -9,6 +9,15 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :posts
+  resources :posts_api, only: [:show] do
+      resources :comments_api, only: [:index, :create, :destroy] do
+        resources :likes_api, only: [:create, :destroy]
+      end
+      collection do
+          get 'free', 'info', 'question'
+      end
+  end
   resources :react_profiles
 
   resources :requests, only: [:index] do

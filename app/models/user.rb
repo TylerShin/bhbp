@@ -14,6 +14,9 @@ class User < ActiveRecord::Base
   has_many :request_receivers, through: :passive_requests, source: :sender
   has_many :sending_messages, class_name: 'Message', foreign_key: 'sender_id', dependent: :destroy
   has_many :receiving_messages, class_name: 'Message', foreign_key: 'receiver_id', dependent: :destroy
+  has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   # Handle Follow
   def follow(other_user)

@@ -1,6 +1,42 @@
 var MasonryMixin = require('react-masonry-mixin')(React);
 
 var url = '/react_profiles';
+const Lang = {
+    ko: {
+        allUsers: "All Users",
+        followings: "Followings",
+        followers: 'Followers',
+        information: "정보",
+        message: '쪽지'
+    },
+    ch: {
+        allUsers: '全体',
+        followings: "粉丝",
+        followers: '支持者',
+        information: '信息',
+        message: '便签'
+    }
+};
+
+(function() {
+    var langSetting = function() {
+        var setArray = document.cookie.split('=');
+        if(setArray[0] === 'educator_locale') {
+            var curLang = setArray[1];
+        }
+        else {
+            var curLang = '';
+        }
+        return curLang
+    };
+    if(langSetting() == 'zh-CN') {
+        window.lang = Lang.ch;
+    }
+    else {
+        window.lang = Lang.ko;
+    }
+
+}());
 
 var masonryOptions = {
    gutter: 20,
@@ -105,9 +141,9 @@ class Subnav extends React.Component {
             <div className="sub-nav">
                 <div className="container">
                     <ul className="nav nav-tabs">
-                        <li role="presentation" onClick={this.handleAllListRequest.bind(this)}><a href="#">All Users</a></li>
-                        <li role="presentation" onClick={this.handleFollowingListRequest.bind(this)}><a href="#">Followings</a></li>
-                        <li role="presentation" onClick={this.handleFollowersListRequest.bind(this)}><a href="#">Followers</a></li>
+                        <li role="presentation" onClick={this.handleAllListRequest.bind(this)}><a href="#">{lang.allUsers}</a></li>
+                        <li role="presentation" onClick={this.handleFollowingListRequest.bind(this)}><a href="#">{lang.followings}</a></li>
+                        <li role="presentation" onClick={this.handleFollowersListRequest.bind(this)}><a href="#">{lang.followers}</a></li>
                     </ul>
                 </div>
             </div>
@@ -153,13 +189,13 @@ class ProfileMasonryBox extends React.Component {
                         <div className="box-tooltip">
                             <div className="left-float-btn-group clearfix">
                                 <a href={this.props.url}>
-                                    <button>정보(信息)</button>
+                                    <button>{lang.information}</button>
                                 </a>
-                                <button data-toggle="modal" data-id={this.props.userId} data-target="#message">쪽지(注意)</button>
+                                <button data-toggle="modal" data-id={this.props.userId} data-target="#message">{lang.message}</button>
                             </div>
                             <div className="bottom-float-btn-group">
                             <a href={this.props.url}>
-                                <button>상세정보</button>
+                                <button>{lang.followers}</button>
                             </a>
                             </div>
                         </div>

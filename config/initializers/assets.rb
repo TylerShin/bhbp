@@ -16,4 +16,5 @@ Rails.application.config.assets.precompile += %w( profiles/index.css )
 Rails.application.config.assets.precompile += %w( profiles/show.css )
 Rails.application.config.assets.precompile += %w( profiles/new.css )
 Rails.application.config.assets.precompile += %w( profiles/find.css )
-
+Rails.application.config.assets.precompile += %w( posts/posts_index.css )
+Rails.application.config.assets.precompile += %w( posts/posts_show.css )

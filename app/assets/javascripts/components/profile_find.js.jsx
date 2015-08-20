@@ -1,3 +1,48 @@
+var Lang = {
+    ko: {
+        findFriend: '친구를 찾아보세요.',
+        findFriendSub: '여러분이 몰랐던 인연, 이번 기회에 찾을 수 있지 않을까요?',
+        gender: '성별',
+        male: '남성',
+        female: '여성',
+        nation: '국가',
+        korea: '한국',
+        china: '중국',
+        age: '연령'
+    },
+    ch: {
+        findFriend: '寻访朋友',
+        findFriendSub: '大家不知道的关系,借此机会,能找到吗?',
+        gender: '性别',
+        male: '男性',
+        female: '女性',
+        nation: '国家',
+        korea: '韩国',
+        china: '中国',
+        age: '年龄'
+    }
+};
+
+(function() {
+    var langSetting = function() {
+        var setArray = document.cookie.split('=');
+        if(setArray[0] === 'educator_locale') {
+            var curLang = setArray[1];
+        }
+        else {
+            var curLang = '';
+        }
+        return curLang
+    };
+    if(langSetting() == 'zh-CN') {
+        window.lang = Lang.ch;
+    }
+    else {
+        window.lang = Lang.ko;
+    }
+
+}());
+
 var ProfileFindBox = React.createClass({
     getInitialState: function () {
         return {
@@ -74,8 +119,8 @@ var LeftBox = React.createClass({
         return (
             <div className="leftBox">
                 <div className="captionBox">
-                    <h2>친구를 찾아보세요</h2>
-                    <p>여러분이 몰랐던 인연, 이번 기회에 찾을 수 있지 않을까요?</p>
+                    <h2>{lang.findFriend}</h2>
+                    <p>{lang.findFriendSub}</p>
                     <SearchForm handleSubmit={this.handleSubmit}/>
                 </div>
             </div>
@@ -143,25 +188,25 @@ var SearchForm = React.createClass({
         return (
             <div className="searchForm">
                 <div className="genderSelect clearfix">
-                    <label>성별</label>
+                    <label>{lang.gender}</label>
                     <button className="btn btn-default left-btn gender"
-                            ref="male" onClick={this.handleMaleClick} value="남성">남성(男)
+                            ref="male" onClick={this.handleMaleClick} value="남성">{lang.male}
                     </button>
                     <button className="btn btn-default right-btn gender"
-                            ref="female" onClick={this.handleFemaleClick} value="여성">여성(女)
+                            ref="female" onClick={this.handleFemaleClick} value="여성">{lang.female}
                     </button>
                 </div>
                 <div className="nationSelect clearfix">
-                    <label>국적</label>
+                    <label>{lang.nation}</label>
                     <button className="btn btn-default left-btn nation" onClick={this.handleKoreaClick}
-                            ref="kor" value="한국">한국(韓國)
+                            ref="kor" value="한국">{lang.korea}
                     </button>
                     <button className="btn btn-default right-btn nation" onClick={this.handleChinaClick}
-                            ref="chi" value="중국">중국(韓國)
+                            ref="chi" value="중국">{lang.china}
                     </button>
                 </div>
                 <div className="ageSelect">
-                    <label>연령</label>
+                    <label>{lang.age}</label>
 
                     <form className="form-inline">
                         <input type="text" ref="min" onKeyUp={this.handleMinKeyup}/>세 ~

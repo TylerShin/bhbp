@@ -1,0 +1,9 @@
+ko:
+  menu:
+    new_article: "Add an article"
+    find_friend: "친구찾기"
+    board: "게시판"
+    languages:
+      lang: "언어"
+      ko: "한국어"
+      zh-CN: "중국어"
