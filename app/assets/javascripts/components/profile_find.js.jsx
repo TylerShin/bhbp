@@ -8,7 +8,9 @@ var Lang = {
         nation: '국가',
         korea: '한국',
         china: '중국',
-        age: '연령'
+        age: '연령',
+        ageUnit: '세',
+        region: '지역'
     },
     ch: {
         findFriend: '寻访朋友',
@@ -19,7 +21,9 @@ var Lang = {
         nation: '国家',
         korea: '韩国',
         china: '中国',
-        age: '年龄'
+        age: '年龄',
+        ageUnit: '岁',
+        region: '地区'
     }
 };
 
@@ -209,12 +213,12 @@ var SearchForm = React.createClass({
                     <label>{lang.age}</label>
 
                     <form className="form-inline">
-                        <input type="text" ref="min" onKeyUp={this.handleMinKeyup}/>세 ~
-                        <input type="text" className="max" ref="max" onKeyUp={this.handleMaxKeyup}/>세
+                        <input type="text" ref="min" onKeyUp={this.handleMinKeyup}/>{lang.ageUnit} ~
+                        <input type="text" className="max" ref="max" onKeyUp={this.handleMaxKeyup}/>{lang.ageUnit}
                     </form>
                 </div>
                 <div className="regionSelect">
-                    <label>선호지역</label>
+                    <label>{lang.region}</label>
                     <select className="form-control">
                         <option>서울</option>
                         <option>경기</option>
