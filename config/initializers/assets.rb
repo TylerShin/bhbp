@@ -9,6 +9,11 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 Rails.application.config.assets.precompile += %w( profiles_index.js )
+Rails.application.config.assets.precompile += %w( components/profile_find.js )
+Rails.application.config.assets.precompile += %w( components/profile_show.js )
+Rails.application.config.assets.precompile += %w( components/posts_index.js )
+Rails.application.config.assets.precompile += %w( components/posts_show.js )
+
 
 Rails.application.config.assets.precompile += %w( static_pages.css )
 Rails.application.config.assets.precompile += %w( login/login.css )

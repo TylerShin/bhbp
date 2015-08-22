@@ -30,13 +30,13 @@ var PaginatorLink = React.createClass({
     if(this.props.currentPage == this.props.pageNumber) {
       return (
         <li>
-          <a href="#">{this.props.pageNumber}</a>
+          <a href='#'>{this.props.pageNumber}</a>
         </li>
       );
     }
     return (
       <li onClick={this._handleOnClick}>
-        <a>{this.props.pageNumber}</a>
+        <a href='#'>{this.props.pageNumber}</a>
       </li>
     );
   }

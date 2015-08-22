@@ -7,11 +7,13 @@
   src:font-url('NotoSans-Regular.otf');
 }
 body {
-  font-family: "Microsoft Yahei", "微软雅黑", STXihei, "华文细黑", "NotoSans", "apple sd gothic neo", "Malgun Gothic", sans-serif !important;
+  font-family: Helvetica, "Microsoft Yahei", "微软雅黑", "华文细黑", "NotoSans", "apple sd gothic neo", "Malgun Gothic", sans-serif !important;
   color: #333333;
 }
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+
 
 .edit-box {
   padding-top: 100px;

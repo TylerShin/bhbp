@@ -52,3 +52,54 @@ body {
     }
   }
 }
+.bestPostsBox {
+  padding: 10px;
+  margin-top: 30px;
+  border-bottom: 1px solid #eeeeee;
+  border-radius: 5px;
+  background-color: #fff;
+  .box-header {
+    border-bottom: 1px solid #eeeeee;
+    text-align: center;
+    h4 {
+      line-height: 27px;
+    }
+  }
+  .postItem {
+    text-align: left;
+    border-bottom: 1px solid #eeeeee;
+    padding: 10px;
+    .title {
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 22px;
+      margin: 0;
+      margin-bottom: 3px;
+      a {
+        color: #333333;
+        text-decoration: none;
+      }
+    }
+    .sub-info {
+      font-size: 12px;
+      color: #b3c1c6;
+      .username {
+        font-weight: 700;
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+.menuBox {
+  ul {
+    margin: 10px 0px;
+    display: block;
+    float: right;
+  }
+  .postBtn {
+    display: block;
+    float: right;
+  }
+
+}
