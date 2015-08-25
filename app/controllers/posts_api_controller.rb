@@ -30,7 +30,7 @@ class PostsApiController < ApplicationController
     end
 
     def best
-      @posts = Post.joins(:likes).group("likes.post_id").order("count(likes.post_id) desc, created_at desc").limit(5)
+      @posts = Post.joins("LEFT OUTER JOIN likes ON posts.id = likes.post_id").select('posts.*, count(likes.post_id) as "post_count"').group('likes.post_id').order('post_count DESC').limit(5)
       render json: @posts
     end
 end
