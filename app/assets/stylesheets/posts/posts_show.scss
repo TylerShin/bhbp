@@ -22,6 +22,28 @@ body {
     line-height: 22px;
     white-space: pre-line;
   }
+  .control-panel {
+    text-align: left;
+    margin: 20px 0px;
+    ul {
+      .panel-menu {
+        color: #b3c1c6;
+        font-size: 12px;
+        line-height: 18px;
+        height: 30px;
+        border: 1px solid #eeeeee;
+        padding: 5px 5px;
+        cursor: pointer;
+        margin-right: 10px;
+        a {
+          color: #b3c1c6;
+        }
+      }
+      .like {
+        color: #CD1F28;
+      }
+    }
+  }
 }
 .commentsBox {
   background-color: #fff;

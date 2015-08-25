@@ -134,8 +134,6 @@ class PostIndex extends React.Component {
     }
 }
 
-
-
 class BestPostsBox extends React.Component {
     constructor(props) {
         super(props);
@@ -162,7 +160,6 @@ class BestPostsBox extends React.Component {
     }
     render() {
         var tempArray = this.state.posts.map((post, index) => {
-            console.log(post);
             return (
                 <div className='postItem' key={index}>
                     <p className='title'><a href={post.postPath}>{post.title}</a></p>
@@ -184,7 +181,6 @@ class BestPostsBox extends React.Component {
     }
 }
 
-
 class SubHeader extends React.Component {
     render() {
         return (
@@ -204,7 +200,7 @@ class ForumBox extends React.Component {
             return (
                 <div className="postBox clearfix" key={index}>
                     <img src={post.userImage} />
-                    <span className="postInfo"><a href={post.postPath} className="title">{post.title}</a> <strong>5개</strong>{lang.comment} , <strong>7</strong>{lang.like} <button className="btn btn-default btn-xs category">{post.category}</button></span>
+                    <span className="postInfo"><a href={post.postPath} className="title">{post.title}</a> <strong>{post.commentCount}</strong> {lang.comment} , <strong>{post.likesCount}</strong>{lang.like} </span>
                     <p className="subInfo"><span className="username">{post.username}</span> <span className="created-at">{moment(post.created_at).fromNow()}</span></p>
                 </div>
             );

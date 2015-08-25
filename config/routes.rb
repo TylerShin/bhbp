@@ -11,12 +11,13 @@ Rails.application.routes.draw do
 
   resources :posts
   resources :posts_api, only: [:show] do
-      resources :comments_api, only: [:index, :create, :destroy] do
-        resources :likes_api, only: [:create, :destroy]
-      end
-      collection do
-          get 'free', 'info', 'question', 'intro','best'
-      end
+    resources :post_likes_api, only: [:create, :destroy]
+    resources :comments_api, only: [:index, :create, :destroy] do
+      resources :likes_api, only: [:create, :destroy]
+    end
+    collection do
+        get 'free', 'info', 'question', 'intro','best'
+    end
   end
   resources :react_profiles
 

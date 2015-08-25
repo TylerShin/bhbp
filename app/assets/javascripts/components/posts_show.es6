@@ -7,18 +7,20 @@ const Lang = {
         delete: '삭제',
         alignNew: '최신순',
         alignLike: '좋아요순',
-        newComment: '댓글작성'
+        newComment: '댓글작성',
+        share: '공유하기'
 
     },
     ch: {
         comment: '回帖',
         count: '个',
-        makeComment: '留下吧',
+        makeComment: '留下意见吧',
         like: '好啊',
         delete: '删除',
         alignNew: '制作顺序',
         alignLike: '好啊顺序',
-        newComment: '回帖制作'
+        newComment: '回帖制作',
+        share: '分享'
     }
 };
 
@@ -66,13 +68,47 @@ class PostsShowBox extends React.Component {
       }
     });
   }
+  handleLikeClick() {
+    this.setState({ isLoading: true });
+    $.ajax({
+      url: `/posts_api/${this.props.id}/post_likes_api`,
+      method: 'POST',
+      dataType: 'json',
+      success: function(res) {
+        this.setState({
+          post: res.post,
+          isLoading: false
+        });
+      }.bind(this),
+      error: function() {
+        alert("Post 좋아요 등록에 실패했습니다. 네트워트 환경을 확인해주세요.")
+      }
+    });
+  }
+  handleDeleteLikeClick() {
+    this.setState({ isLoading: true });
+    $.ajax({
+      url: `/posts_api/${this.props.id}/post_likes_api/${this.state.post.myLikeId}`,
+      method: 'DELETE',
+      dataType: 'json',
+      success: function(res) {
+        this.setState({
+          post: res.post,
+          isLoading: false
+        });
+      }.bind(this),
+      error: function() {
+        alert("Post 좋아요 등록에 실패했습니다. 네트워트 환경을 확인해주세요.")
+      }
+    });
+  }
   render() {
     return (
       <div>
         <div className="container">
           <div className='row'>
             <div className="col-md-8 col-md-offset-2">
-              <PostBox post={this.state.post} />
+              <PostBox post={this.state.post} handleLikeClick={this.handleLikeClick.bind(this)} handleDeleteLikeClick={this.handleDeleteLikeClick.bind(this) } />
               <CommentsBox postId={this.props.id} userImage={this.state.post.currentUserImage} />
             </div>
           </div>
@@ -83,16 +119,41 @@ class PostsShowBox extends React.Component {
 }
 
 class PostBox extends React.Component {
+  handleLikeClick() {
+    this.props.handleLikeClick();
+  }
+  handleDeleteLikeClick() {
+    this.props.handleDeleteLikeClick();
+  }
   render() {
+    if(this.props.post.likeOrNot) {
+      var likeBtn = <li className="like panel-menu" onClick={this.handleDeleteLikeClick.bind(this)}>{lang.like} {this.props.post.likesCount}</li>
+    }
+    else {
+      var likeBtn = <li className="panel-menu" onClick={this.handleLikeClick.bind(this)}>{lang.like} {this.props.post.likesCount}</li>
+    }
+    var facebookUrl = `http://www.facebook.com/sharer/sharer.php?u=http://1779n.com/posts/${this.props.post.id}`;
+    var twitterUrl = `https://twitter.com/intent/tweet?text=${this.props.post.title}&url=http://1779n.com/posts/${this.props.post.id}`;
+
     return (
-      <div>
-        <div className="postBox">
-          <div className="post-header">
-            <h2 className="title">{this.props.post.title}</h2>
-            <p>{this.props.post.username} {moment(this.props.post.created_at).fromNow()}</p>
-          </div>
-          <div className="content" dangerouslySetInnerHTML={{
-            __html: this.props.post.content }} />
+      <div className="postBox">
+        <div className="post-header">
+          <h2 className="title">{this.props.post.title}</h2>
+          <p>{this.props.post.username} {moment(this.props.post.created_at).fromNow()}</p>
+        </div>
+        <div className="content" dangerouslySetInnerHTML={{
+          __html: this.props.post.content }} />
+        <div className="control-panel">
+          <ul className="list-inline">
+            {likeBtn}
+            <li className="dropdown panel-menu">
+              <a className="dropdown-toggle" data-toggle="dropdown" href="#">{lang.share} <span className="caret"></span></a>
+              <ul className="dropdown-menu">
+                <li><a href={facebookUrl}>FaceBook</a></li>
+                <li><a href={twitterUrl}>Twitter</a></li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </div>
     );
@@ -238,34 +299,34 @@ class CommentsBox extends React.Component {
 
 
 class CommentForm extends React.Component {
-    handleSubmit(e) {
-        e.preventDefault();
-        var comment = React.findDOMNode(this.refs.commentInput).value.trim();
-        if (comment.length > 5 ) {
-          this.props.handleCommentSubmit(comment);
-          // Initialize Form
-          React.findDOMNode(this.refs.commentInput).value = '';
-        }
-        else {
-          // client validation
-          alert("코멘트는 다섯 글자 이상 작성하야아 합니다!");
-        }
-    }
-    render() {
-        return (
-          <div className="commentForm">
-            <div className="inputWrapper clearfix">
-              <div className='img-wrapper'>
-                <img src={this.props.userImage} />
-              </div>
-              <form onSubmit={this.handleSubmit.bind(this)}>
-                <div className="formBox">
-                  <textarea className="form-control" ref="commentInput" placeholder={lang.makeComment} rows="2"></textarea>
-                </div>
-                <input type="submit" className="btn btn-default commentBtn" value={lang.newComment} />
-              </form>
-            </div>
+  handleSubmit(e) {
+      e.preventDefault();
+      var comment = React.findDOMNode(this.refs.commentInput).value.trim();
+      if (comment.length > 5 ) {
+        this.props.handleCommentSubmit(comment);
+        // Initialize Form
+        React.findDOMNode(this.refs.commentInput).value = '';
+      }
+      else {
+        // client validation
+        alert("코멘트는 다섯 글자 이상 작성하야아 합니다!");
+      }
+  }
+  render() {
+    return (
+      <div className="commentForm">
+        <div className="inputWrapper clearfix">
+          <div className='img-wrapper'>
+            <img src={this.props.userImage} />
           </div>
-        );
-    }
+          <form onSubmit={this.handleSubmit.bind(this)}>
+            <div className="formBox">
+              <textarea className="form-control" ref="commentInput" placeholder={lang.makeComment} rows="2"></textarea>
+            </div>
+            <input type="submit" className="btn btn-default commentBtn" value={lang.newComment} />
+          </form>
+        </div>
+      </div>
+    );
+  }
 }
