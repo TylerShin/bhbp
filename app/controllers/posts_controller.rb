@@ -10,7 +10,7 @@ class PostsController < ApplicationController
     def create
       @post = current_user.posts.build(post_params)
       if @post.save
-        redirect_to :back
+        redirect_to posts_path
       else
         render 'new'
       end

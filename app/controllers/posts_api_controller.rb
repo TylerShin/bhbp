@@ -24,6 +24,11 @@ class PostsApiController < ApplicationController
         render json: @posts
     end
 
+    def intro
+      @posts = Post.where(table: 'intro').page(params[:page]).per(10)
+        render json: @posts
+    end
+
     def best
       @posts = Post.all
       render json: @posts

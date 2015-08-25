@@ -15,7 +15,7 @@ Rails.application.routes.draw do
         resources :likes_api, only: [:create, :destroy]
       end
       collection do
-          get 'free', 'info', 'question', 'best'
+          get 'free', 'info', 'question', 'intro','best'
       end
   end
   resources :react_profiles

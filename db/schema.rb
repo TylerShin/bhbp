@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20150819032435) do
 
   create_table "profiles", force: :cascade do |t|
     t.integer  "user_id",       limit: 4
-    t.string   "username",      limit: 255, default: "이름없음"
+    t.string   "username",      limit: 255
     t.string   "region",        limit: 255
     t.string   "nation",        limit: 255
     t.string   "interest",      limit: 255, default: "등록된 관심사가 없습니다."

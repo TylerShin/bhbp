@@ -1,3 +1,47 @@
+const Lang = {
+    ko: {
+        comment: '댓글',
+        count: '개',
+        makeComment: '의견을 남겨보세요.',
+        like: '좋아요',
+        delete: '삭제',
+        alignNew: '최신순',
+        alignLike: '좋아요순',
+        newComment: '댓글작성'
+
+    },
+    ch: {
+        comment: '回帖',
+        count: '个',
+        makeComment: '留下吧',
+        like: '好啊',
+        delete: '删除',
+        alignNew: '制作顺序',
+        alignLike: '好啊顺序',
+        newComment: '回帖制作'
+    }
+};
+
+(function() {
+        function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1);
+            if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+        }
+        return "";
+    }
+    if(getCookie('educator_locale') === 'zh-CN') {
+        window.lang = Lang.ch;
+    }
+    else {
+        window.lang = Lang.ko;
+    }
+
+}());
+
 class PostsShowBox extends React.Component {
   constructor(props) {
     super(props);
@@ -142,19 +186,19 @@ class CommentsBox extends React.Component {
   }
   render() {
     var list = this.state.comments.map((comment, index) => {
-      var deleteBtn = (comment.mine) ? <span className="deleteBtn" onClick={this.handleDeleteSubmit.bind(this, comment.id)}>삭제</span> : '';
+      var deleteBtn = (comment.mine) ? <span className="deleteBtn" onClick={this.handleDeleteSubmit.bind(this, comment.id)}>{lang.delete}</span> : '';
       if (comment.likes === 0 ) {
         // 첫 좋아요 누르게 시킬 것
-        var likeBtn = <span className="likeBtn" onClick={this.handleLikeSubmit.bind(this, comment.id)}>좋아요</span>
+        var likeBtn = <span className="likeBtn" onClick={this.handleLikeSubmit.bind(this, comment.id)}>{lang.like}</span>
       }
       else {
         if(comment.likeOrNot) {
           // 클릭시 좋아요 취소
-          var likeBtn = <span className="likeBtn like" onClick={this.handleLikeDeleteSubmit.bind(this, comment.id, comment.myLikeId)}>좋아요 {comment.likes}개</span>
+          var likeBtn = <span className="likeBtn like" onClick={this.handleLikeDeleteSubmit.bind(this, comment.id, comment.myLikeId)}>{lang.like} {comment.likes}{lang.count}</span>
         }
         else {
           // 클릭시 좋아요
-          var likeBtn = <span className="likeBtn" onClick={this.handleLikeSubmit.bind(this, comment.id)}>좋아요 {comment.likes}개</span>
+          var likeBtn = <span className="likeBtn" onClick={this.handleLikeSubmit.bind(this, comment.id)}>{lang.like} {comment.likes}{lang.count}</span>
         }
       }
 
@@ -177,11 +221,11 @@ class CommentsBox extends React.Component {
       <div className="commentsBox">
         <div className="comments-header clearfix">
           <div className="header-left">
-            댓글(评论) {this.state.comments.length}개(个)
+            {lang.comment} {this.state.comments.length}{lang.count}
           </div>
           <ul className="header-right list-inline">
-            <li>최신순(最新令)</li>
-            <li>좋아요순(如令)</li>
+            <li>{lang.alignNew}</li>
+            <li>{lang.alignLike}</li>
           </ul>
         </div>
         {list}
@@ -216,9 +260,9 @@ class CommentForm extends React.Component {
               </div>
               <form onSubmit={this.handleSubmit.bind(this)}>
                 <div className="formBox">
-                  <textarea className="form-control" ref="commentInput" placeholder="의견을 남겨보세요." rows="2"></textarea>
+                  <textarea className="form-control" ref="commentInput" placeholder={lang.makeComment} rows="2"></textarea>
                 </div>
-                <input type="submit" className="btn btn-default commentBtn" value="글쓰기" />
+                <input type="submit" className="btn btn-default commentBtn" value={lang.newComment} />
               </form>
             </div>
           </div>

@@ -192,7 +192,7 @@ class SubHeader extends React.Component {
                 <li><a href="#" onClick={this.props.changeTable.bind(this, "free")}>{lang.freeBoard}</a></li>
                 <li><a href="#" onClick={this.props.changeTable.bind(this, "question")}>{lang.questionBoardd}</a></li>
                 <li><a href="#" onClick={this.props.changeTable.bind(this, "info")}>{lang.infoBoard}</a></li>
-                <li><a href="#" onClick={this.props.changeTable.bind(this, "free")}>{lang.introduceBoard}</a></li>
+                <li><a href="#" onClick={this.props.changeTable.bind(this, "intro")}>{lang.introduceBoard}</a></li>
             </ul>
         );
     }
