@@ -64,6 +64,13 @@ body {
       font-size: 12px;
       line-height: 18px;
       color: #b3c1c6;
+      li {
+        cursor: pointer;
+      }
+      .strong {
+        font-weight: 700;
+        color: #444444;
+      }
     }
   }
   .commentItemBox {

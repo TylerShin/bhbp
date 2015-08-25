@@ -166,7 +166,8 @@ class CommentsBox extends React.Component {
     this.state = {
       comments: [],
       isLoading: false,
-    }
+      commentOrder: 'created',
+    };
   }
   componentDidMount() {
     this.setState({ isLoading: true });
@@ -177,6 +178,40 @@ class CommentsBox extends React.Component {
         this.setState({
           comments: res.comments_api,
           isLoading: false,
+        });
+      }.bind(this),
+      error: function() {
+        alert("댓글 정보를 받아오는데 실패했습니다. 네트워크 연결 상태를 확인해주세요.");
+      }
+    });
+  }
+  handleAlignNewClick() {
+    this.setState({ isLoading: true });
+    $.ajax({
+      url: `/posts_api/${this.props.postId}/comments_api`,
+      dataType: 'json',
+      success: function(res) {
+        this.setState({
+          comments: res.comments_api,
+          isLoading: false,
+          commentOrder: 'created',
+        });
+      }.bind(this),
+      error: function() {
+        alert("댓글 정보를 받아오는데 실패했습니다. 네트워크 연결 상태를 확인해주세요.");
+      }
+    });
+  }
+  handleAlignLikeClick() {
+    this.setState({ isLoading: true });
+    $.ajax({
+      url: `/posts_api/${this.props.postId}/comments_api/likesOrder`,
+      dataType: 'json',
+      success: function(res) {
+        this.setState({
+          comments: res.comments_api,
+          isLoading: false,
+          commentOrder: 'likes',
         });
       }.bind(this),
       error: function() {
@@ -262,7 +297,6 @@ class CommentsBox extends React.Component {
           var likeBtn = <span className="likeBtn" onClick={this.handleLikeSubmit.bind(this, comment.id)}>{lang.like} {comment.likes}{lang.count}</span>
         }
       }
-
       return (
         <div className="commentItemBox" key={index}>
           <div className="box-wrapper clearfix">
@@ -278,6 +312,14 @@ class CommentsBox extends React.Component {
         </div>
       );
     });
+    if(this.state.commentOrder === 'created') {
+      var alignNew = 'strong';
+      var alignLike = '';
+    }
+    else {
+      var alignNew = '';
+      var alignLike = 'strong'; 
+    }
     return (
       <div className="commentsBox">
         <div className="comments-header clearfix">
@@ -285,8 +327,8 @@ class CommentsBox extends React.Component {
             {lang.comment} {this.state.comments.length}{lang.count}
           </div>
           <ul className="header-right list-inline">
-            <li>{lang.alignNew}</li>
-            <li>{lang.alignLike}</li>
+            <li onClick={this.handleAlignNewClick.bind(this)} className={alignNew}>{lang.alignNew}</li>
+            <li onClick={this.handleAlignLikeClick.bind(this)} className={alignLike}>{lang.alignLike}</li>
           </ul>
         </div>
         {list}

@@ -17,4 +17,9 @@ class CommentsApiController < ApplicationController
     @comments = Comment.where(post_id: params[:posts_api_id])
     render json: @comments
   end
+
+  def likesOrder
+    @comments = Comment.joins(:likes).where(post_id: params[:posts_api_id]).select('comments.*, count(likes.comment_id) as "comment_count"').group('likes.comment_id').order("comment_count DESC")
+    render json: @comments
+  end
 end
