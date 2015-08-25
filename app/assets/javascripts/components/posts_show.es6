@@ -14,7 +14,7 @@ const Lang = {
     ch: {
         comment: '回帖',
         count: '个',
-        makeComment: '留下意见吧',
+        makeComment: '随便说点什么吧',
         like: '好啊',
         delete: '删除',
         alignNew: '制作顺序',
