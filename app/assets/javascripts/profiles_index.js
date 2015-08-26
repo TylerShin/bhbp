@@ -305,6 +305,7 @@
 	    _createClass(ProfileMasonryBox, [{
 	        key: 'render',
 	        value: function render() {
+	            console.log(this.props);
 	            return React.createElement(
 	                'div',
 	                { className: 'profile-box' },
@@ -317,7 +318,12 @@
 	                        React.createElement(
 	                            'p',
 	                            null,
-	                            this.props.nation,
+	                            React.createElement(
+	                                'span',
+	                                { className: 'nation' },
+	                                this.props.nation,
+	                                ' '
+	                            ),
 	                            React.createElement(
 	                                'span',
 	                                { className: 'name' },
@@ -376,7 +382,7 @@
 	                            'p',
 	                            null,
 	                            this.props.point,
-	                            ' 포인트 남성'
+	                            ' 포인트'
 	                        )
 	                    )
 	                )

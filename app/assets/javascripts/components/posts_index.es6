@@ -15,8 +15,8 @@ const Lang = {
         infoBoard: '信息公告栏',
         introduceBoard: '自我介绍',
         postBtn: '写作',
-        comment: '回帖',
-        like: '人喜欢',
+        comment: '阅读',
+        like: '好文',
         bestPosts: '最受欢迎的文章'
     }
 };
@@ -166,6 +166,7 @@ class BestPostsBox extends React.Component {
                     <p className='sub-info'>
                         <a href={post.profileUrl}><span className='username'>{post.username}</span></a>
                         <span className='createdAt'>{moment(post.created_at).fromNow()}</span>
+                        <span>{lang.comment} {post.likesCount}</span>
                     </p>
                 </div>
             );

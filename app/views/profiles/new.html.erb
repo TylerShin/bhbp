@@ -1,25 +1,56 @@
 <%= stylesheet_link_tag 'profiles/new', media: 'all' %>
 <div class="container">
-  <div class="new-profile-box">
-    <div class="col-md-6 col-md-offset-3">
-      <div class="box-header">
-        <h2>아직 프로필을 등록하지 않으셨군요?</h2>
-
-        <h3>一起친구의 서비스는 프로필을 등록하신 뒤 사용하실 수 있습니다.</h3>
-      </div>
+  <div class="col-md-8 col-md-offset-2">
+    <div class="new-profile-box clearfix">
       <%= simple_form_for(@profile, url: profiles_path, method: 'POST') do |f| %>
-          <%= f.input :username %>
-          <%= f.input :nation, as: :select, collection: [:한국, :중국],
-                      prompt: "국적을 선택하세요.", html: {class: "form-control"} %>
-          <%= f.input :gender, as: :select, collection: [:남성, :여성],
-                      prompt: "성별을 선택하세요.", html: {class: "form-control"} %>
-          <%= f.input :region %>
-          <%= f.input :age, as: :select, collection: 1..100, prompt: "나이를 선택하세요.", html: {class: "form-control"} %>
-          <%= f.input :interest %>
-          <%= f.input :intro %>
-          <%= f.input :userimage %>
-          <%= f.button :submit %>
+          <div class="row">
+            <div class="box-title">
+              <h2><%= t('profile.profileSubmit')%></h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="left-box">
+                <div class="img-wrapper">
+                  <%= image_tag @profile.userimage.url.to_s, id: 'img_prev' %>
+                </div>
+                <%= f.input :userimage, label: "프로필 파일 선택", input_html: {onchange: "readURL(this)"} %>
+                <div class="caption">
+                  프로필 사진은 되도록 1:1 비율을 지켜주세요. 다른 비율인 경우 업로드시 1:1 비율로 변환됩니다.
+                </div>
+                <%= f.input :username, label: t('profile.nickname') %>
+                <%= f.input :region, label: t('profile.region') %>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <%= f.input :nation, label: t('profile.nation'), as: :select, collection: [:한국, :중국],
+                          prompt: "국적을 선택하세요.", html: {class: "form-control"} %>
+              <%= f.input :gender, label: t('profile.gender'), as: :select, collection: [:남성, :여성],
+                          prompt: "성별을 선택하세요.", html: {class: "form-control"} %>
+              <%= f.input :age, label: t('profile.age'), as: :select, collection: 1..100, prompt: "나이를 선택하세요.", html: {class: "form-control"} %>
+              <%= f.input :chinese_point, label: t('profile.chinesePoint'), as: :select, collection: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], prompt: "나이를 선택하세요.", html: {class: "form-control"} %>
+              <%= f.input :korean_point, label: t('profile.koreanPoint'), as: :select, collection: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], prompt: "나이를 선택하세요.", html: {class: "form-control"} %>
+              <%= f.input :interest, label: t('profile.interest') %>
+              <%= f.input :intro, label: t('profile.intro') %>
+            </div>
+          </div>
+          <%= f.button :submit, t('profile.submitBtn'), class: "btn btn-primary pull-right" %>
       <% end %>
     </div>
   </div>
 </div>
+
+<!--upload image input-->
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#img_prev')
+                        .attr('src', e.target.result)
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

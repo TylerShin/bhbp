@@ -12,10 +12,10 @@ const Lang = {
 
     },
     ch: {
-        comment: '回帖',
+        comment: '阅读',
         count: '个',
         makeComment: '随便说点什么吧',
-        like: '好啊',
+        like: '好文',
         delete: '删除',
         alignNew: '制作顺序',
         alignLike: '好啊顺序',
@@ -318,7 +318,7 @@ class CommentsBox extends React.Component {
     }
     else {
       var alignNew = '';
-      var alignLike = 'strong'; 
+      var alignLike = 'strong';
     }
     return (
       <div className="commentsBox">

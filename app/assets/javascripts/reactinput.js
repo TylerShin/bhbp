@@ -173,15 +173,13 @@ var ProfilesMasonry = React.createClass({
 
 class ProfileMasonryBox extends React.Component {
     render() {
+        console.log(this.props);
         return (
             <div className="profile-box">
                 <div className="box-wrapper">
                     <div className="profile-box-info">
                         <p>
-                            {this.props.nation}
-                            <span className="name">
-                                {this.props.username}
-                            </span>
+                            <span className="nation">{this.props.nation} </span><span className="name">{this.props.username}</span>
                         </p>
                     </div>
                     <ul className="image-section-wrapper">
@@ -201,7 +199,7 @@ class ProfileMasonryBox extends React.Component {
                         </div>
                     </ul>
                     <div className="profile-box-info-bottom">
-                        <p>{this.props.point} 포인트 남성</p>
+                        <p>{this.props.point} 포인트</p>
                     </div>
                 </div>
             </div>

@@ -17,16 +17,21 @@ body {
     background: #FFFFFF;
     border: 1px solid;
     border-color: #e5e6e9 #dfe0e4 #d0d1d5;
-    border-radius: 15px;
+    border-radius: 4px;
     margin-bottom: 20px;
     .profile-box-info {
       padding: 10px;
       p {
         margin: 0;
+        .nation {
+          color: #b3c1c6;
+          font-size: 12px;
+          line-height: 18px;
+        }
         .name {
           color: #333333;
-          line-height: 17px;
-          font-size: 13px;
+          line-height: 21px;
+          font-size: 14px;
           font-weight: 700;
           margin-left: 5px;
         }
@@ -55,7 +60,7 @@ body {
         height: 100%;
         background: rgba(0, 0, 0, 0.4);
         color: #ffffff;
-        transition-duration: 1s;
+        transition-duration: 0.5s;
         .left-float-btn-group {
           float: left;
           margin: 10px 0px 0px 10px;
@@ -66,13 +71,11 @@ body {
           button {
             width: 75px;
             height: 27px;
-            background: #FB2849;
-            border: 1px solid #B91C1E;
-            border-radius: 15px;
+            border: 1px solid #8694be;
             font-size: 12px;
             line-height: 18px;
             border-radius: 5px;
-            background-color: #CD1D1F;
+            background-color: #b1c6ff;
           }
         }
         .bottom-float-btn-group {
@@ -81,7 +84,7 @@ body {
           bottom: 20px;
           button {
             background: transparent;
-            border: 1px solid #CD1D1F;
+            border: 1px solid #7689c4;
             border-radius: 15px;
             font-size: 12px;
             color: #FFFFFF;
@@ -99,7 +102,15 @@ body {
       }
     }
     .profile-box-info-bottom {
-      margin: 10px 0px 10px 10px;
+      p {
+        margin: 0;
+      }
+      border-radius: 4px;
+      background-color: #fafafa;
+      color: #b3c1c6;
+      font-size: 12px;
+      line-height: 18px;
+      padding: 10px;
     }
   }
 }
@@ -116,6 +127,6 @@ body {
   opacity: 0.8;
   color: #FFF;
   -webkit-border-radius: 10px;
-     -moz-border-radius: 10px;
-          border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
 }
