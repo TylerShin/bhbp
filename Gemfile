@@ -16,6 +16,7 @@ gem 'kaminari', '~> 0.16.3'
 gem 'active_model_serializers', '~> 0.9.3'
 gem 'carrierwave', '~> 0.10.0'
 gem 'fog', '~>1.29.0'
+gem 'font-awesome-rails', '~> 4.4.0.0'
 gem 'mini_magick', '~> 4.2.3'
 gem 'simple_form', '~> 3.1.0'
 

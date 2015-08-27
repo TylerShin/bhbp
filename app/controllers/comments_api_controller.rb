@@ -6,14 +6,24 @@ class CommentsApiController < ApplicationController
 
   def create
     @comment = current_user.comments.build(post_id: params[:posts_api_id], comment: params[:comment])
-    @comment.save!
+    if @comment.save!
+      # Make notification to receiver
+      unless Post.find(params[:posts_api_id]).user === current_user
+        @comment.send_noti(params[:posts_api_id], current_user.id, Post.find(params[:posts_api_id]).user.id)
+      end
+    end
     @comments = Comment.where(post_id: params[:posts_api_id])
     render json: @comments
   end
 
   def destroy
     @comment = Comment.find_by(post_id: params[:posts_api_id], id: params[:id])
-    @comment.destroy!
+    if @comment.destroy!
+      # Delete notification to receiver
+      unless Post.find(params[:posts_api_id]).user === current_user
+        @comment.undo_noti(params[:posts_api_id], current_user.id, Post.find(params[:posts_api_id]).user.id)
+      end
+    end
     @comments = Comment.where(post_id: params[:posts_api_id])
     render json: @comments
   end

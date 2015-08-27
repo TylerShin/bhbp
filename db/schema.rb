@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150819032435) do
+ActiveRecord::Schema.define(version: 20150827074053) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -41,6 +41,20 @@ ActiveRecord::Schema.define(version: 20150819032435) do
   add_index "messages", ["receiver_id"], name: "index_messages_on_receiver_id", using: :btree
   add_index "messages", ["sender_id", "receiver_id"], name: "index_messages_on_sender_id_and_receiver_id", using: :btree
   add_index "messages", ["sender_id"], name: "index_messages_on_sender_id", using: :btree
+
+  create_table "notifications", force: :cascade do |t|
+    t.string   "noti_type",   limit: 255
+    t.integer  "post_id",     limit: 4
+    t.integer  "request_id",  limit: 4
+    t.integer  "comment_id",  limit: 4
+    t.integer  "like_id",     limit: 4
+    t.integer  "message_id",  limit: 4
+    t.integer  "receiver_id", limit: 4
+    t.integer  "sender_id",   limit: 4
+    t.boolean  "read_or_not", limit: 1,   default: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+  end
 
   create_table "posts", force: :cascade do |t|
     t.string   "table",      limit: 255

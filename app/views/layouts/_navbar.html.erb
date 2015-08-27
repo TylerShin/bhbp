@@ -30,6 +30,14 @@
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
             <li class="dropdown">
+              <a class="dropdown-toggle alarm-dropdown" data-toggle="dropdown" href="#">
+                <%= fa_icon "bell" %><span class="notReadCounter"><%= current_user.count_unread_noti %></span>
+              </a>
+              <ul class="dropdown-menu noti-dropdown" role="menu">
+                <%= render 'layouts/notification' %>
+              </ul>
+            </li>
+            <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <%= t('menu.languages.lang') %>
                 <span class="caret"></span>
@@ -90,4 +98,17 @@
 			}
 		});
 	});
+    $(document).on("click", '.alarm-dropdown', function() {
+        $('.notReadCounter').hide();
+        $.ajax({
+            url: "/notifications/read",
+            dataType: 'json',
+            success: function(res) {
+                $('.notReadCounter').hide();
+            },
+            error: function() {
+                console.log("Alarm Update Error!!")
+            }
+        });
+    });
 </script>

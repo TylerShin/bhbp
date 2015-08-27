@@ -17,14 +17,23 @@ class User < ActiveRecord::Base
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :notifications, foreign_key: 'receiver_id', dependent: :destroy
 
   # Handle Follow
   def follow(other_user)
     active_relationships.create(followed_id: other_user.id)
+    if Notification.find_by(noti_type: "follow", sender_id: self.id, receiver_id: other_user.id).nil?
+      @noti = Notification.new(noti_type: "follow", sender_id: self.id, receiver_id: other_user.id)
+      @noti.save!
+    end
   end
 
   def unfollow(other_user)
     active_relationships.find_by(followed_id: other_user.id).destroy
+    unless Notification.find_by(noti_type: "follow", sender_id: self.id, receiver_id: other_user.id).nil?
+      @noti = Notification.find_by(noti_type: "follow", sender_id: self.id, receiver_id: other_user.id)
+      @noti.destroy!
+    end
   end
 
   def following?(other_user)
@@ -47,7 +56,17 @@ class User < ActiveRecord::Base
   def process?(other_user)
     active_requests.find_by(receiver_id: other_user.id).accepted
   end
-  # Handle request END
+
+  # Count un-read notifications
+  def count_unread_noti
+    notifications.where(read_or_not: false).length
+  end
+  # Read Notifications(Update un-read notifications to read)
+  def read_noti
+    notifications.where(read_or_not: false).each do |noti|
+      noti.update(read_or_not: true)
+    end
+  end
 
   private
 

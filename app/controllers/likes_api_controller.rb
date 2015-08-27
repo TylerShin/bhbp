@@ -5,7 +5,12 @@ class LikesApiController < ApplicationController
       render json: @comments
     else
       @like = current_user.likes.build(post_id: params[:posts_api_id], comment_id: params[:comments_api_id])
-      @like.save!
+      if @like.save
+        # Make notification to receiver
+        unless Comment.find(params[:comments_api_id]).user === current_user
+          @like.comment_like_send_noti(params[:posts_api_id], params[:comments_api_id], current_user.id, Post.find(params[:posts_api_id]).user.id)
+        end
+      end
       @comments = Comment.where(post_id: params[:posts_api_id])
       render json: @comments
     end
@@ -14,7 +19,12 @@ class LikesApiController < ApplicationController
   def destroy
     @like = Like.find(params[:id])
     if @like.user_id == current_user.id
-      @like.destroy
+      if  @like.destroy
+        # Destroy notification to receiver
+        unless Comment.find(params[:comments_api_id]).user === current_user
+          @like.comment_like_undo_noti(params[:posts_api_id], params[:comments_api_id], current_user.id, Post.find(params[:posts_api_id]).user.id)
+        end
+      end
       @comments = Comment.where(post_id: params[:posts_api_id])
       render json: @comments
     else

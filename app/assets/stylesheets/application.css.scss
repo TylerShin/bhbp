@@ -1,5 +1,6 @@
 /*
  *= require_self
+ *= require font-awesome
  */
 
 @font-face {
@@ -57,12 +58,34 @@ body {
   position: relative;
   padding: 0;
 }
-
 .dropdown-menu {
   width: 100%;
   li {
     a {
       color: #333333 !important;
+    }
+  }
+}
+.noti-dropdown {
+  width: 500px;
+  padding: 5px;
+  li {
+    height: 45px;
+    border-bottom: 1px solid #EFEFEF;
+    .created-at {
+      margin: 0;
+      color: #b3c1c6;
+      size: 12px;
+      line-height: 18px;
+    }
+    a {
+      padding: 5px 10px 3px 10px;
+      color: #333333;
+      font-size: 12px;
+      line-height: 19px;
+      strong {
+        font-size: 13px;
+      }
     }
   }
 }
