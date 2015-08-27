@@ -3,6 +3,7 @@ class PostsApiController < ApplicationController
       @post = Post.find(params[:id])
       render json: @post
     end
+
     def free
         @posts = Post.where(table: 'free').order('created_at desc').page(params[:page]).per(7)
         render json: @posts, meta: {
@@ -30,7 +31,7 @@ class PostsApiController < ApplicationController
     end
 
     def best
-      @posts = Post.joins("LEFT OUTER JOIN likes ON posts.id = likes.post_id").select('posts.*, count(likes.post_id) as "post_count"').group('likes.post_id').order('post_count DESC').limit(5)
+      @posts = Post.joins("LEFT OUTER JOIN likes ON posts.id = likes.post_id").select('posts.*, count(likes.post_id) as "post_count"').group('posts.id').order("post_count DESC")
       render json: @posts
     end
 end

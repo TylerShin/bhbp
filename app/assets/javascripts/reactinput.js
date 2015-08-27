@@ -173,7 +173,6 @@ var ProfilesMasonry = React.createClass({
 
 class ProfileMasonryBox extends React.Component {
     render() {
-        console.log(this.props);
         return (
             <div className="profile-box">
                 <div className="box-wrapper">
