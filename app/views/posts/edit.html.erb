@@ -1,0 +1,16 @@
+<%= stylesheet_link_tag 'posts/posts_new' %>
+<div class="container">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="post-form">
+      <div class="title">
+        <h2><%= t('post.post') %></h2>
+      </div>
+      <%= simple_form_for @post, html: { class: 'clearfix' } do |f| %>
+        <%= f.input :table, label: t('post.board'), as: :select, collection: [[t('post.freeBoard'), :free], [t('post.questionBoard'), :question], [t('post.infoBoard'), :info], [t('post.introBoard'), :intro]], prompt: t('post.chooseBoard'), html: {class: "form-control"} %>
+        <%= f.input :title, input_html: { placeholder: t('post.titlePlaceholder') } %>
+        <%= f.input :content, input_html: { placeholder: t('post.contentPlaceholder') } %>
+        <%= f.submit t('post.postBtn'), class: 'btn btn-primary pull-right' %>
+      <% end %>
+    </div>
+  </div>
+</div>

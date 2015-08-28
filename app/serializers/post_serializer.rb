@@ -1,7 +1,7 @@
 class PostSerializer < ActiveModel::Serializer
   attributes :id, :created_at, :updated_at, :table, :title, :content, :category,
     :userImage, :username, :profileUrl, :currentUserImage, :postPath, :commentCount,
-    :likesCount, :likeOrNot, :myLikeId
+    :likesCount, :likeOrNot, :myLikeId, :mineOrNot
 
   def userImage
     object.user.profile.userimage.url
@@ -21,6 +21,14 @@ class PostSerializer < ActiveModel::Serializer
 
   def postPath
     post_path(object.id)
+  end
+
+  def mineOrNot
+    if object.user.id === scope.id
+      true
+    else
+      false
+    end
   end
 
   def likesCount
@@ -45,5 +53,5 @@ class PostSerializer < ActiveModel::Serializer
 
   def commentCount
      object.comments.length
-  end 
+  end
 end

@@ -102,13 +102,33 @@ class PostsShowBox extends React.Component {
       }
     });
   }
+  handlePostDeleteSubmit(post_id) {
+    if(confirm("정말 삭제하시겠습니까?") == true) {
+        $.ajax({
+        url: `/posts/${post_id}`,
+        method: 'DELETE',
+        dataType: 'json',
+        success: function(res) {
+          window.location="/posts";
+        }.bind(this),
+        error: function() {
+          alert("삭제 실패!");
+        }
+      });
+    }
+    else {
+      console.log("삭제를 취소하였습니다.");
+    }
+  }
   render() {
     return (
       <div>
         <div className="container">
           <div className='row'>
             <div className="col-md-8 col-md-offset-2">
-              <PostBox post={this.state.post} handleLikeClick={this.handleLikeClick.bind(this)} handleDeleteLikeClick={this.handleDeleteLikeClick.bind(this) } />
+              <PostBox post={this.state.post} handleLikeClick={this.handleLikeClick.bind(this)}
+                handleDeleteLikeClick={this.handleDeleteLikeClick.bind(this)}
+                handlePostDeleteSubmit={this.handlePostDeleteSubmit.bind(this)} />
               <CommentsBox postId={this.props.id} userImage={this.state.post.currentUserImage} />
             </div>
           </div>
@@ -125,6 +145,9 @@ class PostBox extends React.Component {
   handleDeleteLikeClick() {
     this.props.handleDeleteLikeClick();
   }
+  handlePostDeleteSubmit(post_id) {
+    this.props.handlePostDeleteSubmit(post_id);
+  }
   render() {
     if(this.props.post.likeOrNot) {
       var likeBtn = <li className="like panel-menu" onClick={this.handleDeleteLikeClick.bind(this)}>{lang.like} {this.props.post.likesCount}</li>
@@ -132,9 +155,11 @@ class PostBox extends React.Component {
     else {
       var likeBtn = <li className="panel-menu" onClick={this.handleLikeClick.bind(this)}>{lang.like} {this.props.post.likesCount}</li>
     }
+    var controlBtn = this.props.post.mineOrNot ? <ul className="pull-right list-inline">
+      <li className="panel-menu"><a href={this.props.post.postPath + '/edit'}>수정</a></li>
+      <li className="panel-menu"><a onClick={this.handlePostDeleteSubmit.bind(this, this.props.post.id)}>삭제</a></li></ul> : '';
     var facebookUrl = `http://www.facebook.com/sharer/sharer.php?u=http://1779n.com/posts/${this.props.post.id}`;
     var twitterUrl = `https://twitter.com/intent/tweet?text=${this.props.post.title}&url=http://1779n.com/posts/${this.props.post.id}`;
-
     return (
       <div className="postBox">
         <div className="post-header">
@@ -143,7 +168,8 @@ class PostBox extends React.Component {
         </div>
         <div className="content" dangerouslySetInnerHTML={{
           __html: this.props.post.content }} />
-        <div className="control-panel">
+        <div className="control-panel clearfix">
+          {controlBtn}
           <ul className="list-inline">
             {likeBtn}
             <li className="dropdown panel-menu">
