@@ -1,232 +1,67 @@
 .profile-box {
-  position: relative;
-  width: 510px;
-  top: 120px;
-  left: 50%;
-  -moz-transform: translate(-50%, 0%);
-  -webkit-transform: translate(-50%, 0%);
-  -o-transform: translate(-50%, 0%);
-  -ms-transform: translate(-50%, 0%);
-  transform: translate(-50%, 0%);
-  text-align: center;
-  .image-box {
-    display: inline-block;
-    img {
-      float: left;
-      display: inline-block;
-      width: 200px;
-      height: 200px;
-      border-radius: 7px;
-      clear: both;
+  margin-top: 20px;
+  .leftBox {
+    .image-box {
+      border-radius: 5px;
+      margin-bottom: 8px;
+      img {
+        border-radius: 5px;
+        max-width: 100%;
+      }
     }
-    .info-box {
-      display: inline-block;
-      margin-left: 22px;
-      .basic-info {
-        text-align: left;
-        margin-bottom: 18px;
-        vertical-align: middle;
-        span {
-          font-size: 16px;
-          font-weight: 700;
-        }
+    .name-section {
+      border-bottom: 1px solid #dfe0e4;
+      h2 {
+        margin: 0px;
       }
-      .flag {
-        width: 40px;
-        height: 30px;
-        margin-right: 5px;
+      h3 {
+        margin-top: 0px;
+        margin-bottom: 10px;
+        color: #555555;
       }
-      .intro {
-        text-align: left;
-        font-size: 14px;
-        width: 243px;
-        color: #888888;
+    }
+    .info-section {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      p {
+        margin: 0px 0px 3px 0px;
       }
-      .profile-card-btn-group {
-        display: inline-block;
-        .modify-btn {
-          width: 115px;
-          height: 30px;
-          background-color: #CD1D1F;
-          border: 1px solid #B91C1E;
-          border-radius: 6px;
-          font-size: 15px;
-          color: #FFFFFF;
-          line-height: 16px;
-          text-shadow: 0px 1px 0px #000000;
-        }
-        .meeting-btn {
-          display: block;
-          width: 242px;
-          height: 30px;
-          background-color: #355B7F;
-          border: 1px solid #27425C ;
-          border-radius: 6px;
-          font-size: 15px;
-          color: #ffffff;
-          line-height: 18px;
-          text-shadow: 0px 1px 0px #000000;
-          margin-bottom: 6px;
-        }
-        .sendmsg-btn {
-          width: 115px;
-          height: 30px;
-          background-color: #085419;
-          border: 1px solid #000000;
-          border-radius: 6px;
-          font-size: 15px;
-          color: #FFFFFF;
-          line-height: 16px;
-          text-shadow: 0px 1px 0px #000000;
-          margin-right: 13px;
-        }
-        .follow-btn {
-          width: 115px;
-          height: 30px;
-          background-image: linear-gradient(-180deg, #5584EF 0%, #1E3D6D 100%);
-          border: 1px solid #3F5697;
-          border-radius: 6px;
-          font-size: 15px;
-          color: #FFFFFF;
-          line-height: 16px;
-          text-shadow: 0px 1px 0px #000000;
-        }
-        .unfollow-btn {
-          width: 115px;
-          height: 30px;
-          background-image: linear-gradient(-180deg, #C1071C 0%, #AC171E 100%);
-          border: 1px solid #A71212;
-          border-radius: 6px;
-          font-size: 15px;
-          color: #FFFFFF;
-          line-height: 16px;
-          text-shadow: 0px 1px 0px #000000;
-        }
+    }
+    .relationship-section {
+      border-top: 1px solid #dfe0e4;
+      li {
+        text-align: center;
+        margin-right: 60px;
+      }
+      li:last-child {
+        margin-right: 0px;
       }
     }
   }
-  .profileContent {
-    margin-top: 26px;
-    position: relative;
-    text-align: left;
-    padding: 8px 7px;
-    .groupTitle {
-      position: relative;
-    }
-    h4 {
-      position: relative;
-      float: left;
-      z-index: 2;
+  .postBox {
+    border-top: 1px solid #dfe0e4;
+    padding: 15px 0px;
+    margin-top: 15px;
+    .list-group-item {
+      color: #4078c0;
       font-size: 13px;
+      line-height: 20px;
+    }
+    .list-group-item-header {
+      color: #333333;
+      font-size: 14px;
+      line-height: 21px;
       font-weight: 700;
-
-      background-color: #ffffff;
-      margin: 0;
-      padding-right: 5px;
+      background-color: #F5F5F5;
+      padding: 5px 15px;
     }
-    .groupTitleWrapper:before {
-      position: absolute;
-      content: '';
-      display: block;
-      width: 100%;
-      height: 1px;
-      background: #ECECEC;
-      left: 0;
-      top: 50%;
-      z-index: 1;
-    }
-    .groupTitleWrapper:after {
-      content: '';
-      display: block;
-      clear: both;
-    }
-    .countersWrapper {
-      margin-top: 33px;
-      ul {
-        list-style: none;
-        margin: 0;
-        li {
-          position: relative;
-          display: inline-block;
-          width: auto;
-          height: 68px;
-          margin-right: 50px;
-          text-align: center;
-          h1 {
-            display: inline-block;
-            margin: 0;
-            font-size: 30px;
-            font-weight: 700;
-          }
-          p {
-            margin: 0;
-            font-size: 12px;
-            font-weight: 500;
-          }
-        }
-        li:last-child {
-          width: auto;
-          margin: 0;
-          vertical-align: middle;
-          h1 {
-            font-size: 20px;
-          }
-        }
-      }
-    }
-  }
-  .progress-group {
-    margin-top: 30px;
-    margin-bottom: 30px;
-    .progressTitle {
-      position: relative;
-      margin-bottom: 33px;
-      h4 {
-      position: relative;
-      float: left;
-      z-index: 2;
-      font-size: 13px;
+    .list-group-item-footer {
+      color: #333333;
+      font-size: 14px;
+      line-height: 21px;
       font-weight: 700;
-      background-color: #ffffff;
-      margin: 0;
-      padding-right: 5px;
-    }
-    .progressTitleWrapper:before {
-      position: absolute;
-      content: '';
-      display: block;
-      width: 100%;
-      height: 1px;
-      background: #ECECEC;
-      left: 0;
-      top: 50%;
-      z-index: 1;
-    }
-    .progressTitleWrapper:after {
-      content: '';
-      display: block;
-      clear: both;
-    }
-    }
-    .lang-progress-group {
-      span {
-        float: left;
-        margin-right: 6px;
-      }
-    }
-  }
-  .detail-group {
-    .region-group {
-      margin-top: 33px;
-    }
-    .title {
-      margin-left: 30px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-    .content {
-      margin-left: 80px;
-      font-size: 12px;
+      background-color: #F5F5F5;
+      padding: 5px 15px;
     }
   }
 }

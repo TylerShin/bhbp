@@ -172,7 +172,7 @@ class BestPostsBox extends React.Component {
             );
         });
         return (
-            <div className='bestPostsBox'>
+            <div className='bestPostsBox hidden-xs hidden-sm'>
                 <div className='box-header'>
                     <h4>{lang.bestPosts}</h4>
                 </div>
@@ -200,7 +200,7 @@ class ForumBox extends React.Component {
         const postsList = this.props.posts.map((post, index) => {
             return (
                 <div className="postBox clearfix" key={index}>
-                    <img src={post.userImage} />
+                    <img src={post.userImage} className="hidden-xs" />
                     <span className="postInfo"><a href={post.postPath} className="title">{post.title}</a> <strong>{post.commentCount}</strong> {lang.comment} , <strong>{post.likesCount}</strong>{lang.like} </span>
                     <p className="subInfo"><span className="username">{post.username}</span> <span className="created-at">{moment(post.created_at).fromNow()}</span></p>
                 </div>

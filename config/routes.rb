@@ -21,7 +21,7 @@ Rails.application.routes.draw do
         get 'free', 'info', 'question', 'intro','best'
     end
   end
-  resources :react_profiles
+  resources :profiles_api
   resources :requests, only: [:index] do
     collection do
       get 'ownlist'

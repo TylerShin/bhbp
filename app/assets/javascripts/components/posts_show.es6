@@ -367,7 +367,7 @@ class CommentsBox extends React.Component {
         <div className="commentItemBox" key={index}>
           <div className="box-wrapper clearfix">
             <div className="img-wrapper">
-              <img src={comment.userImage} />
+              <img src={comment.userImage} className="hidden-xs" />
             </div>
             <p className="userinfo"><span className="username">{comment.username}</span> - <span className="createdAt">{moment(comment.created_at).fromNow()}</span>
             {likeBtn}</p>

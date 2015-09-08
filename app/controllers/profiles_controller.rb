@@ -31,15 +31,6 @@ class ProfilesController < ApplicationController
 
   def show
     @profile = Profile.find(params[:id])
-    @user = @profile.user
-    @follow = current_user.following?(@user)
-    @request = current_user.request?(@user)
-    @process = current_user.process?(@user) if @request
-    @mine = true if @user == current_user
-    respond_to do |format|
-      format.html
-      format.json { render json: @user, meta: {mine: @mine, following: @follow, request: @request, process: @process} }
-    end
   end
 
   def edit
@@ -57,13 +48,9 @@ class ProfilesController < ApplicationController
   end
 
   def follow
-    @user = User.find_by(id: params[:user_id])
-    current_user.follow(@user)
-    @follow = current_user.following?(@user)
-    @request = current_user.request?(@user)
-    @process = current_user.process?(@user) if @request
-    @mine = true if @user == current_user
-    render json: @user, meta: {mine: @mine, following: @follow, request: @request, process: @process}
+    @profile = Profile.find(params[:profile_id])
+    current_user.follow(@profile.user)
+    render json: @profile
   end
 
   def unfollow

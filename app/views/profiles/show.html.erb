@@ -1,3 +1,3 @@
 <%= stylesheet_link_tag 'profiles/show', media: 'all' %>
 <%= javascript_include_tag 'components/profile_show' %>
-<%= react_component('ProfileBox', url: profile_path(@profile)) %>
+<%= react_component('ProfileBox', url: profiles_api_path(@profile)) %>

@@ -1,13 +1,8 @@
 var ProfileBox = React.createClass({
     getInitialState: function () {
         return {
-            user: {
-                user: {
-                    followings: [],
-                    followers: [],
-                    profile: {}
-                },
-                meta: {}
+            profile: {
+                myposts: []
             }
         }
     },
@@ -15,9 +10,10 @@ var ProfileBox = React.createClass({
         $.ajax({
             url: this.props.url,
             dataType: 'json',
-            success: function (user) {
+            success: function (res) {
+                console.log(res.user);
                 this.setState({
-                    user: user
+                    profile: res.profile
                 });
             }.bind(this),
             error: function () {
@@ -26,22 +22,13 @@ var ProfileBox = React.createClass({
         });
     },
     handleFollowSubmit: function () {
-        var user = this.state.user.user;
-        this.setState({
-           user: {
-               user: user,
-               meta: {
-                   following: true
-               }
-           }
-        });
         $.ajax({
             url: '/profiles/follow',
             dataType: 'json',
-            data: {user_id: this.state.user.user.id},
-            success: function (user) {
+            data: { profile_id: this.state.profile.id },
+            success: function (res) {
                 this.setState({
-                    user: user
+                    profile: res.profile
                 });
             }.bind(this),
             error: function () {
@@ -113,37 +100,77 @@ var ProfileBox = React.createClass({
         }
     },
     render: function () {
-        console.log(this.state.user.meta);
+        //User Posts list mapping
+        var myPostArr = this.state.profile.myposts.map(function(post, index) {
+            var postURL = "/posts/" + post.id
+            return (
+                <a href={postURL} className="list-group-item" key={index}>
+                    {post.title}
+                </a>
+            );
+        });
+        // Profile Edit Btn
+        if(this.state.profile.mine_or_not) {
+            var profileEditURL = "/profiles/" + this.state.profile.id + "/edit"
+            var profileEditBtn = <a href={profileEditURL} className="btn btn-default btn-sm pull-right">프로필 수정</a>
+        }
+        //Relationship Btn
+        if(!this.state.profile.follow_or_not) {
+            var relationshipBtn = <a href="#" onClick={this.handleFollowSubmit} className="btn btn-primary btn-sm pull-right">Follow</a>
+        }
+        else {
+            var relationshipBtn = <a href="#" onClick={this.handleUnfollowSubmit} className="btn btn-danger btn-sm pull-right">Unfollow</a>
+        }
         return (
-            <div className="profile-box">
-                <div className="image-box">
-                    <img src={this.state.user.user.profile.user_image} width="400" height="400"/>
-
-                    <div className="info-box">
-                        <div className="basic-info">
-                            <img src={this.state.user.user.profile.flag} className="flag"/>
-                            <span className="username">{this.state.user.user.profile.username}</span>
+            <div className="profile-box container">
+                <div className="col-md-3">
+                    <div className="leftBox clearfix">
+                        <div className="image-box">
+                            <img src={this.state.profile.mini_user_image} />
                         </div>
-                        <p className="intro">{this.state.user.user.profile.intro}</p>
-                        <ProfileBtnGroup handleFollowSubmit={this.handleFollowSubmit}
-                                         handleUnfollowSubmit={this.handleUnfollowSubmit}
-                                         handleRequestSubmit={this.handleRequestSubmit}
-                                         handleUndoRequestSubmit={this.handleUndoRequestSubmit}
-                                         currentUser={this.state.user.meta.mine}
-                                         following={this.state.user.meta.following}
-                                         request={this.state.user.meta.request}
-                                         accepted={this.state.user.meta.process}
-                                         id={this.state.user.user.id}
-                                         profile_id={this.state.user.user.profile.id} />
+                        <div className="name-section">
+                            <h2>{this.state.profile.username}</h2>
+                            <h3>{this.state.profile.nation}</h3>
+                        </div>
+                        <div className="info-section">
+                            <p>한국어 능력 : {this.state.profile.korean_point}</p>
+                            <p>중국어 능력 : {this.state.profile.chinese_point}</p>
+                            <p>레벨(포인트) : {this.state.profile.point}</p>
+                            <p>{this.state.profile.intro}</p>
+                        </div>
+                        <div className="relationship-section">
+                            <ul className="list-inline">
+                                <li>
+                                    <h3>{this.state.profile.followersCount}</h3>
+                                    Followers
+                                </li>
+                                <li>
+                                    <h3>{this.state.profile.followingCount}</h3>
+                                    Followings
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <ProfileContent followingCount={this.state.user.user.followings.length}
-                                followersCount={this.state.user.user.followers.length}
-                                pointCount={this.state.user.user.profile.point}
-                                chinesePoint={this.state.user.user.profile.chinese_point}
-                                koreanPoint={this.state.user.user.profile.korean_point}
-                                region={this.state.user.user.profile.region}
-                                interest={this.state.user.user.profile.interest}/>
+                <div className="col-md-9">
+                    <div className="row">
+                        {relationshipBtn}
+                        {profileEditBtn}
+                    </div>
+                    <div className="row">
+                        <div className="postBox">
+                            <ul className="list-group">
+                                <li className="list-group-item list-group-item-header">
+                                    작성글 목록
+                                </li>
+                                {myPostArr}
+                                <li className="list-group-item list-group-item-footer">
+                                    더 보기
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
@@ -278,87 +305,5 @@ var MeetingButton = React.createClass({
                 );
             }
         }
-    }
-});
-
-var ProfileContent = React.createClass({
-    render: function () {
-        var chinesePoint = this.props.chinesePoint + '%';
-        var koreanPoint = this.props.koreanPoint + '%';
-        $(document).ready(function () {
-            $('.chinese-progress-bar').width(chinesePoint);
-            $('.korean-progress-bar').width(koreanPoint);
-        });
-        return (
-            <div className="profileContent">
-                <div className="groupTitle">
-                    <div className="groupTitleWrapper">
-                        <h4>Social Status</h4>
-                    </div>
-                </div>
-                <div className="countersWrapper">
-                    <ul>
-                        <li>
-                            <h1 className="counterUp">{this.props.followersCount}</h1>
-
-                            <p>Followers</p>
-                        </li>
-                        <li>
-                            <h1 className="counterUp">{this.props.followingCount}</h1>
-
-                            <p>Followers</p>
-                        </li>
-                        <li>
-                            <h1 className="counterUp">{this.props.pointCount}</h1>
-
-                            <p>Followers</p>
-                        </li>
-                        <li>
-                            <h1>다이아몬드</h1>
-                        </li>
-                    </ul>
-                </div>
-                <div className="progress-group">
-                    <div className="progressTitle">
-                        <div className="progressTitleWrapper">
-                            <h4>Language Skills</h4>
-                        </div>
-                    </div>
-                    <div className="lang-progress-group clearfix">
-                        <span>중국어</span>
-
-                        <div className="progress">
-                            <div className="chinese-progress-bar progress-bar progress-bar-success">
-                            </div>
-                        </div>
-                    </div>
-                    <div className="lang-progress-group clearfix">
-                        <span>한국어</span>
-
-                        <div className="progress">
-                            <div className="korean-progress-bar progress-bar progress-bar-info">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="detail-group">
-                    <div className="groupTitle">
-                        <div className="groupTitleWrapper">
-                            <h4>Details</h4>
-                        </div>
-                    </div>
-                    <div className="region-group">
-                        <p className="title">Region</p>
-
-                        <p className="content">{this.props.region}</p>
-                    </div>
-                    <div className="interest-group">
-                        <p className="title">Interest</p>
-
-                        <p className="content">{this.props.interest}</p>
-                    </div>
-                </div>
-            </div>
-        );
     }
 });

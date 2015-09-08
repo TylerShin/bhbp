@@ -4,7 +4,7 @@ class UserimageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   process resize_to_fill: [400, 400]
   version :mini_thumb do
-    process resize_to_fill: [248, 248]
+    process resize_to_fill: [250, 250]
   end
   version :nano_thumb, from_version: :mini_thumb do
     process resize_to_fill: [50, 50]
