@@ -35,7 +35,6 @@ var Lang = {
     else {
         window.lang = Lang.ko;
     }
-
 }());
 
 var masonryOptions = {
@@ -135,7 +134,6 @@ class Subnav extends React.Component {
     handleFollowersListRequest() {
         this.props.handleFollowersListRequest();
     }
-
     render() {
         return (
             <div className="sub-nav">
@@ -158,7 +156,8 @@ var ProfilesMasonry = React.createClass({
             return (
                 <ProfileMasonryBox key={index} nation={item.nation}
                     username={item.username} userimage={item.user_image}
-                    url={item.url} userId={item.userId} point={item.point} />
+                    url={item.url} userId={item.userId} point={item.point}
+                    intro={item.intro} />
             );
         });
         return (
@@ -198,14 +197,13 @@ class ProfileMasonryBox extends React.Component {
                         </div>
                     </ul>
                     <div className="profile-box-info-bottom">
-                        <p>{this.props.point} 포인트</p>
+                        <p>{this.props.intro}</p>
                     </div>
                 </div>
             </div>
         );
     }
 }
-
 
 React.render(
     <ProfileIndexBox />, document.getElementById('content')

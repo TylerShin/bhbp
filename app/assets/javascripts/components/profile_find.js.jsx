@@ -265,7 +265,7 @@ var RightBox = React.createClass({
 var SearchProfileBox = React.createClass({
     render: function () {
         return (
-            <div className="col-md-4">
+            <div className="col-md-4 col-xs-12">
                 <div className="profile-box">
                     <div className="box-wrapper">
                         <div className="profile-box-info">

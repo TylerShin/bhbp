@@ -279,7 +279,8 @@
 	        var list = profiles.map(function (item, index) {
 	            return React.createElement(ProfileMasonryBox, { key: index, nation: item.nation,
 	                username: item.username, userimage: item.user_image,
-	                url: item.url, userId: item.userId, point: item.point });
+	                url: item.url, userId: item.userId, point: item.point,
+	                intro: item.intro });
 	        });
 	        return React.createElement(
 	            'div',
@@ -305,7 +306,6 @@
 	    _createClass(ProfileMasonryBox, [{
 	        key: 'render',
 	        value: function render() {
-	            console.log(this.props);
 	            return React.createElement(
 	                'div',
 	                { className: 'profile-box' },
@@ -381,8 +381,7 @@
 	                        React.createElement(
 	                            'p',
 	                            null,
-	                            this.props.point,
-	                            ' 포인트'
+	                            this.props.intro
 	                        )
 	                    )
 	                )

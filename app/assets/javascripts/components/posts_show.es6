@@ -1,3 +1,4 @@
+//언어셋
 const Lang = {
     ko: {
         comment: '댓글',
@@ -23,7 +24,7 @@ const Lang = {
         share: '分享'
     }
 };
-
+//쿠키에 따라 언어 설정
 (function() {
         function getCookie(cname) {
         var name = cname + "=";
@@ -41,9 +42,8 @@ const Lang = {
     else {
         window.lang = Lang.ko;
     }
-
 }());
-
+// 컴포넌트 시작
 class PostsShowBox extends React.Component {
   constructor(props) {
     super(props);
@@ -69,15 +69,21 @@ class PostsShowBox extends React.Component {
     });
   }
   handleLikeClick() {
-    this.setState({ isLoading: true });
+    // Optimization
+    var post = this.state.post;
+    post.likesCount += 1;
+    post.likeOrNot = true;
+    this.setState({
+      post: post
+    });
+    // Communicate with server
     $.ajax({
       url: `/posts_api/${this.props.id}/post_likes_api`,
       method: 'POST',
       dataType: 'json',
       success: function(res) {
         this.setState({
-          post: res.post,
-          isLoading: false
+          post: res.post
         });
       }.bind(this),
       error: function() {
@@ -86,15 +92,21 @@ class PostsShowBox extends React.Component {
     });
   }
   handleDeleteLikeClick() {
-    this.setState({ isLoading: true });
+    // Optimization
+    var post = this.state.post;
+    post.likesCount -= 1;
+    post.likeOrNot = false;
+    this.setState({
+      post: post
+    });
+    // Communicate with server
     $.ajax({
       url: `/posts_api/${this.props.id}/post_likes_api/${this.state.post.myLikeId}`,
       method: 'DELETE',
       dataType: 'json',
       success: function(res) {
         this.setState({
-          post: res.post,
-          isLoading: false
+          post: res.post
         });
       }.bind(this),
       error: function() {
@@ -261,22 +273,42 @@ class CommentsBox extends React.Component {
       }
     });
   }
-  handleDeleteSubmit(commentId) {
-    $.ajax({
-      url: `/posts_api/${this.props.postId}/comments_api/${commentId}`,
-      method: 'DELETE',
-      dataType: 'json',
-      success: function(res) {
-       this.setState({
-          comments: res.comments_api
-        });
-     }.bind(this),
-     error: function() {
-      alert("댓글 삭제 과정 중 문제가 발생했습니다. 네트워크 연결상태를 확인해주세요.");
-     }
-    });
+  handleDeleteSubmit(commentId, index) {
+    if(confirm("정말 삭제하시겠습니까?") == true) {
+      //Optimization
+      var comments = this.state.comments;
+      delete comments[index];
+      this.setState({
+        comments: comments
+      });
+      // Communicate with server
+      $.ajax({
+        url: `/posts_api/${this.props.postId}/comments_api/${commentId}`,
+        method: 'DELETE',
+        dataType: 'json',
+        success: function(res) {
+         this.setState({
+            comments: res.comments_api
+          });
+       }.bind(this),
+       error: function() {
+        alert("댓글 삭제 과정 중 문제가 발생했습니다. 네트워크 연결상태를 확인해주세요.");
+       }
+      });
+    }
+    else {
+      console.log("댓글 삭제를 취소하였습니다.")
+    }
   }
-  handleLikeSubmit(commentId) {
+  handleLikeSubmit(commentId, index) {
+    // Optimization
+    var comments = this.state.comments;
+    comments[index].likes = comments[index].likes + 1;
+    comments[index].likeOrNot = true;
+    this.setState({
+      comments: comments
+    });
+    // Communicate with server
     $.ajax({
       url: `/posts_api/${this.props.postId}/comments_api/${commentId}/likes_api`,
       method: 'POST',
@@ -291,7 +323,15 @@ class CommentsBox extends React.Component {
       }
     });
   }
-  handleLikeDeleteSubmit(commentId, likeId) {
+  handleLikeDeleteSubmit(commentId, likeId, index) {
+    // Optimization
+    var comments = this.state.comments;
+    comments[index].likes = comments[index].likes - 1;
+    comments[index].likeOrNot = false;
+    this.setState({
+      comments: comments
+    });
+    // communicate with server
     $.ajax({
       url: `/posts_api/${this.props.postId}/comments_api/${commentId}/likes_api/${likeId}`,
       method: 'DELETE',
@@ -308,19 +348,19 @@ class CommentsBox extends React.Component {
   }
   render() {
     var list = this.state.comments.map((comment, index) => {
-      var deleteBtn = (comment.mine) ? <span className="deleteBtn" onClick={this.handleDeleteSubmit.bind(this, comment.id)}>{lang.delete}</span> : '';
+      var deleteBtn = (comment.mine) ? <span className="deleteBtn" onClick={this.handleDeleteSubmit.bind(this, comment.id, index)}>{lang.delete}</span> : '';
       if (comment.likes === 0 ) {
         // 첫 좋아요 누르게 시킬 것
-        var likeBtn = <span className="likeBtn" onClick={this.handleLikeSubmit.bind(this, comment.id)}>{lang.like}</span>
+        var likeBtn = <span className="likeBtn" onClick={this.handleLikeSubmit.bind(this, comment.id, index)}>{lang.like}</span>
       }
       else {
         if(comment.likeOrNot) {
           // 클릭시 좋아요 취소
-          var likeBtn = <span className="likeBtn like" onClick={this.handleLikeDeleteSubmit.bind(this, comment.id, comment.myLikeId)}>{lang.like} {comment.likes}{lang.count}</span>
+          var likeBtn = <span className="likeBtn like" onClick={this.handleLikeDeleteSubmit.bind(this, comment.id, comment.myLikeId, index)}>{lang.like} {comment.likes}{lang.count}</span>
         }
         else {
           // 클릭시 좋아요
-          var likeBtn = <span className="likeBtn" onClick={this.handleLikeSubmit.bind(this, comment.id)}>{lang.like} {comment.likes}{lang.count}</span>
+          var likeBtn = <span className="likeBtn" onClick={this.handleLikeSubmit.bind(this, comment.id, index)}>{lang.like} {comment.likes}{lang.count}</span>
         }
       }
       return (
