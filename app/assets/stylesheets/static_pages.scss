@@ -1,24 +1,8 @@
-/* Smartphones (portrait and landscape) */
-@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-    .hidden-sm {
-    display: none;
-  }
-}
-/* Tablet Devices, Desktop and Laptop Screens */
-@media only screen and (max-width: 768px) {
-  .hidden-sm {
-    display: inherit;
-  }
-}
 body {
   background-color: #333333;
 }
 .intro-wrapper {
   #navbar {
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
     z-index: 1;
     background: transparent;
     border: none;
@@ -67,15 +51,7 @@ body {
     }
   }
   .main-content {
-    position: absolute;
-    top: 234px;
-    left: 50%;
-    width: 553px;
-    -moz-transform: translate(-50%, 0%);
-    -webkit-transform: translate(-50%, 0%);
-    -o-transform: translate(-50%, 0%);
-    -ms-transform: translate(-50%, 0%);
-    transform: translate(-50%, 0%);
+    margin-top: 150px;
     color: #ffffff;
     text-align: center;
     h2 {
@@ -95,7 +71,6 @@ body {
       background: rgba(255, 255, 255, 0.65);
       border-radius: 5px;
       padding: 45px 37px;
-      margin: 0px 100px;
       input {
         background: #FFFFFF;
         opacity: 1;
@@ -115,7 +90,6 @@ body {
         margin: 0;
       }
       .signup-button {
-        width: 281px;
         height: 35px;
         margin-top: 26px;
         margin-bottom: 0px;

@@ -1,7 +1,8 @@
 <%= stylesheet_link_tag 'static_pages', media: 'all' %>
 <div class="intro-wrapper clearfix">
-  <header id="navbar" class="hidden-sm">
-    <div class="intro-navbar">
+  <div class="row">
+      <header id="navbar">
+    <div class="intro-navbar hidden-xs">
       <div class="intro-title">
         <h1>一起친구</h1>
       </div>
@@ -12,9 +13,14 @@
         </ul>
     </div>
   </header>
-  <div class="main-content">
-    <h2>인맥 네트워크 활용</h2>
-    <p>글로벌 인재들과의 실제 만남을 통해 새로운 삶의 가능성을 넓혀보세요.</p>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 col-xs-12">
+      <div class="main-content">
+    <div class="hidden-xs">
+      <h2>인맥 네트워크 활용</h2>
+      <p>글로벌 인재들과의 실제 만남을 통해 새로운 삶의 가능성을 넓혀보세요.</p>
+    </div>
     <div class="registration-panel">
       <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <%= f.error_notification %>
@@ -22,8 +28,10 @@
         <%= f.input :password, label: false, input_html: { placeholder: "Password (8글자 이상)", id: "password" } %>
         <%= f.input :password_confirmation, label: false, input_html: { placeholder: "Password Confirmation", id: "password_confirmation" } %>
         <p>이미 아이디가 있으시다면 <%= link_to "로그인", new_user_session_path %> 하세요.</p>
-        <%= f.submit "회원가입", class: "signup-button" %>
+        <%= f.submit "회원가입", class: "btn btn-block signup-button" %>
       <% end %>
+    </div>
+  </div>
     </div>
   </div>
 </div>
