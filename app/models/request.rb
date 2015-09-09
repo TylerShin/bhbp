@@ -1,6 +1,7 @@
 class Request < ActiveRecord::Base
   belongs_to :sender, class_name: 'User'
   belongs_to :receiver, class_name: 'User'
+  has_one :evaluation, class_name: 'MeetingPoint', foreign_key: 'request_id', dependent: :destroy
   has_many :notifications, dependent: :destroy
   validates :sender_id, presence: true
   validates :receiver_id, presence: true

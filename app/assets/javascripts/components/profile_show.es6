@@ -3,7 +3,8 @@ var ProfileBox = React.createClass({
         return {
             profile: {
                 myposts: []
-            }
+            },
+            requests: []
         }
     },
     componentDidMount: function () {
@@ -11,9 +12,21 @@ var ProfileBox = React.createClass({
             url: this.props.url,
             dataType: 'json',
             success: function (res) {
-                console.log(res.user);
                 this.setState({
                     profile: res.profile
+                });
+                $.ajax({
+                    url: '/requests',
+                    dataType: 'json',
+                    data: { user_id: this.state.profile.userId },
+                    success: function(res) {
+                        this.setState({
+                            requests: res.requests
+                        });
+                    }.bind(this),
+                    error: function() {
+                        alert("초기 데이터 통신에 실패했습니다.");
+                    }
                 });
             }.bind(this),
             error: function () {
@@ -21,7 +34,12 @@ var ProfileBox = React.createClass({
             }
         });
     },
-    handleFollowSubmit: function () {
+    handleFollowSubmit: function() {
+        var profState = this.state.profile;
+        profState.follow_or_not = true;
+        this.setState({
+            profile: profState
+        });
         $.ajax({
             url: '/profiles/follow',
             dataType: 'json',
@@ -31,33 +49,29 @@ var ProfileBox = React.createClass({
                     profile: res.profile
                 });
             }.bind(this),
-            error: function () {
+            error: function() {
                 alert("팔로우에 실패했습니다.");
             }
         });
     },
-    handleUnfollowSubmit: function () {
-        var answer = confirm("친한 친구에서 제명합니까?");
-        var user = this.state.user.user;
+    handleUnfollowSubmit: function() {
+        var confirmation = confirm("팔로우를 취소하시겠습니까?");
+        var profState = this.state.profile;
+        profState.follow_or_not = false;
         this.setState({
-            user: {
-                user: user,
-                meta: {
-                    following: false
-                }
-            }
+            profile: profState
         });
-        if (answer) {
+        if (confirmation) {
             $.ajax({
                 url: '/profiles/unfollow',
                 dataType: 'json',
-                data: {user_id: this.state.user.user.id},
-                success: function (user) {
+                data: { profile_id: this.state.profile.id },
+                success: function (res) {
                     this.setState({
-                        user: user
+                        profile: res.profile
                     });
                 }.bind(this),
-                error: function () {
+                error: function() {
                     alert("언팔로우에 실패했습니다.");
                 }
             });
@@ -101,25 +115,30 @@ var ProfileBox = React.createClass({
     },
     render: function () {
         //User Posts list mapping
-        var myPostArr = this.state.profile.myposts.map(function(post, index) {
-            var postURL = "/posts/" + post.id
-            return (
-                <a href={postURL} className="list-group-item" key={index}>
-                    {post.title}
-                </a>
-            );
-        });
+        if(this.state.profile.myposts.length === 0) {
+            myPostArr = <li className="list-group-item">작성한 글이 없습니다...</li>
+        } else {
+            var myPostArr = this.state.profile.myposts.map(function(post, index) {
+                var postURL = "/posts/" + post.id
+                return (
+                    <a href={postURL} className="list-group-item" key={index}>
+                        {post.title}
+                    </a>
+                );
+            });
+        }
         // Profile Edit Btn
-        if(this.state.profile.mine_or_not) {
+        if (this.state.profile.mine_or_not) {
             var profileEditURL = "/profiles/" + this.state.profile.id + "/edit"
             var profileEditBtn = <a href={profileEditURL} className="btn btn-default btn-sm pull-right">프로필 수정</a>
-        }
-        //Relationship Btn
-        if(!this.state.profile.follow_or_not) {
-            var relationshipBtn = <a href="#" onClick={this.handleFollowSubmit} className="btn btn-primary btn-sm pull-right">Follow</a>
-        }
-        else {
-            var relationshipBtn = <a href="#" onClick={this.handleUnfollowSubmit} className="btn btn-danger btn-sm pull-right">Unfollow</a>
+        } else {
+            //Relationship Btn
+            if (!this.state.profile.follow_or_not) {
+                var relationshipBtn = <a href="#" onClick={this.handleFollowSubmit} className="btn btn-primary btn-sm pull-right">Follow</a>
+            }
+            else {
+                var relationshipBtn = <a href="#" onClick={this.handleUnfollowSubmit} className="btn btn-danger btn-sm pull-right">Unfollow</a>
+            }
         }
         return (
             <div className="profile-box container">
@@ -170,140 +189,63 @@ var ProfileBox = React.createClass({
                             </ul>
                         </div>
                     </div>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <div className="requestBox">
+                                <ul className="list-group">
+                                    <li className="list-group-item list-group-item-header">
+                                        최근 만남요청
+                                    </li>
+                                    <RequestList requests={this.state.requests} />
+                                    <li className="list-group-item list-group-item-footer">
+                                        더 보기
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="requestBox">
+                                <ul className="list-group">
+                                    <li className="list-group-item list-group-item-header">
+                                        친한 팔로워들
+                                    </li>
+                                    <li className="list-group-item">
+                                        사진, 국적, 서영진(이름), 포인트(혹은 가입일)
+                                    </li>
+                                    <li className="list-group-item list-group-item-footer">
+                                        더 보기
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
     }
 });
 
-var ProfileBtnGroup = React.createClass({
-    handleFollowSubmit: function () {
-        this.props.handleFollowSubmit();
-    },
-    handleUnfollowSubmit: function () {
-        this.props.handleUnfollowSubmit();
-    },
-    handleRequestSubmit: function () {
-        this.props.handleRequestSubmit();
-    },
-    handleUndoRequestSubmit: function () {
-        this.props.handleUndoRequestSubmit();
-    },
-    render: function () {
+var RequestList = React.createClass({
+    render: function() {
+        var arr = this.props.requests.map(function(request, index) {
+            if(request.accepted) {
+                var status = <div><p><strong>평점</strong> {request.evaluation.point}</p><p><strong>평가</strong> {request.evaluation.comment}</p></div>
+            } else {
+                var status = <p>미승낙</p>
+            }
+            return (
+                <li className="list-group-item clearfix" key={index}>
+                    <img className="pull-left hidden-xs" src={request.sender_nano_img} />
+                    <a href={request.sender_profile_URL} className="username">{request.sender_username}</a>
+                    <span className="created-at">{moment(request.created_at).fromNow()} 신청함</span>
+                    {status}
+                </li>
+            );
+        });
         return (
-            <div className="profile-card-btn-group">
-                <MeetingButton handleUndoRequestSubmit={this.handleUndoRequestSubmit} accepted={this.props.accepted}
-                               request={this.props.request} handleRequestSubmit={this.handleRequestSubmit}
-                               currentUser={this.props.currentUser}/>
-                <SendMessage id={this.props.id} currentUser={this.props.currentUser}/>
-                <FollowButton handleUnfollowSubmit={this.handleUnfollowSubmit} id={this.props.id}
-                              handleFollowSubmit={this.handleFollowSubmit} currentUser={this.props.currentUser}
-                              following={this.props.following} profile_id={this.props.profile_id} />
+            <div>
+                {arr}
             </div>
         );
-    }
-});
-
-var SendMessage = React.createClass({
-    render: function () {
-        var messageUrl = "/messages/new?id=" + this.props.id;
-        if (this.props.currentUser) {
-            return (
-                <button className="sendmsg-btn">
-                    Message
-                </button>
-            );
-        }
-        else {
-            return (
-                <a href={messageUrl}>
-                    <button className="sendmsg-btn">
-                        Message
-                    </button>
-                </a>
-            );
-        }
-    }
-});
-
-var FollowButton = React.createClass({
-    handleFollowSubmit: function () {
-        this.props.handleFollowSubmit();
-    },
-    handleUnfollowSubmit: function () {
-        this.props.handleUnfollowSubmit();
-    },
-    render: function () {
-        if (this.props.currentUser) {
-            var url = '/profiles/' + this.props.profile_id + '/edit';
-            return (
-                <a href={url}>
-                    <button className="modify-btn">
-                        수정하기
-                    </button>
-                </a>
-            );
-        }
-        else {
-            if (this.props.following) {
-                return (
-                    <button className="unfollow-btn" onClick={this.handleUnfollowSubmit}>
-                        Unfollow
-                    </button>
-                );
-            }
-            else {
-                return (
-                    <button className="follow-btn" onClick={this.handleFollowSubmit}>
-                        Follow
-                    </button>
-                );
-            }
-        }
-    }
-});
-
-var MeetingButton = React.createClass({
-    handleRequestSubmit: function () {
-        this.props.handleRequestSubmit();
-    },
-    handleUndoRequestSubmit: function () {
-        this.props.handleUndoRequestSubmit();
-    },
-    render: function () {
-        if (this.props.currentUser) {
-            return (
-                <a href="/">
-                    <button className="meeting-btn">
-                        만남관리
-                    </button>
-                </a>
-            );
-        }
-        else {
-            if (this.props.request && this.props.accepted) {
-                return (
-                    <button className="meeting-btn">
-                        승낙완료
-                    </button>
-                );
-            }
-            else if (this.props.request && !this.props.accepted) {
-                return (
-                    <button className="meeting-btn"
-                            onClick={this.handleUndoRequestSubmit}>
-                        신청취소
-                    </button>
-                );
-            }
-            else {
-                return (
-                    <button className="meeting-btn"
-                            onClick={this.handleRequestSubmit}>
-                        만남신청
-                    </button>
-                );
-            }
-        }
     }
 });

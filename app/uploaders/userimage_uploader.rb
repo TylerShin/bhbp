@@ -25,8 +25,6 @@ class UserimageUploader < CarrierWave::Uploader::Base
   end
 
   def default_url
-    ActionController::Base.helpers.asset_path(
-      'applewatch.png'
-    )
+    ActionController::Base.helpers.asset_path([version_name, "default_profile.jpg"].compact.join('_'))
   end
 end

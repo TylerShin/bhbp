@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150827074053) do
+ActiveRecord::Schema.define(version: 20150909041929) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -27,6 +27,14 @@ ActiveRecord::Schema.define(version: 20150827074053) do
     t.integer  "comment_id", limit: 4
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+  end
+
+  create_table "meeting_points", force: :cascade do |t|
+    t.integer  "request_id", limit: 4
+    t.integer  "point",      limit: 4
+    t.string   "comment",    limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "messages", force: :cascade do |t|
@@ -95,11 +103,13 @@ ActiveRecord::Schema.define(version: 20150827074053) do
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
 
   create_table "requests", force: :cascade do |t|
-    t.integer  "sender_id",   limit: 4
-    t.integer  "receiver_id", limit: 4
-    t.boolean  "accepted",    limit: 1, default: false
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.integer  "sender_id",        limit: 4
+    t.integer  "receiver_id",      limit: 4
+    t.boolean  "accepted",         limit: 1, default: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.integer  "meeting_point_id", limit: 4
+    t.boolean  "met_or_not",       limit: 1, default: false
   end
 
   add_index "requests", ["receiver_id"], name: "index_requests_on_receiver_id", using: :btree

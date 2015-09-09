@@ -64,4 +64,40 @@
       padding: 5px 15px;
     }
   }
+  .requestBox {
+     .list-group-item {
+      font-size: 12px;
+      line-height: 18 px;
+      .username {
+        margin-right: 5px;
+      }
+      .created-at {
+        color: #dfe0e4;
+        font-size: 10px;
+      }
+      img {
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+      p {
+        margin: 0;
+      }
+    }
+    .list-group-item-header {
+      color: #333333;
+      font-size: 14px;
+      line-height: 21px;
+      font-weight: 700;
+      background-color: #F5F5F5;
+      padding: 5px 15px;
+    }
+    .list-group-item-footer {
+      color: #333333;
+      font-size: 14px;
+      line-height: 21px;
+      font-weight: 700;
+      background-color: #F5F5F5;
+      padding: 5px 15px;
+    }
+  }
 }

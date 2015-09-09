@@ -54,13 +54,9 @@ class ProfilesController < ApplicationController
   end
 
   def unfollow
-    @user = User.find(params[:user_id])
-    current_user.unfollow(@user)
-    @follow = current_user.following?(@user)
-    @request = current_user.request?(@user)
-    @process = current_user.process?(@user) if @request
-    @mine = true if @user == current_user
-    render json: @user, meta: {mine: @mine, following: @follow, request: @request, process: @process}
+    @profile = Profile.find(params[:profile_id])
+    current_user.unfollow(@profile.user)
+    render json: @profile
   end
 
   def sendrequest

@@ -202,7 +202,7 @@ class ForumBox extends React.Component {
                 <div className="postBox clearfix" key={index}>
                     <img src={post.userImage} className="hidden-xs" />
                     <span className="postInfo"><a href={post.postPath} className="title">{post.title}</a> <strong>{post.commentCount}</strong> {lang.comment} , <strong>{post.likesCount}</strong>{lang.like} </span>
-                    <p className="subInfo"><span className="username">{post.username}</span> <span className="created-at">{moment(post.created_at).fromNow()}</span></p>
+                    <p className="subInfo"><a href={post.profileUrl} className="username">{post.username}</a> <span className="created-at">{moment(post.created_at).fromNow()}</span></p>
                 </div>
             );
         });
