@@ -103,13 +103,12 @@ ActiveRecord::Schema.define(version: 20150909041929) do
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
 
   create_table "requests", force: :cascade do |t|
-    t.integer  "sender_id",        limit: 4
-    t.integer  "receiver_id",      limit: 4
-    t.boolean  "accepted",         limit: 1, default: false
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
-    t.integer  "meeting_point_id", limit: 4
-    t.boolean  "met_or_not",       limit: 1, default: false
+    t.integer  "sender_id",   limit: 4
+    t.integer  "receiver_id", limit: 4
+    t.boolean  "accepted",    limit: 1, default: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "met_or_not",  limit: 1, default: false
   end
 
   add_index "requests", ["receiver_id"], name: "index_requests_on_receiver_id", using: :btree

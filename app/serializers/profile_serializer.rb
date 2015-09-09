@@ -1,7 +1,7 @@
 class ProfileSerializer < ActiveModel::Serializer
   attributes :id, :username, :region, :nation, :interest, :intro, :url, :userId,
     :user_image, :point, :nano_user_image, :mini_user_image, :chinese_point, :korean_point,
-    :followingCount, :followersCount, :myposts, :mine_or_not, :follow_or_not
+    :followingCount, :followersCount, :myposts, :mine_or_not, :follow_or_not, :request_or_not
 
   def url
     profile_path(object)
@@ -45,6 +45,10 @@ class ProfileSerializer < ActiveModel::Serializer
     else
       return false
     end
+  end
+
+  def request_or_not
+    scope.request?(object.user)
   end
 
   def myposts

@@ -80,13 +80,29 @@ var ProfileBox = React.createClass({
     handleRequestSubmit: function () {
         var answer = confirm("정말 만남신청을 하시겠습니까?");
         if (answer) {
+            var prof = this.state.profile;
+            prof.request_or_not = true;
+            this.setState({ profile: prof });
             $.ajax({
                 url: '/profiles/sendrequest',
                 dataType: 'json',
-                data: {receiver_id: this.state.user.user.id},
-                success: function (user) {
+                data: { receiver_id: this.state.profile.userId },
+                success: function (res) {
                     this.setState({
-                        user: user
+                        profile: res.profile
+                    });
+                    $.ajax({
+                        url: '/requests',
+                        dataType: 'json',
+                        data: { user_id: this.state.profile.userId },
+                        success: function(res) {
+                            this.setState({
+                                requests: res.requests
+                            });
+                        }.bind(this),
+                        error: function() {
+                            alert("초기 데이터 통신에 실패했습니다.");
+                        }
                     });
                 }.bind(this),
                 error: function () {
@@ -98,13 +114,29 @@ var ProfileBox = React.createClass({
     handleUndoRequestSubmit: function () {
         var answer = confirm("정말 만남신청을 취소하시겠습니까?");
         if (answer) {
+            var prof = this.state.profile;
+            prof.request_or_not = false;
+            this.setState({ profile: prof });
             $.ajax({
                 url: '/profiles/unsendrequest',
                 dataType: 'json',
-                data: {receiver_id: this.state.user.user.id},
-                success: function (user) {
+                data: { receiver_id: this.state.profile.userId },
+                success: function (res) {
                     this.setState({
-                        user: user
+                        profile: res.profile
+                    });
+                    $.ajax({
+                        url: '/requests',
+                        dataType: 'json',
+                        data: { user_id: this.state.profile.userId },
+                        success: function(res) {
+                            this.setState({
+                                requests: res.requests
+                            });
+                        }.bind(this),
+                        error: function() {
+                            alert("초기 데이터 통신에 실패했습니다.");
+                        }
                     });
                 }.bind(this),
                 error: function () {
@@ -116,7 +148,7 @@ var ProfileBox = React.createClass({
     render: function () {
         //User Posts list mapping
         if(this.state.profile.myposts.length === 0) {
-            myPostArr = <li className="list-group-item">작성한 글이 없습니다...</li>
+            var myPostArr = <li className="list-group-item">작성한 글이 없습니다.</li>
         } else {
             var myPostArr = this.state.profile.myposts.map(function(post, index) {
                 var postURL = "/posts/" + post.id
@@ -134,10 +166,14 @@ var ProfileBox = React.createClass({
         } else {
             //Relationship Btn
             if (!this.state.profile.follow_or_not) {
-                var relationshipBtn = <a href="#" onClick={this.handleFollowSubmit} className="btn btn-primary btn-sm pull-right">Follow</a>
+                var relationshipBtn = <button onClick={this.handleFollowSubmit} className="btn btn-primary btn-sm pull-right">Follow</button>
+            } else {
+                var relationshipBtn = <button onClick={this.handleUnfollowSubmit} className="btn btn-danger btn-sm pull-right">Unfollow</button>
             }
-            else {
-                var relationshipBtn = <a href="#" onClick={this.handleUnfollowSubmit} className="btn btn-danger btn-sm pull-right">Unfollow</a>
+            if (!this.state.profile.request_or_not) {
+                var requestBtn = <button onClick={this.handleRequestSubmit} className="btn btn-sm btn-primary pull-right">만남신청하기</button>
+            } else {
+                var requestBtn = <button onClick={this.handleUndoRequestSubmit} className="btn btn-sm btn-danger pull-right">만남신청 취소하기</button>
             }
         }
         return (
@@ -173,8 +209,11 @@ var ProfileBox = React.createClass({
                 </div>
                 <div className="col-md-9">
                     <div className="row">
-                        {relationshipBtn}
-                        {profileEditBtn}
+                        <div className="action-btn-group">
+                            {requestBtn}
+                            {relationshipBtn}
+                            {profileEditBtn}
+                        </div>
                     </div>
                     <div className="row">
                         <div className="postBox">
@@ -194,7 +233,8 @@ var ProfileBox = React.createClass({
                             <div className="requestBox">
                                 <ul className="list-group">
                                     <li className="list-group-item list-group-item-header">
-                                        최근 만남요청
+                                        최근 받은 만남요청
+                                        <a href="#" className="pull-right">관리하기</a>
                                     </li>
                                     <RequestList requests={this.state.requests} />
                                     <li className="list-group-item list-group-item-footer">

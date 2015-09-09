@@ -61,23 +61,17 @@ class ProfilesController < ApplicationController
 
   def sendrequest
     @receiver = User.find(params[:receiver_id])
+    @profile = @receiver.profile
     if current_user.request(@receiver)
-      @follow = current_user.following?(@receiver)
-      @request = current_user.request?(@receiver)
-      @process = current_user.process?(@receiver) if @request
-      @mine = true if @receiver == current_user
-      render json: @receiver, meta: {mine: @mine, following: @follow, request: @request, process: @process}
+      render json: @profile
     end
   end
 
   def unsendrequest
     @receiver = User.find(params[:receiver_id])
+    @profile = @receiver.profile
     if current_user.unrequest(@receiver)
-      @follow = current_user.following?(@receiver)
-      @request = current_user.request?(@receiver)
-      @process = current_user.process?(@receiver) if @request
-      @mine = true if @receiver == current_user
-      render json: @receiver, meta: {mine: @mine, following: @follow, request: @request, process: @process}
+      render json: @profile
     end
   end
 

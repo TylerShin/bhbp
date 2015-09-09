@@ -369,7 +369,7 @@ class CommentsBox extends React.Component {
             <div className="img-wrapper">
               <img src={comment.userImage} className="hidden-xs" />
             </div>
-            <p className="userinfo"><span className="username">{comment.username}</span> - <span className="createdAt">{moment(comment.created_at).fromNow()}</span>
+            <p className="userinfo"><a href={comment.profileUrl} className="username">{comment.username}</a> - <span className="createdAt">{moment(comment.created_at).fromNow()}</span>
             {likeBtn}</p>
             <div className="comment">
               {comment.comment} {deleteBtn}
