@@ -60,7 +60,13 @@ class RequestsBox extends React.Component {
 				if(req.met_or_not) {
 					var met_btn = <button className="btn btn-sm btn-primary pull-right">평가하기</button>;
 				} else {
-					var met_btn= <button className="btn btn-sm btn-primary pull-right">만남확인</button>;
+					var met_btn= (
+						<div>
+							<label>회원님과 만나셨나요?</label>
+							<button className="btn btn-sm btn-danger pull-right">아니오</button>
+							<button className="btn btn-sm btn-primary pull-right">예</button>
+						</div>
+					);
 				}
 			} else {
 				var met_btn = (
