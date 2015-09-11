@@ -16,7 +16,7 @@ var ProfileBox = React.createClass({
                     profile: res.profile
                 });
                 $.ajax({
-                    url: '/requests',
+                    url: '/requests_api/ownlist',
                     dataType: 'json',
                     data: { user_id: this.state.profile.userId },
                     success: function(res) {
@@ -92,7 +92,7 @@ var ProfileBox = React.createClass({
                         profile: res.profile
                     });
                     $.ajax({
-                        url: '/requests',
+                        url: '/requests_api/ownlist',
                         dataType: 'json',
                         data: { user_id: this.state.profile.userId },
                         success: function(res) {
@@ -126,7 +126,7 @@ var ProfileBox = React.createClass({
                         profile: res.profile
                     });
                     $.ajax({
-                        url: '/requests',
+                        url: '/requests_api/ownlist',
                         dataType: 'json',
                         data: { user_id: this.state.profile.userId },
                         success: function(res) {

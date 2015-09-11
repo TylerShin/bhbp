@@ -1,0 +1,9 @@
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+<% if cookies[:educator_locale] == 'zh-CN' %>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/zh-cn.js"></script>
+<% else %>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/ko.js"></script>
+<% end %>
+<%= stylesheet_link_tag 'request/requests_index', media: 'all' %>
+<%= javascript_include_tag 'components/requests_index' %>
+<%= react_component('RequestsBox', user_id: current_user.id) %>

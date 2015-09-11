@@ -13,6 +13,7 @@ Rails.application.config.assets.precompile += %w( components/profile_find.js )
 Rails.application.config.assets.precompile += %w( components/profile_show.js )
 Rails.application.config.assets.precompile += %w( components/posts_index.js )
 Rails.application.config.assets.precompile += %w( components/posts_show.js )
+Rails.application.config.assets.precompile += %w( components/requests_index.js )
 
 
 Rails.application.config.assets.precompile += %w( static_pages.css )
@@ -25,3 +26,4 @@ Rails.application.config.assets.precompile += %w( profiles/find.css )
 Rails.application.config.assets.precompile += %w( posts/posts_index.css )
 Rails.application.config.assets.precompile += %w( posts/posts_show.css )
 Rails.application.config.assets.precompile += %w( posts/posts_new.css )
+Rails.application.config.assets.precompile += %w( request/requests_index.css )

@@ -22,9 +22,10 @@ Rails.application.routes.draw do
     end
   end
   resources :profiles_api
-  resources :requests, only: [:index] do
+  resources :requests, only: [:index]
+  resources :requests_api do
     collection do
-      get 'ownlist'
+      get 'ownlist', 'accept'
     end
   end
   # Message Part

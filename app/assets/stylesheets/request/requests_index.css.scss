@@ -1,0 +1,28 @@
+body {
+	background-color: #EEE;
+}
+.requests-box {
+	margin-top: 20px;
+	.list-group-header {
+		padding: 5px 15px;
+		color: #FFF;
+		background-color: #829aa8;
+		font-size: 14px;
+		font-weight: 700;
+		line-height: 21px;
+	}
+	.list-group-item {
+		img {
+			margin-right: 10px;
+		}
+		button {
+			margin-left: 8px;
+		}
+	}
+	.received-list {
+
+	}
+	.sended-list {
+
+	}
+}
