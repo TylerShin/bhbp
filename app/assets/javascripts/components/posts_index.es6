@@ -120,7 +120,7 @@ class PostIndex extends React.Component {
                                     onPaginate={this._handleOnPaginate.bind(this)} />
                                     <div className='clearfix'></div>
                                 <div className='postBtn'>
-                                    <a href="/posts/new"><button className="btn btn-default">{lang.postBtn}</button></a>
+                                    <a href="/posts/new" className="btn btn-default">{lang.postBtn}</a>
                                 </div>
                             </div>
                         </div>
@@ -190,9 +190,13 @@ class SubHeader extends React.Component {
         }
     }
     change(param) {
-      console.log(param);
       this.setState({ value: param });
       this.props.changeTable(param);
+    }
+    mobileChange(e) {
+      var newParam = e.target.value;
+      this.setState({ value: newParam });
+      this.props.changeTable(newParam);
     }
     render() {
         return (
@@ -200,15 +204,17 @@ class SubHeader extends React.Component {
               <ul className="nav nav-pills nav-justified post-sub-nav hidden-xs">
                   <li><a href="#" onClick={this.change.bind(this, "free")}>{lang.freeBoard}</a></li>
                   <li><a href="#" onClick={this.change.bind(this, "question")}>{lang.questionBoard}</a></li>
-                  <li><a href="#" onClick={this.props.changeTable.bind(this, "info")}>{lang.infoBoard}</a></li>
-                  <li><a href="#" onClick={this.props.changeTable.bind(this, "intro")}>{lang.introduceBoard}</a></li>
+                  <li><a href="#" onClick={this.change.bind(this, "info")}>{lang.infoBoard}</a></li>
+                  <li><a href="#" onClick={this.change.bind(this, "intro")}>{lang.introduceBoard}</a></li>
               </ul>
-              <select className="form-control visible-xs sub-nav" value="free" onChange={console.log()}>
-                <option value="free">{lang.freeBoard}</option>
-                <option value="question">{lang.questionBoard}</option>
-                <option value="info">{lang.infoBoard}</option>
-                <option value="intro">{lang.introduceBoard}</option>
-              </select>
+              <form onChange={this.mobileChange.bind(this)}>
+                <select className="form-control visible-xs sub-nav" value={this.state.value}>
+                  <option value="free">{lang.freeBoard}</option>
+                  <option value="question">{lang.questionBoard}</option>
+                  <option value="info">{lang.infoBoard}</option>
+                  <option value="intro">{lang.introduceBoard}</option>
+                </select>
+              </form>
             </div>
         );
     }

@@ -103,19 +103,6 @@ textarea:focus, input:focus {
   outline: 0;
 }
 
-.clearfix:before, .clearfix:after {
-  content: "";
-  display: table;
-}
-
-.clearfix:after {
-  clear: both;
-}
-
-.clearfix {
-  zoom: 1;
-}
-
 label {
   margin-bottom: 0;
 }
