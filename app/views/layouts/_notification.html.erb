@@ -8,35 +8,35 @@
                     <li>
                       <%= link_to post_path(noti.post_id) do %>
                           회원님의 글 <%= noti.post.title.truncate(10, ommision: '...') %>에 <strong><%= noti.sender %></strong> 님이 댓글을 남겼습니다.
-                          <p class="created-at"><%= noti.created_at.strftime "%y-%m-%d %H:%M" %></p>
+                          <p class="created-at hidden-xs"><%= noti.created_at.strftime "%y-%m-%d %H:%M" %></p>
                       <% end %>
                     </li>
                 <% when "post_like" %>
                     <li>
                       <%= link_to post_path(noti.post_id) do %>
                           회원님의 글 <%= noti.post.title.truncate(10, ommision: '...') %>을 <strong><%= noti.sender %></strong> 님이 좋아합니다.
-                          <p class="created-at"><%= noti.created_at.strftime "%y-%m-%d %H:%M" %></p>
+                          <p class="created-at hidden-xs"><%= noti.created_at.strftime "%y-%m-%d %H:%M" %></p>
                       <% end %>
                     </li>
                 <% when "comment_like" %>
                     <li>
                       <%= link_to post_path(noti.post_id) do %>
                           회원님의 댓글 <%= noti.comment.comment.truncate(10, ommision: '...') %>을 <strong><%= noti.sender %></strong> 님이 좋아합니다.
-                          <p class="created-at"><%= noti.created_at.strftime "%y-%m-%d %H:%M" %></p>
+                          <p class="created-at hidden-xs"><%= noti.created_at.strftime "%y-%m-%d %H:%M" %></p>
                       <% end %>
                     </li>
                 <% when "request" %>
                     <li>
                       <%= link_to profile_path(noti.sender_profile_id) do %>
                           <strong><%= noti.sender %></strong> 님이 회원님께 만남 신청을 했습니다.
-                          <p class="created-at"><%= noti.created_at.strftime "%y-%m-%d %H:%M" %></p>
+                          <p class="created-at hidden-xs"><%= noti.created_at.strftime "%y-%m-%d %H:%M" %></p>
                       <% end %>
                     </li>
                 <% when "follow" %>
                     <li class="clearfix">
                       <%= link_to profile_path(noti.sender_profile_id) do %>
                           <strong><%= noti.sender %></strong> 님이 회원님을 팔로우합니다.
-                          <p class="created-at"><%= noti.created_at.strftime "%y-%m-%d %H:%M" %></p>
+                          <p class="created-at hidden-xs"><%= noti.created_at.strftime "%y-%m-%d %H:%M" %></p>
                       <% end %>
                     </li>
             <% end %>

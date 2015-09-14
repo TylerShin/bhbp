@@ -1,7 +1,7 @@
 const Lang = {
     ko: {
         freeBoard: '자유게시판',
-        questionBoardd: '질문게시판',
+        questionBoard: '질문게시판',
         infoBoard: '정보게시판',
         introduceBoard: '자기소개',
         postBtn: '글쓰기',
@@ -11,7 +11,7 @@ const Lang = {
     },
     ch: {
         freeBoard: '自由公告栏',
-        questionBoardd: '问题公告栏',
+        questionBoard: '问题公告栏',
         infoBoard: '信息公告栏',
         introduceBoard: '自我介绍',
         postBtn: '写作',
@@ -183,14 +183,33 @@ class BestPostsBox extends React.Component {
 }
 
 class SubHeader extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          value: 'free'
+        }
+    }
+    change(param) {
+      console.log(param);
+      this.setState({ value: param });
+      this.props.changeTable(param);
+    }
     render() {
         return (
-            <ul className="nav nav-pills nav-justified post-sub-nav">
-                <li><a href="#" onClick={this.props.changeTable.bind(this, "free")}>{lang.freeBoard}</a></li>
-                <li><a href="#" onClick={this.props.changeTable.bind(this, "question")}>{lang.questionBoardd}</a></li>
-                <li><a href="#" onClick={this.props.changeTable.bind(this, "info")}>{lang.infoBoard}</a></li>
-                <li><a href="#" onClick={this.props.changeTable.bind(this, "intro")}>{lang.introduceBoard}</a></li>
-            </ul>
+            <div>
+              <ul className="nav nav-pills nav-justified post-sub-nav hidden-xs">
+                  <li><a href="#" onClick={this.change.bind(this, "free")}>{lang.freeBoard}</a></li>
+                  <li><a href="#" onClick={this.change.bind(this, "question")}>{lang.questionBoard}</a></li>
+                  <li><a href="#" onClick={this.props.changeTable.bind(this, "info")}>{lang.infoBoard}</a></li>
+                  <li><a href="#" onClick={this.props.changeTable.bind(this, "intro")}>{lang.introduceBoard}</a></li>
+              </ul>
+              <select className="form-control visible-xs sub-nav" value="free" onChange={console.log()}>
+                <option value="free">{lang.freeBoard}</option>
+                <option value="question">{lang.questionBoard}</option>
+                <option value="info">{lang.infoBoard}</option>
+                <option value="intro">{lang.introduceBoard}</option>
+              </select>
+            </div>
         );
     }
 }

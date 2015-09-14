@@ -1,16 +1,39 @@
 <%= stylesheet_link_tag 'login/login', media: 'all' %>
-<div class="login-wrapper">
-  <div class="login-panel">
-    <h1>Login</h1>
-    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <%= f.error_notification %>
-        <div class="login-input-group">
-          <%= f.input :email, label: false, input_html: { class: "login-input", placeholder: "E-mail", id: "email" } %>
-          <%= f.input :password, label: false, input_html: { class: "login-input", placeholder: "Password (8글자 이상)", id: "password" } %>
-          <%= f.input :remember_me, label: "이 브라우저에서 항상 로그인", as: :boolean, boolean_style: :inline %>
-          <a href="#">아이디 / 비밀번호 찾기</a>
-          <%= f.submit "로그인", class: "signin-btn" %>
+<div class="container">
+  <% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>">
+    <a class="close" data-dismiss="alert" href="#">×</a>
+    <ul>
+      <li>
+        <%= value %>
+      </li>
+    </ul>
+  </div>
+  <% end %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 col-xs-12">
+      <div class="login-wrapper">
+        <div class="login-panel">
+          <h1>Login</h1>
+          <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="login-input-group">
+            <%= f.input :email, label: false, input_html: { class: "form-control", placeholder: "E-mail", id: "email" } %>
+            <br/>
+            <%= f.input :password, label: false, input_html: { class: "form-control", placeholder: "Password (8글자 이상)", id: "password" } %>
+            <div class="checkbox">
+              <label>
+                <input id="user_remember_me" name="user[remember_me]" type="checkbox"/>
+                Remember me?
+              </label>
+            </div>
+            <a href="#">아이디 / 비밀번호 찾기</a>
+            <br/>
+            <br/>
+            <%= f.submit "로그인", class: "btn btn-default" %>
+          </div>
+          <% end %>
         </div>
-    <% end %>
+      </div>
+    </div>
   </div>
 </div>
