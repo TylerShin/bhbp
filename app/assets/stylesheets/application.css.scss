@@ -101,6 +101,9 @@ body {
   }
 }
 .mini-alarm {
+  min-width:auto;
+  width:100%;
+  position: static;
   li {
     padding: 8px 5px 8px 5px;
   }

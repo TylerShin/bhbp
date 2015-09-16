@@ -10,15 +10,15 @@
       </button>
       <%= link_to "一起친구", root_path, class: 'navbar-brand' %>
       <% if user_signed_in? %>
-        <li class="dropdown pull-right visible-xs">
-          <a class="dropdown-toggle alarm-dropdown navbar-brand" data-toggle="dropdown" href="#">
-            <%= fa_icon "bell" %>
-            <span class="notReadCounter"><%= current_user.count_unread_noti %></span>
-          </a>
-          <ul class="dropdown-menu mini-alarm" role="menu">
-              <%= render 'layouts/notification' %>
-          </ul>
-        </li>
+          <li class="dropdown visible-xs">
+            <a class="dropdown-toggle alarm-dropdown navbar-brand pull-right" data-toggle="dropdown" href="#">
+                <%= fa_icon "bell" %>
+                <span class="notReadCounter"><%= current_user.count_unread_noti %></span>
+            </a>
+            <ul class="dropdown-menu mini-alarm" role="menu">
+                <%= render 'layouts/notification' %>
+            </ul>
+          </li>
       <% end %>
     </div>
 
