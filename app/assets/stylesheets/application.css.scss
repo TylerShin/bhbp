@@ -104,8 +104,9 @@ body {
   min-width:auto;
   width:100%;
   position: static;
+  overflow-x: hidden;
   li {
-    padding: 8px 5px 8px 5px;
+    padding: 8px 0px 8px 0px;
   }
 }
 /* basic */
