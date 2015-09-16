@@ -7,21 +7,21 @@
                 <% when "comment" %>
                     <li class="clearfix">
                       <%= link_to post_path(noti.post_id) do %>
-                          회원님의 글 <%= noti.post.title.truncate(10, ommision: '...') %>에 <strong><%= noti.sender %></strong> 님이 댓글을 남겼습니다.
+                          <%= noti.post.title.truncate(10, ommision: '...') %>에 <strong><%= noti.sender %></strong> 님이 댓글을 남겼습니다.
                           <p class="created-at hidden-xs"><%= noti.created_at.strftime "%y-%m-%d %H:%M" %></p>
                       <% end %>
                     </li>
                 <% when "post_like" %>
                     <li class="clearfix">
                       <%= link_to post_path(noti.post_id) do %>
-                          회원님의 글 <%= noti.post.title.truncate(10, ommision: '...') %>을 <strong><%= noti.sender %></strong> 님이 좋아합니다.
+                          <%= noti.post.title.truncate(10, ommision: '...') %>을 <strong><%= noti.sender %></strong> 님이 좋아합니다.
                           <p class="created-at hidden-xs"><%= noti.created_at.strftime "%y-%m-%d %H:%M" %></p>
                       <% end %>
                     </li>
                 <% when "comment_like" %>
                     <li class="clearfix">
                       <%= link_to post_path(noti.post_id) do %>
-                          회원님의 댓글 <%= noti.comment.comment.truncate(10, ommision: '...') %>을 <strong><%= noti.sender %></strong> 님이 좋아합니다.
+                          <%= noti.comment.comment.truncate(10, ommision: '...') %>을 <strong><%= noti.sender %></strong> 님이 좋아합니다.
                           <p class="created-at hidden-xs"><%= noti.created_at.strftime "%y-%m-%d %H:%M" %></p>
                       <% end %>
                     </li>
