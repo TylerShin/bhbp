@@ -106,7 +106,8 @@ body {
   position: static;
   overflow-x: hidden;
   li {
-    padding: 8px 5px 8px 5px;
+    cursor: pointer;
+    padding: 10px 5px 10px 5px;
     a {
       padding: 0px;
     }
