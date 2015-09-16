@@ -137,7 +137,7 @@ class PostsShowBox extends React.Component {
       <div>
         <div className="container">
           <div className='row'>
-            <div className="col-md-8 col-md-offset-2">
+            <div className="col-md-8 col-md-offset-2 col-xs-12">
               <PostBox post={this.state.post} handleLikeClick={this.handleLikeClick.bind(this)}
                 handleDeleteLikeClick={this.handleDeleteLikeClick.bind(this)}
                 handlePostDeleteSubmit={this.handlePostDeleteSubmit.bind(this)} />

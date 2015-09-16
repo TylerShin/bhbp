@@ -9,6 +9,17 @@
         <span class="icon-bar"></span>
       </button>
       <%= link_to "一起친구", root_path, class: 'navbar-brand' %>
+      <% if user_signed_in? %>
+        <li class="dropdown pull-right visible-xs">
+          <a class="dropdown-toggle alarm-dropdown navbar-brand" data-toggle="dropdown" href="#">
+            <%= fa_icon "bell" %>
+            <span class="notReadCounter"><%= current_user.count_unread_noti %></span>
+          </a>
+          <ul class="dropdown-menu mini-alarm" role="menu">
+              <%= render 'layouts/notification' %>
+          </ul>
+        </li>
+      <% end %>
     </div>
 
 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -30,13 +41,13 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
-        <li class="dropdown">
+        <li class="dropdown hidden-xs">
           <a class="dropdown-toggle alarm-dropdown" data-toggle="dropdown" href="#">
             <%= fa_icon "bell" %>
             <span class="notReadCounter"><%= current_user.count_unread_noti %></span>
           </a>
           <ul class="dropdown-menu noti-dropdown" role="menu">
-            <%= render 'layouts/notification' %>
+              <%= render 'layouts/notification' %>
           </ul>
         </li>
         <li class="dropdown">
@@ -63,7 +74,7 @@
             <% unless current_user.profile.nil? || current_user.profile.username.nil? %>
             <li><%= link_to "프로필 수정", edit_profile_path(current_user.profile) %></li>
             <% end %>
-            <li class="divider" role="separator"></li>
+            <li class="divider hidden-xs" role="separator"></li>
             <li><%= link_to "로그아웃", destroy_user_session_path, method: 'DELETE' %></li>
           </ul>
         </li>

@@ -112,16 +112,15 @@ class PostIndex extends React.Component {
                 <SubHeader changeTable={this.changeTable.bind(this)}/>
                 <div className="container">
                     <div className='row'>
-                        <div className='col-md-8'>
+                        <div className='col-md-8 col-xs-12'>
+                          <div className='postBtn clearfix'>
+                              <a href="/posts/new" className="btn btn-default pull-right">{lang.postBtn}</a>
+                          </div>
                             <ForumBox posts={this.state.posts} isLoading={this.state.isLoading} />
                             <div className='menuBox clearfix'>
-                                <PaginatorSection totalPages={this.state.meta.total_pages}
+                              <PaginatorSection totalPages={this.state.meta.total_pages}
                                     currentPage={this.state.meta.current_page}
                                     onPaginate={this._handleOnPaginate.bind(this)} />
-                                    <div className='clearfix'></div>
-                                <div className='postBtn'>
-                                    <a href="/posts/new" className="btn btn-default">{lang.postBtn}</a>
-                                </div>
                             </div>
                         </div>
                         <div className='col-md-4'>

@@ -40,6 +40,9 @@ body {
 /* Navbar */
 .navbar {
   margin-bottom: 0px;
+  .navbar-right {
+    margin-bottom: 0px;
+  }
 }
 .navbar-default {
   background-color: #2F384C;
@@ -49,6 +52,12 @@ body {
   .navbar-nav {
     li {
       a {
+        color: #DDDDDD;
+      }
+      a:foucs {
+        color: #FFFFFF;
+      }
+      a:hover {
         color: #FFFFFF;
       }
     }
@@ -59,13 +68,16 @@ body {
   padding: 0;
 }
 .dropdown-menu {
-  width: 100%;
+  padding: 0;
   li {
     background-color: #FFFFFF;
     a {
       color: #333333 !important;
     }
   }
+}
+.col-xs-12 {
+  padding: 0;
 }
 .noti-dropdown {
   width: 500px;
@@ -86,6 +98,11 @@ body {
         font-size: 13px;
       }
     }
+  }
+}
+.mini-alarm {
+  li {
+    padding: 8px 5px 8px 5px;
   }
 }
 /* basic */

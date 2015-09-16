@@ -6,8 +6,11 @@ body {
 }
 .forumBox {
   background-color: #fff;
-  margin-top: 30px;
+  margin-top: 10px;
   border-radius: 5px;
+}
+.postBtn {
+  margin-top: 10px;
 }
 .postBox {
   padding: 10px;
@@ -101,9 +104,4 @@ body {
     display: block;
     float: right;
   }
-  .postBtn {
-    display: block;
-    float: right;
-  }
-
 }
