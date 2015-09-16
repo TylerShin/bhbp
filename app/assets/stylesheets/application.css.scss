@@ -105,9 +105,12 @@ body {
   position: relative;
   overflow-x: hidden;
   li {
+    display: table;
     height: 40px;
+    width: 100%;
     a {
-      margin: auto 0px;
+      display: table-cell;
+      vertical-align: middle;
       height: 100%;
     }
   }
