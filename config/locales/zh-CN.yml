@@ -15,7 +15,7 @@ zh-CN:
     infoBoard: "信息公告栏"
     introBoard: "自我介绍"
     chooseBoard: "论坛请选择"
-    titlePlaceholder: "在5个以上,标题填写。"
+    titlePlaceholder: "在2个以上,标题填写。"
     contentPlaceholder: "在10个字以上,内容填写。"
     postBtn: "制定"
   profile:

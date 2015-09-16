@@ -26,7 +26,6 @@ var Lang = {
         region: '地区'
     }
 };
-
 (function() {
         function getCookie(cname) {
         var name = cname + "=";
@@ -91,7 +90,7 @@ var ProfileFindBox = React.createClass({
                 <div className="profileFindBox">
                     <div className="row">
                         <div className="container">
-                            <div className="basicConditionBox clearfix">
+                            <div className="clearfix hidden-xs basicConditionBox">
                                 <ul>
                                     <li>회원점수순 </li>
                                     <li>가입일순(최신) </li>
@@ -231,9 +230,6 @@ var SearchForm = React.createClass({
         );
     }
 });
-
-
-
 
 var RightBox = React.createClass({
     render: function () {

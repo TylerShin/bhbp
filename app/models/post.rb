@@ -4,6 +4,6 @@ class Post < ActiveRecord::Base
   has_many :likes, dependent: :destroy
   has_many :notifications, dependent: :destroy
   validates :table, presence: true
-  validates :title, presence: true, length: {minimum: 5, maximum: 40}
+  validates :title, presence: true, length: {minimum: 2, maximum: 40}
   validates :content, presence: true, length: {minimum: 10}
 end
