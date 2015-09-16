@@ -101,15 +101,14 @@ body {
   }
 }
 .mini-alarm {
-  min-width:auto;
   width:100%;
-  position: static;
+  position: relative;
   overflow-x: hidden;
   li {
-    cursor: pointer;
-    padding: 10px 5px 10px 5px;
+    height: 40px;
     a {
-      padding: 0px;
+      margin: auto 0px;
+      height: 100%;
     }
   }
 }
