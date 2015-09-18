@@ -2,7 +2,7 @@
 <div class="container">
   <div class="col-md-8 col-md-offset-2">
     <div class="edit-box clearfix">
-      <%= simple_form_for(@profile, url: profiles_path, method: 'POST') do |f| %>
+      <%= simple_form_for(@profile, url: profile_path(@profile), method: 'PATCH') do |f| %>
           <div class="row">
             <div class="box-title">
               <h2><%= t('profile.profileRevise')%></h2>
