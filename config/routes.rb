@@ -25,7 +25,8 @@ Rails.application.routes.draw do
   resources :requests, only: [:index]
   resources :requests_api do
     collection do
-      get 'ownlist', 'accept'
+      get 'ownlist', 'accept', 'met', 'sendList', 'metList'
+      post 'evaluation'
     end
   end
   # Message Part
